@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="IsoneIMEngine" class="net.xinshi.isone.im.IsoneIMEngine">
+        <property name="serviceSservice" ref="serviceSservice"/>
+        <property name="serviceGroupSservice" ref="serviceGroupSservice"/>
+    </bean>
+    <bean id="serviceSservice" class="net.xinshi.isone.im.service.impl.NormalServiceService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queueService" ref="serviceIndexingQueService"/>
+    </bean>
+    <bean id="serviceGroupSservice" class="net.xinshi.isone.im.serviceGroup.impl.NormalServiceGroupService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="serviceIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_service"/>
+    </bean>
+</beans>

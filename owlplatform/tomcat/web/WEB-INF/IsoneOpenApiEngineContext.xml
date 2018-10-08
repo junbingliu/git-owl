@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="isoneOpenApiEngine" class="net.xinshi.isone.openapi.IsoneOpenApiEngine">
+        <property name="is1LoginAppService" ref="is1LoginAppService"/>
+        <property name="authAppService" ref="authAppService"/>
+        <property name="code2AuthAppService" ref="code2AuthAppService"/>
+        <property name="accessTokenService" ref="accessTokenService"/>
+    </bean>
+
+    <bean id="notifyOpenAppQue" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="notifyOpenAppQue"/>
+    </bean>
+
+    <bean id="is1LoginAppService" class="net.xinshi.isone.openapi.app.impl.Is1LoginAppService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="httpClientManager" ref="httpClientManager"/>
+        <property name="queueService" ref="notifyOpenAppQue"/>
+    </bean>
+
+    <bean id="authAppService" class="net.xinshi.isone.openapi.app.impl.NormalAuthAppService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="authAppKeyGenerator" ref="defaultAuthAppKeyGenerator"/>
+        <property name="code2AuthAppService" ref="code2AuthAppService"/>
+    </bean>
+
+    <bean id="code2AuthAppService" class="net.xinshi.isone.openapi.app.impl.NormalCode2AuthAppService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="accessTokenService" class="net.xinshi.isone.openapi.app.impl.NormalAccessTokenService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="code2AuthAppService" ref="code2AuthAppService"/>
+    </bean>
+
+    <bean id="defaultAuthAppKeyGenerator" class="net.xinshi.isone.openapi.app.impl.DefaultAuthAppKeyGenerator">
+    </bean>
+
+</beans>

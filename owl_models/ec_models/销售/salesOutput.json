@@ -1,0 +1,143 @@
+{
+	"id" : "string(16),required,searchable:true,disabled:true,tab:01,listTab:01;出库单id",
+	"orderId" : "string(16),tab:03,listTab:07;原订单号;",
+	"b2cOrderAliasCode" : "string(16),tab:03,listTab:02;b2c订单号;",
+	"orgiOrderPayDate": "date,defaultValue:0,tab:03,listTab:03,searchable:true;原订单支付时间",
+	"outputTime" : "date,tab:04,listTab:15;出库时间",
+	"tradeSignTime" : "date,searchable:true,tab:04,listTab:15;订单签收时间",
+	"shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:05,listTab:14;店铺id",
+	"isStorage": "choice,values:1_是/0_否,required:true,searchable:true,listSize:10,tab:06,listTab:03;是否入库",
+	"supplierId": "string(16),disabled:true,hidden:true,tab:07,listTab:13;供应商id",
+	"supplierName": "linkId,listSize:10,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId,fieldsWidth:100/120,searchable:true,tab:08,listTab:08;供应商",
+	"warehouseName": "linkId,listSize:16,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,tab:09,listTab:04;仓库名称",
+	"warehouseId": "string(16),disabled:true,searchable:true,hidden:true,tab:10,listTab:12;仓库id",
+	"purchasingOrderStorageId" : "string(16),tab:11,listTab:16;采购入库单号",
+	"isCreateSettlement":"choice,values:true_已生成/false_未生成,defaultValue:false,disabled:true,searchable:true,tab:12,listTab:05;是否生成结算单",
+	"parcelId":"string(16),tab:13,listTab:06;包裹单id",
+	"warehouseOrderNo":"string(16),disabled:true,tab:13,listTab:06;仓库单号",
+	"orderDeliveryDate": "date,disabled:true,tab:13,searchable:true;订单发货时间",
+	"_createTime":"date,searchable:true,disabled:true,tab:13,listTab:06;创建时间",
+	"items" : [{
+		"#meta": {
+			"fieldLabel": "出库商品清单",
+			"tab": "13",
+			"position":"card",
+			"addMulti":{
+				"linkId":"skuId",
+				"from":"id",
+				"label":"选择物料...",
+				"dataSource":"/erp_sku/handlers/list.jsx",
+				"fields":["id","name","code","barcode","priceInfo.profits","priceInfo.noTaxPrice","priceInfo.taxRate","priceInfo.bucklePoint"],
+				"toFields":["skuId","skuName","skuCode","barcode","profits","unitPriceWithoutTax","taxRate","bucklePoint","categoryId","categoryName"],
+				"fieldLabels":["物料ID","物料名称","物料编码","条形码"],
+				"fieldWidths":[140,120,120,120],
+				"searchArgs":{},
+				"unique":true
+			},
+			"addSingle":false
+		},
+		"skuId" : "string(8),tab:01;物料id",
+		"skuCode" : "string(8),tab:01;物料编号",
+		"productId" : "string(8),tab:01;商品编号",
+		"skuName" : "string(16),tab:03;商品名称",
+		"specName" : "string(8),tab:04;规格",
+		"cargoState" : "string(8),tab:05;货品状态",
+		"amount" : "number(8),tab:06;出库数量",
+		"channelSalePrice": "number(8),tab:06,listTab:53;第三方渠道价",
+		"discountRate": "number(8),tab:06,listTab:53;折扣率",
+		"unitPrice": "number(8),tab:07;商品单价",
+		"totalPrice": "number(8),tab:08;商品总价",
+		"originalPrice": "number(8),isMoney:true,tab:09;原价",
+		"discounts": "number(8),tab:10;优惠",
+		"merchantDistributeCouponPrice": "string(16),tab:11,listSize:10,listTab:56;商家券分摊的金额",
+		"platformDistributeCouponPrice": "string(16),tab:12,listSize:10,listTab:57;平台券分摊的金额",
+		"cSn": "string(16),tab:15,listSize:10,listTab:61;优惠券序列号",
+		"couponBatchId": "string(16),tab:16,listSize:10,listTab:62;券批次ID",
+		"couponBatchName": "string(16),tab:17,listSize:10,listTab:63;券批次名称",
+		"platformNeedPayPercent": "string(16),tab:18,listSize:10,listTab:64;平台承担比例",
+		"platformNeedPayMoney": "string(16),tab:19,listSize:10,listTab:65;平台承担金额",
+		"batchs" : [{
+			"batchId":"string(16),tab:02;批次号id",
+			"batchCode":"string(16),tab:02;批次编码",
+			"amount":"number(16),tab:03;批次数量",
+			"productDate":"date,tab:04;生产日期",
+			"effectDate":"date,tab:05;有效日期"
+		}]
+	}],
+	"logisticsInfo": {
+		"#meta": {
+			"fieldLabel": "物流信息",
+			"tab": "14"
+		},
+		"logisticsId": "string(16),tab:19,listTab:11;配送商Id",
+		"logisticsName": "string(16),tab:19,listTab:08;配送商名称",
+		"deliveryTime": "string(16),tab:22,listTab:09;配送时间",
+		"trackingNumber": "string(16),tab:23,listTab:10;运单号",
+		"remark": "string(64),listSize:16,tab:30,listTab:28;备注"
+	},
+	"_t" : "salesOutput",
+	"#meta" : {
+		"readOnly":false,
+		"rem" : "销售出库单",
+		"parent" : ["salesOutput"],
+		"projectName" : "销售出库单",
+		"visitType":["shop"],
+		"pos":2,
+		"group":{"id":"sale","name":"销售","pos":3},
+		"export":[
+			{
+				"label":"只导出部分字段",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":[
+
+				],
+				"items":{
+					"name":"items",
+					"itemFields":[
+						"$parent.id",
+						"$parent.orderId",
+						"$parent.b2cOrderAliasCode",
+						"$parent.orgiOrderPayDate",
+						"$parent.outputTime",
+						"$parent.shopId",
+						"$parent.isStorage",
+						"$parent.supplierId",
+						"$parent.supplierName",
+						"$parent.warehouseName",
+						"$parent.warehouseId",
+						"$parent.purchasingOrderStorageId",
+						"$parent.isCreateSettlement",
+						"$parent.parcelId",
+						"$parent.warehouseOrderNo",
+						"$parent._createTime",
+						"skuCode","productId","skuName","specName","amount","unitPrice","totalPrice","discounts","$parent.logisticsInfo.logisticsName","$parent.logisticsInfo.deliveryTime","$parent.logisticsInfo.trackingNumber",
+						"$parent.logisticsInfo.logisticsId",
+						"$parent.logisticsInfo.logisticsName",
+						"$parent.logisticsInfo.deliveryTime",
+						"$parent.logisticsInfo.trackingNumber",
+						"$parent.logisticsInfo.remark"
+					]
+				}
+			},
+			{
+				"label":"导出完整单据",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+		"exportDoc":true
+	}
+
+}

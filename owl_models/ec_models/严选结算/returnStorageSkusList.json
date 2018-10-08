@@ -1,0 +1,93 @@
+{
+	"id" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;单据id",
+	"isSettlement" : "choice,values:F_否/T_是,tab:02;是否结算",
+	"settlementId" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;结算单ID",
+	"b2cOrderAliasCode" : "string(16),disable:true,tab:01;b2c销售订单号",
+	"returnOrderId" : "string(16),disable:true,tab:01;退货单ID",
+	"salesOrderId" : "string(16),disable:true,tab:02;销售订单号",
+	"parcelId" : "string(16),disable:true,tab:03;包裹单id",
+	"salesReturnStorageId" : "string(16),disable:true,tab:04;销售退货入库单ID",
+	"supplierId" : "string(16),disable:true,tab:05;供应商ID",
+	"supplierName" : "string(16),disable:true,tab:06;供应商名称",
+	"shopId" : "string(16),disable:true,tab:07;店铺id",
+	"shopName" : "string(16),disable:true,tab:08;店铺名称",
+	"payTime" : "date,disable:true,showTime:true,tab:11;支付时间",
+	"paymentMode": "choice,values:1_预存款/2_支付宝/20_支付宝/3_信用额度/4_华润e付/5_微信支付/6_积分支付/7_银联支付/8_民生支付/10_微信支付/99_线下支付/10000_礼品卡兑换/10001_微信礼品卡兑换,tab:10;支付方式",
+	"skuId" : "string(16),disable:true,tab:10;物料编码",
+	"skuCode" : "string(16),disable:true,tab:11;物料编号",
+	"skuName" : "string(16),disable:true,tab:12;物料名称",
+	"skuCategoryId" : "string(16),disable:true,tab:13,hidden:true;商品品类ID",
+	"skuCategoryName" : "string(16),disable:true,tab:14;商品品类",
+	"afterSalesStorageAmount" : "number(16),disable:true,tab:15;退货入库数量",
+	"channelSalePrice" : "number(16),disable:true,tab:15;渠道价",
+	"afterSalesUnitPrice" : "number(16),disable:true,tab:16;含税单价",
+	"unitPriceWithoutTax" : "number(16),disable:true,tab:17;不含税单价",
+	"afterSalesTotalPrice" : "number(16),disable:true,tab:18;含税总价",
+	"totalPriceWithoutTax" : "number(16),disable:true,tab:19;不含税总价",
+	"salesTaxPrice" : "number(16),disable:true,disable:true,tab:20;销项税金",
+	"purchaseUnitPriceWithTax" : "number(16),hidden:true,disable:true,tab:20;含税采购单价",
+	"purchaseUnitPriceWithoutTax" : "number(16),hidden:true,disable:true,tab:21;不含税采购单价",
+	"purchaseTotalPriceWithTax" : "number(16),disable:true,tab:22;含税采购总价",
+	"purchaseTotalPriceWithoutTax" : "number(16),disable:true,tab:23;不含税采购总价",
+	"buyTaxPrice" : "number(16),disable:true,disable:true,tab:24;进项税金",
+	"transactionUnitPrice" : "number(16),disable:true,tab:25;成交单价",
+	"transactionTotalPrice" : "number(16),disable:true,tab:26;成交总价",
+	"platformNeedPayMoney" : "number(16),disable:true,tab:28;平台券分摊成本",
+	"platformCouponMoney" : "number(16),disable:true,tab:28;平台优惠券金额",
+	"publisherPartment" : "choice,values:100000_电商事业部/100100_运营组/100100_营销推广组/100300_产品研发组/100400_创新业务组/100500_统筹组/110000_商户拓展部/110100_商户管理组/110200_会员发展及品牌推广组/110300_支付及产品支持组/110400_会员管理组/110500_创新项目组/120000_数据应用部/120100_数字化营销组/120200_数据金融创新组/120300_数据工程组/120400_战略与分析组/130000_金融事业部/130100_润信小贷公司/130110_金融IT小组/140000_重点产品开发部/140100_技术组/140200_集采运营组/140300_商旅运营组/150000_平台技术部/150100_规划与项目管理组SMO/150200_基础架构组/150300_技术开发组/150400_技术运维组DevOps/150500_用户平台组/160000_综合管理部/160100_法律风控组/160200_人力资源组/160300_财务组/160400_行政组_/160500_办公室/170000_产品委员会,listSize:20,tab:31;券承担部门",
+	"publishWay" : "string(16),disable:true,tab:28;发券方式",
+	"outPutTax" : "number(16),disable:true,tab:29;销项税率",
+	"buyTaxRate" : "number(16),disable:true,tab:29;进项税率",
+	"discountPoint" : "number(16),disable:true,tab:30;折扣率",
+	"payablePrice" : "number(16),disable:true,tab:30;应付金额",
+	"accountDate" : "number(16),disable:true,tab:31;付款账期",
+	"payableDate" : "date,disable:true,tab:32;应付日期",
+	"finishDate" : "date,showTime:true,disable:true,tab:06;完成时间",
+	"orderDeliveryDate" : "date,disable:true,tab:35;发货时间",
+	"settlementDate" : "date,showTime:true,disable:true,tab:06;结算时间",
+	"_t" : "returnStorageSkus",
+	"#meta" : {
+		"rem" : "严选销售退货入库商品清单列表",
+		"parent" : [
+			"returnStorageSkus"
+		],
+		"projectName" : "严选销售退货入库商品清单列表",
+		"visitType" : [
+		],
+		"pos" : 6,
+		"group" : {
+			"id" : "purchaseSettlement",
+			"name" : "严选销售退货入库商品清单列表",
+			"pos" : 4
+		},
+		"export":[
+			{
+				"label":"只导出子项",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			},
+			{
+				"label":"导出完整",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+      "exportDoc" : true
+	}
+}

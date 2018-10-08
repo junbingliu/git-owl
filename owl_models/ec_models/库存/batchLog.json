@@ -1,0 +1,25 @@
+{
+    "id":"string(12),tab:01,disabled:true;id",
+    "batchId":"string(16),tab:02,required:true;批次ID;",
+    "batchCode":"string(16),tab:03;批次编号;",
+    "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:a16;店铺id",
+    "skuId":"string(12),tab:04;物料ID",
+    "skuName":"string(16),tab:05;物料名称",
+    "beforeAmount":"number(9),tab:06,disabled:true;变化前数量",
+    "amount":"number(8),tab:07,disabled:true;交易数量",
+    "afterAmount":"number(9),tab:08,disabled:true;变化后数量",
+    "warehouseId": "string(8),disabled:true,searchable:true,hidden:true,tab:12;仓库Id",
+    "warehouseName": "linkId,listSize:8,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,tab:13;仓库名称",
+    "supplierId": "string(8),disabled:true,searchable:true,hidden:true,tab:14;供应商ID",
+    "supplierName": "linkId,listSize:8,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,fieldsWidth:100/120,searchable:true,tab:15;供应商",
+    "docId":"string(12),tab:16,disabled:true;单据Id",
+    "docType":"string(16),tab:17,disabled:true;单据类型",
+    "_t":"batchLog",
+    "#meta":{
+        "readOnly":true,
+        "rem":"批次日志",
+        "parent":["batchLog"],
+        "projectName":"批次日志",
+        "pos":5
+    }
+}

@@ -1,0 +1,91 @@
+{
+  "id": "string(16),searchable:true,tab:01,listTab:01;流水号",
+  "platformCode": "string(12),tab:03,listTab:02;平台编码",
+  "invTaxpayerNumber": "string(12),tab:a04,listTab:03;开票方识别号",
+  "name": "string(12),tab:a04,listTab:04;开票方名称",
+  "documentCode": "string(12),tab:a05,listTab:05;开票方电子档案号",
+  "invTaxpayerCode": "string(12),tab:a06,listTab:06;税务机构代码",
+  "writerType": "choice,values:0_自开/1_代开,tab:a06,listTab:07;代开标志",
+  "billCode": "string(12),tab:a06,listTab:08;票样代码",
+  "mainInvoiceProject": "string(12),tab:a06,listTab:08;主要开票项目",
+  "codeVersion": "string(12),tab:a07,listTab:09;编码表版本号",
+  "salerCode": "string(12),tab:a08,listTab:10;销货方识别号",
+  "salerName": "string(12),tab:a08,listTab:11;销货方名称",
+  "salerAddress": "string(12),tab:a08,listTab:12;销货方地址",
+  "salerPhone": "string(12),tab:a08,listTab:13;销货方电话",
+  "salerBankNumber": "string(12),tab:a08,listTab:14,help:销货方银行账号;销货方银行账号",
+  "buyerName": "string(12),tab:a08,listTab:15,;购货方名称",
+  "buyerCode": "string(12),tab:a08,listTab:16,;购货方识别号",
+  "buyerAddress": "string(12),tab:a08,listTab:17,;购货方地址",
+  "buyerProvince": "string(12),tab:a08,listTab:18,;购货方省份",
+  "buyerMoblie": "string(12),tab:a08,listTab:19,;购货方固定电话",
+  "buyerPhone": "string(12),tab:a08,listTab:20,;购货方手机",
+  "buyerEmail": "string(12),tab:a08,listTab:21,;购货方邮箱",
+  "buyerCompanyType": "choice,values:01_企业/02_机关事业单位/03_个人/04_其它,tab:a08,listTab:22,;购货方企业类型",
+  "buyerBankNumber": "string(12),tab:a08,listTab:23,;购货方银行账号",
+  "industryCode": "string(12),tab:a08,listTab:24;行业代码",
+  "industryName": "string(12),tab:a08,listTab:25;行业名称",
+  "invoiceWriter": "string(12),tab:a08,listTab:26;开票员",
+  "cashier": "string(12),tab:a08,listTab:27;收款员",
+  "reviewer": "string(12),tab:a08,listTab:28;复核人",
+  "writeInoviceDate": "string(12),tab:a08,listTab:29;开票日期",
+  "invTypeText": "choice,values:0_普通发票/1_增值税发票,tab:22,listSize:14,listTab:30;发票类型",
+  "orgiInvoiceCode": "string(12),tab:a08,listSize:14,listTab:31;原发票代码",
+  "orgiInvoiceNumber": "string(12),tab:a08,listSize:14,listTab:32;原发票号码",
+  "specialRedMark": "choice,values:0_电子发票/1_冲红纸发票,tab:a08,listSize:14,listTab:33;特殊冲红标志",
+  "operateCode": "choice,values:10_正票正常开具/11_正票错票重开/20_退货折让红票/21_错票重开红票/22_换票冲红,tab:a08,listSize:14,listTab:34;操作代码",
+  "clearMark": "string(12),tab:a08,listSize:14,listTab:35;清单标志",
+  "listInvoiceProjectName": "string(12),tab:a08,listSize:14,listTab:36;清单发票项目名称",
+  "redCause": "string(12),tab:a08,listSize:14,listTab:37;冲红原因",
+  "priceTaxTotalMoney": "string(12),tab:a08,listSize:14,listTab:38;价税合计金额",
+  "unTaxTotalMoney": "string(12),tab:a08,listSize:14,listTab:39;合计不含税金额",
+  "totalTaxMoney": "string(12),tab:a08,listSize:12,listTab:40;合计税额",
+  "content": "string(12),tab:a08,listSize:12,listTab:41;备注",
+  "invoiceItems": [
+    {
+      "#meta": {
+        "fieldLabel": "发票明细",
+        "tab": "k"
+      },
+      "projectName": "string(16),tab:01,listTab:42;项目名称",
+      "projectCompany": "string(16),tab:02,listTab:49;项目单位",
+      "specName": "string(16),tab:03,listTab:50;规格型号",
+      "projectNumber": "string(16),tab:04,listTab:51;项目数量",
+      "originalUnitPrice": "choice,values:0_否/1_是,tab:05,listTab:52;含税标志",
+      "invoiceType": "choice,values:0_正常行/1_折扣行/2_被折扣行,tab:06,listTab:53;发票行性质",
+      "projectPrice": "string(12),tab:07,listTab:54;项目单价",
+      "productCode": "string(12),tab:07,listTab:55;商品编码",
+      "AutoCode": "string(12),tab:07,listTab:56;自行编码",
+      "favouredPolicy": "choice,values:0_不使用/1_使用,tab:08,listTab:57;优惠政策标识",
+      "zeroTaxMark": "choice,values:1_非零税率/2_不征税/3_普通零税率,tab:08,listTab:58;零税率标识",
+      "specialTaxManage": "string(16),tab:09,listTab:59;增值税特殊管理",
+      "projectMoney": "string(16),tab:09,listTab:60;项目金额",
+      "taxRate": "string(16),tab:09,listTab:61;税率",
+      "taxMoney": "string(16),tab:09,listTab:61;税额"
+    }
+  ],
+  "_t": "invoice",
+  "#meta": {
+    "readOnly":true,
+    "rem": "开具发票",
+    "parent": [
+      "invoice"
+    ],
+    "projectName": "开具发票",
+    "export":[
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": "string(16),searchable:true,disabled:true,tab:01,listTab:01;id",
+  "afterSalesType": "choice,values:退款_退款/退货退款_退货退款,searchable:true,tab:02,listTab:02;售后类型",
+  "orId": "string(12),tab:04,listTab:03;华润通售后单Id",
+  "totalProductRefundPrice": "number(16),tab:05;商品退款金额",
+  "deliveryRefundPrice": "number(16),tab:06,listTab:04;运费退款金额",
+  "otherDiscountPrice": "number(16),tab:07;其他折扣金额",
+  "factRefundPrice": "number(16),tab:08,listTab:05;实际退款额",
+  "totalRefundPrice": "number(16),tab:09;退款总金额",
+  "refundStatus": "choice,values:1_已退款/0_未退款,tab:10,refundStatuslistTab:06;退款状态",
+  "agent": "string(16),tab:11,listTab:07;经办人",
+  "operationDate": "date,tab:12;操作日期",
+  "applicant": "string(16),tab:13,listTab:08;申请人",
+  "afterSalesReason": "string(16),tab:14,listTab:09;售后原因",
+  "responsible": "string(16),tab:15;责任人",
+  "remark": "string(64),tab:28;备注",
+  "deductPoint": "string(16),tab:16;扣除赠送积分",
+  "_createTime":"date,searchable:true,disabled:true,tab:16;创建时间",
+  "items": [
+    {
+      "#meta": {
+        "fieldLabel": "商品信息",
+        "tab": "10"
+      },
+      "itemId" : "string(16),tab:01,disabled:true;物料id",
+      "skuCode": "string(16),tab:02;物料编号",
+      "skuName": "string(16),tab:03;物料名称",
+      "saleAmount": "number(16),tab:04;数量",
+      "amount": "number(16),tab:05;售后数量",
+      "unitPrice": "number(16),tab:06;商品价格",
+      "totalPrice": "number(16),tab:07;商品总格",
+      "refundPrice": "number(16),tab:08;售后单价",
+      "refundTotalPrice": "number(16),tab:09;售后总价",
+      "channelSalePrice": "number(8),tab:10;第三方渠道价",
+      "discountRate": "number(8),tab:11;折扣率"
+    }
+  ],
+  "refundInfo": [
+    {
+      "#meta": {
+        "fieldLabel": "退款信息",
+        "tab": "14"
+      },
+      "refundInterfaceId": "string(16),tab:01;退款方式ID",
+      "refundInterfaceName": "string(16),tab:02;退款方式名称",
+      "refundPrice": "number(16),tab:03;应退金额",
+      "faceRefundPrice": "number(16),tab:04;实际退款金额",
+      "refundState": "choice,values:1_已退款/0_未退款,tab:05;退款状态",
+      "refundTime": "date,showTime:true,tab:06;退款时间"
+
+    }
+  ],
+  "originalOrderInformation": {
+    "#meta": {
+      "fieldLabel": "原订单信息",
+      "tab": "15"
+    },
+    "orderAliasCode": "string(16),tab:02,listTab:03;订单号",
+    "orderTotalPrice": "number(16),tab:18,listTab:10;订单总价",
+    "buyerId": "string(16),tab:19;订购人Id",
+    "buyerName": "string(16),tab:20;订购人",
+    "orderPaymentStatus": "string(16),tab:21;订单支付状态",
+    "consignee": "string(16),tab:22;收货人",
+    "orderCreateTime": "date,tab:23;下单时间",
+    "contactNumber": "string(16),inputType:number,tab:24;手机号",
+    "processStatus": "string(16),tab:25;处理状态",
+    "deliverMode": "string(16),tab:26;配送方式",
+    "deliveryAddress": "string(64),tab:27;配送地址",
+    "orderDeliveryDate": "date,searchable:true,tab:27;订单发货时间"
+  },
+  "originalOrderPaymentInformation": [
+    {
+      "#meta": {
+        "fieldLabel": "原订单付款信息",
+        "tab": "14"
+      },
+      "paymentId" : "string(16),tab:01;支付方式id",
+      "paymentName" : "string(16),tab:02;支付方式",
+      "paymentAmount": "number(16),tab:01;支付金额"
+    }
+  ],
+  "_t": "returnRefund",
+  "#meta": {
+    "readOnly":true,
+    "rem": "退款单",
+    "parent" : ["returnRefund"],
+    "projectName": "退款单",
+    "pos":3,
+    "visitType": [
+      "shop"
+    ],
+    "group":{"id":"sale","name":"销售","pos":6},
+    "export":[
+      {
+        "label":"只导出子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"items",
+          "itemFields":[
+            "$parent.id",
+            "$parent.afterSalesType",
+            "$parent.orId",
+            "$parent.totalProductRefundPrice",
+            "$parent.deliveryRefundPrice",
+            "$parent.otherDiscountPrice",
+            "$parent.factRefundPrice",
+            "$parent.totalRefundPrice",
+            "$parent.refundStatus",
+            "$parent.agent",
+            "$parent.operationDate",
+            "$parent.applicant",
+            "$parent.afterSalesReason",
+            "$parent.responsible",
+            "$parent.remark",
+            "$parent.deductPoint",
+            "$parent._createTime",
+            "itemId",
+            "skuCode",
+            "skuName",
+            "saleAmount",
+            "amount",
+            "unitPrice",
+            "totalPrice",
+            "refundPrice",
+            "refundTotalPrice",
+            "$parent.refundInfo.refundInterfaceId",
+            "$parent.refundInfo.refundInterfaceName",
+            "$parent.refundInfo.refundPrice",
+            "$parent.refundInfo.faceRefundPrice",
+            "$parent.refundInfo.refundState",
+            "$parent.refundInfo.refundTime",
+            "$parent.originalOrderInformation.orderAliasCode",
+            "$parent.originalOrderInformation.orderTotalPrice",
+            "$parent.originalOrderInformation.buyerId",
+            "$parent.originalOrderInformation.buyerName",
+            "$parent.originalOrderInformation.orderPaymentStatus",
+            "$parent.originalOrderInformation.consignee",
+            "$parent.originalOrderInformation.orderCreateTime",
+            "$parent.originalOrderInformation.contactNumber",
+            "$parent.originalOrderInformation.processStatus",
+            "$parent.originalOrderInformation.deliverMode",
+            "$parent.originalOrderInformation.deliveryAddress",
+            "$parent.originalOrderPaymentInformation.paymentId",
+            "$parent.originalOrderPaymentInformation.paymentName",
+            "$parent.originalOrderPaymentInformation.paymentAmount",
+            "$parent.originalOrderPaymentInformation.orderDeliveryDate"
+
+          ]
+        }
+      },
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

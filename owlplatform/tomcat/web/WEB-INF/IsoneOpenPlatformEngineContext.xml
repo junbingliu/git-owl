@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 第三方开放平台驱动服务 -->
+    <bean id="isoneOpenPlatformEngine" class="net.xinshi.isone.modules.IsoneOpenPlatformEngine">
+        <property name="taobaoCommonAddOrderEventBus" ref="taobaoCommonAddOrderEventBus"/>
+        <property name="taobaoCommonAddOrderAfterEventBus" ref="taobaoCommonAddOrderAfterEventBus"/>
+        <property name="taobaoCommonAddOrderFailureEventBus" ref="taobaoCommonAddOrderFailureEventBus"/>
+
+        <property name="jingdongCommonAddOrderEventBus" ref="jingdongCommonAddOrderEventBus"/>
+        <property name="jingdongCommonAddOrderAfterEventBus" ref="jingdongCommonAddOrderAfterEventBus"/>
+        <property name="jingdongCommonAddOrderFailureEventBus" ref="jingdongCommonAddOrderFailureEventBus"/>
+    </bean>
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    订单相关 begin     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+    <!-- ************************************************************************ 淘宝订单 begin-->
+    <!-- 淘宝订单对接下订单前事件处理线 -->
+    <bean id="taobaoCommonAddOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单前事件 -->
+                <!-- 下单成功后扣减商品物料库存 -->
+                <ref bean="taobaoCommonOrderReduceSkuInventoryEvent"/>
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 淘宝订单对接下订单后事件处理线 -->
+    <bean id="taobaoCommonAddOrderAfterEventBus"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单后事件 -->
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 将订单写到ERP -->
+                <ref bean="addOrder2ErpSystemEvent"/>
+                <!-- 订单金额平摊事件-->
+                <ref bean="EqualSharesAmountEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <ref bean="RecordSalesInfoEvent_create"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 淘宝订单对接下订单失败事件处理线 -->
+    <bean id="taobaoCommonAddOrderFailureEventBus"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单失败事件 -->
+                <!-- 下单失败回退已冻结的库存 -->
+                <ref bean="OrderFailureRollbackSkuInventoryEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoFailureScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 下单前所有商品扣减 sku库存事件 -->
+    <bean id="taobaoCommonOrderReduceSkuInventoryEvent"
+          class="net.xinshi.isone.modules.openapi.order.event.TaobaoOrderReduceSkuInventoryEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+    <!-- ************************************************************************ 淘宝订单 end-->
+
+    <!-- ************************************************************************ 京东订单 begin-->
+    <!-- 京东订单对接下订单前事件处理线 -->
+    <bean id="jingdongCommonAddOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单前事件 -->
+                <!-- 下单成功后扣减商品物料库存 -->
+                <ref bean="jingdongCommonOrderReduceSkuInventoryEvent"/>
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 京东订单对接下订单后事件处理线 -->
+    <bean id="jingdongCommonAddOrderAfterEventBus"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单后事件 -->
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 将订单写到ERP -->
+                <ref bean="addOrder2ErpSystemEvent"/>
+                <!-- 订单金额平摊事件-->
+                <ref bean="EqualSharesAmountEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <ref bean="RecordSalesInfoEvent_create"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 京东订单对接下订单失败事件处理线 -->
+    <bean id="jingdongCommonAddOrderFailureEventBus"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单失败事件 -->
+                <!-- 下单失败回退已冻结的库存 -->
+                <ref bean="OrderFailureRollbackSkuInventoryEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoFailureScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 下单前所有商品扣减 sku库存事件 -->
+    <bean id="jingdongCommonOrderReduceSkuInventoryEvent"
+          class="net.xinshi.isone.modules.openapi.order.event.TaobaoOrderReduceSkuInventoryEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- ************************************************************************ 京东订单 end-->
+
+    <!-- ************************************************************************ 拍拍订单 begin-->
+
+    <!-- ************************************************************************ 拍拍订单 end-->
+
+    <!--订单状态为已发货时把状态对接到第三方平台（比如淘宝、京东、拍拍）-->
+    <bean id="openPlatformOrderShippedEvent"
+          class="net.xinshi.isone.modules.openapi.order.event.OrderShippedEventHandler">
+        <property name="eventName">
+            <value>orderShippingAfter,orderShippingAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p102</value>
+        </property>
+    </bean>
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    订单相关 end     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    商品相关 begin     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    商品相关 end     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+</beans>

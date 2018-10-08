@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="saasAdminPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/saasadmin"></constructor-arg>
+    </bean>
+
+
+    <bean id="rawPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/platform"></constructor-arg>
+    </bean>
+
+    <bean id="pigeonEngine" class="net.xinshi.pigeon.saas.SaasPigeonEngine">
+        <property name="rawPigeonEngine" ref="rawPigeonEngine"/>
+    </bean>
+
+    <bean id="staticpigeon" class="net.xinshi.pigeon.adapter.StaticPigeonEngine">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="statPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/saasstat"></constructor-arg>
+    </bean>
+
+    <bean id="blacklistPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/blacklist"></constructor-arg>
+    </bean>
+
+    <bean id="shortUrlPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/shorturl"></constructor-arg>
+    </bean>
+
+    <bean id="pgLogPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/logs"></constructor-arg>
+    </bean>
+
+
+    <bean id="sessionPigeonEngine" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/session"></constructor-arg>
+    </bean>
+
+    <bean id="publicAppsPigeonStore" class="net.xinshi.pigeon40.adapter.impl.ZooKeeperPigeonEngine">
+        <constructor-arg value="#{systemEnvironment['ZK_SERVER']}"></constructor-arg>
+        <constructor-arg value="/pigeon40/publicApps"></constructor-arg>
+    </bean>
+
+    <bean id="publicAppsPigeon" class="net.xinshi.pigeon40.adapter.impl.CompositePigeonEngine">
+        <property name="atomPigeon" ref="publicAppsPigeonStore"></property>
+        <property name="idPigeon" ref="publicAppsPigeonStore"></property>
+        <property name="lockPigeon" ref="publicAppsPigeonStore"></property>
+        <property name="objectPigeon" ref="publicAppsPigeonStore"></property>
+        <property name="listPigeon" ref="publicAppsPigeonStore"></property>
+        <property name="filePigeon" ref="pigeonEngine"></property>
+    </bean>
+
+
+    <bean id="pigeons" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="default" value-ref="pigeonEngine" />
+                <entry key="stat" value-ref="statPigeonEngine" />
+                <entry key="blacklist" value-ref="blacklistPigeonEngine" />
+                <entry key="shortUrl" value-ref="shortUrlPigeonEngine" />
+                <entry key="pgLog" value-ref="pgLogPigeonEngine" />
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="pigeonEngions" class="net.xinshi.pigeonAdapter.PigeonEngines">
+        <property name="pigeons" ref="pigeons"></property>
+    </bean>
+
+    <bean id="fileIdGenerator" class="net.xinshi.isone.modules.filemanagement.impl.NormalFileIdGenerator">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="resourceLocker" class="net.xinshi.pigeon.adapter.impl.ResourceLockMember">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="cloudFileSystemKeyGenerator"
+          class="net.xinshi.isone.modules.filemanagement.impl.CloudFileSystemKeyGenerator">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="fileService" class="net.xinshi.isone.modules.filemanagement.impl.NormalFileService">
+        <property name="fileIdGenerator" ref="fileIdGenerator"/>
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="indexUrl" value="http://127.0.0.1"></property>
+    </bean>
+
+</beans>
+

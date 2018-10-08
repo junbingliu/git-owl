@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+    <excludes>
+       <pattern>/isonePay/handler/*</pattern>
+       <pattern>/appMarket/handler/*</pattern>
+       <pattern>/appMarket/appEditor/*</pattern>
+       <pattern>/appMarket/ajax/*</pattern>
+       <pattern>/appMarket/independentApps.jsp</pattern>
+       <pattern>/OurHome/modules/frontEndTemplates/ajax/*</pattern>
+    </excludes>
+
+    <decorator name="backend-theme" page="backend-theme.jsp">
+        <pattern>/OurHome/modules/isonePay/*</pattern>
+    </decorator>
+
+    <decorator name="backend-theme" page="backend-theme.jsp">
+        <pattern>/OurHome/modules/frontEndTemplates/*</pattern>
+    </decorator>
+
+    <decorator name="appMarket-theme" page="backend-theme.jsp">
+        <pattern>/appMarket/*</pattern>
+    </decorator>
+
+    <decorator name="isonepay-theme" page="isonepay-theme.jsp">
+        <pattern>/isonePay/*</pattern>
+    </decorator>
+
+</decorators>

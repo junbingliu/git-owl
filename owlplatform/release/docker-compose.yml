@@ -1,0 +1,218 @@
+version: '3'
+services: 
+  zookeeper:
+    image: zookeeper:3.5.4-beta
+    hostname: zookeeper
+    volumes:
+      - zoodata:/data
+      - zoodatalog:/datalog
+    networks:
+      - owl
+
+  bookie1:
+    image: 45157963/bookkeeper_pigeon
+#    image: apache/bookkeeper:4.7.2
+    hostname: bookie1
+    links:
+      - zookeeper
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/jre-1.8.0
+      - BK_zkServers=zookeeper:2181
+      - BK_zkLedgersRootPath=/ledgers
+      - BK_advertisedAddress=bookie1
+      - BK_dlogRootPath=/pigeon40namespace
+    volumes:
+      - bookie1_journal:/journal
+      - bookie1_ledgers:/ledgers
+      - bookie1_data:/data
+      - bookie1_tmp:/tmp
+    networks:
+      - owl
+
+
+  bookie2:
+    image: 45157963/bookkeeper_pigeon
+#    image: apache/bookkeeper:4.7.2
+    hostname: bookie2
+    links:
+      - zookeeper
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/jre-1.8.0
+      - BK_zkServers=zookeeper:2181
+      - BK_zkLedgersRootPath=/ledgers
+      - BK_dlogRootPath=/pigeon40namespace
+      - BK_advertisedAddress=bookie2
+    volumes:
+      - bookie2_journal:/journal
+      - bookie2_ledgers:/ledgers
+      - bookie2_data:/data
+      - bookie2_tmp:/tmp
+    networks:
+      - owl
+
+  bookie3:
+    image: 45157963/bookkeeper_pigeon
+#    image: apache/bookkeeper:4.7.2
+    hostname: bookie3
+    links:
+      - zookeeper
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/jre-1.8.0
+      - BK_zkServers=zookeeper:2181
+      - BK_zkLedgersRootPath=/ledgers
+      - BK_dlogRootPath=/pigeon40namespace
+      - BK_advertisedAddress=bookie3
+    volumes:
+      - bookie3_journal:/journal
+      - bookie3_ledgers:/ledgers
+      - bookie3_data:/data
+      - bookie3_tmp:/tmp
+    networks:
+      - owl
+
+
+  zkui:
+    image: 45157963/zkui
+    hostname: zkui
+    links:
+      - zookeeper
+    environment:
+      - ZK_SERVER=zookeeper:2181
+    ports:
+      - 9090:9090
+    networks:
+      - owl
+
+  mysql:
+    image: 45157963/mysql_pigeon
+    hostname: mysqlpigeon
+    environment:
+      MYSQL_ROOT_PASSWORD: pigeon123456
+    command: --max_allowed_packet=32m --lower_case_table_names=1
+    networks:
+      - owl
+
+  graphite:
+    image: graphiteapp/graphite-statsd
+    hostname: graphite
+    ports: 
+      - 81:80
+    networks:
+      - owl
+
+  pigeon40:
+    image: 45157963/pigeon40
+    hostname: pigeon
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: '3306'
+      MYSQL_USER: root
+      MYSQL_PASS: pigeon123456
+      ZK_SERVER: zookeeper:2181
+      GRAPHITE_HOST: graphite
+      GRAPHITE_PORT: '2003'
+      GRAPHITE_PREFIX: pigeon40
+      SHARD_EXTERNAL_URL: http://img_dev.oowl365.com
+      EXTERNAL_URL: http://img_dev.oowl365.com
+      INTERNAL_URL: http://nginx
+      SHARD_INTERNAL_URL: http://nginx
+      SERVICE_PORT: 8876
+      SERVICE_HOST: pigeon40
+
+    links:
+      - zookeeper
+      - bookie1
+      - bookie2
+      - bookie3
+      - graphite
+      - mysql
+
+    volumes:
+      - upload:/upload
+      - pigeondata:/data
+      - pigeonlogs:/logs
+    networks:
+      - owl
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - owl
+
+  tomcat:
+    image: 45157963/tomcat_owl
+    container_name: tomcat
+    environment:
+      - elasticSearchUrl=http://elasticsearch:9200
+      - SMS_API_URL=http://smsapi:8888/sms/rest_api
+      - ZK_SERVER=zookeeper:2181
+      - Xmx=-Xmx1024M
+    ports:
+      - 8080:8080
+      - 4046:4046
+    networks:
+      - owl 
+
+  nginx:
+    image: 45157963/nginx_owl
+    volumes:
+      - upload:/upload
+    ports:
+      - 80:80
+      - 8081:8081
+    networks:
+      - owl
+
+  smsapi:
+#    build: smsapi
+    image: 45157963/smsapi_owl
+    volumes:
+      - smstmp:/tmp
+    networks:
+      - owl
+
+
+
+volumes:
+  bookie1_journal:
+  bookie1_ledgers:
+  bookie1_data:
+  bookie1_tmp:
+  bookie2_journal:
+  bookie2_ledgers:
+  bookie2_data:
+  bookie2_tmp:
+  bookie3_journal:
+  bookie3_ledgers:
+  bookie3_data:
+  bookie3_tmp:
+  upload:
+  pigeondata:
+  pigeonlogs:
+  smstmp:
+  zoodata:
+  zoodatalog:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
+
+networks:
+  owl:
+  
+
+
+
+

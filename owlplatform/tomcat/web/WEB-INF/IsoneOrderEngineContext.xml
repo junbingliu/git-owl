@@ -1,0 +1,2428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 订单驱动服务 -->
+    <bean id="isoneOrderEngine" class="net.xinshi.isone.modules.IsoneOrderEngine">
+        <property name="excelOrderService" ref="excelOrderService"/>
+        <property name="orderService" ref="orderService"/>
+        <property name="orderLogService" ref="orderLogService"/>
+        <property name="orderLogisticsService" ref="normalOrderLogisticsService"/>
+        <property name="shoppingCart" ref="shoppingCart"/>
+        <property name="backEndShoppingCart" ref="backEndShoppingCart"/>
+        <property name="delVouchersShoppingCart" ref="delVouchersShoppingCart"/>
+        <property name="taobaoshoppingCart" ref="taobaoshoppingCart"/>
+        <property name="orderRule" ref="orderRuleWithERPCheck"/>
+        <property name="orderListDispatchForUpdateOrder" ref="orderListDispatchForUpdateOrder"/>
+        <property name="orderListDispatchForAddOrder" ref="orderListDispatchForAddOrder"/>
+        <property name="afterService" ref="afterService"/>
+        <property name="orderEventBus" ref="orderEventBus"/>
+        <property name="addOrderEventBus" ref="addOrderEventBus"/>
+        <property name="addOrderAfterEventBus" ref="addOrderAfterEventBus"/>
+        <property name="addOrderFailureEventBus" ref="addOrderFailureEventBus"/>
+        <property name="addVirtualOrderEventBus" ref="addVirtualOrderEventBus"/>
+        <property name="addVirtualOrderAfterEventBus" ref="addVirtualOrderAfterEventBus"/>
+        <property name="addBarterOrderEventBus" ref="addBarterOrderEventBus"/>
+        <property name="addVoucherOrderEventBus" ref="addVouchersOrderEventBus"/>
+        <property name="addVoucherOrderAfterEventBus" ref="addVouchersOrderAfterEventBus"/>
+        <property name="addVoucherOrderFailureEventBus" ref="addVouchersOrderFailureEventBus"/>
+        <property name="addMovieOrderEventBus" ref="addMovieOrderEventBus"/>
+        <property name="addMovieOrderAfterEventBus" ref="addMovieOrderAfterEventBus"/>
+        <property name="addMovieOrderFailureEventBus" ref="addMovieOrderFailureEventBus"/>
+        <property name="closeOrderEventBus" ref="closeOrderEventBus"/>
+        <property name="exportService" ref="orderExportService"/>
+        <property name="orderSignService" ref="orderSignService"/>
+        <property name="rollbackMoneyService" ref="orderRollbackMoneyService"/>
+        <property name="rollbackNumberService" ref="orderRollbackNumberService"/>
+        <property name="orderItemAmountsSum" ref="orderItemAmountsSumByPackOrderList"/>
+        <property name="payRecKeyGenerator" ref="payRecKeyGenerator"/>
+        <property name="asynEventService" ref="asynEventService"/>
+        <property name="orderFinancialService" ref="normalOrderFinancialService"/>
+        <property name="orderFinancialRecordProvider" ref="normalOrderFinancialRecordProvider"/>
+        <property name="orderFinancialSumProvider" ref="normalOrderFinancialSumProvider"/>
+        <property name="financialCacheDataService" ref="normalFinancialCacheDataService"/>
+        <property name="financialCacheInspector" ref="normalFinancialCacheInspector"/>
+        <property name="financialCacheDataBuilder" ref="normalFinancialCacheDataBuilder"/>
+        <property name="financialCacheDateSearcher" ref="normalFinancialCacheDataSearcher"/>
+        <property name="financialCacheConditionAnalyzer" ref="normalConditionAnalysisService"/>
+        <property name="orderItemViewDataFilter" ref="defaultOrderItemViewDataFilter"/>
+        <property name="orderViewDataFilter" ref="defaultOrderViewDataFilter"/>
+        <property name="salesReportService" ref="NormalSalesReportService"/>
+		<property name="financialSettlementService" ref="NormalFinancialSettlementService"/>
+		<property name="updateAfterOrderCertifyStateEventBus" ref="updateAfterOrderCertifyStateEventBus"/>
+		<property name="updateRefundOrderCertifyStateEventBus" ref="updateRefundOrderCertifyStateEventBus"/>
+		<property name="updateRefundOrderRefundStateEventBus" ref="updateRefundOrderRefundStateEventBus"/>
+		<property name="frontEndBeforeAddReturnOrderEventBus" ref="frontEndBeforeAddReturnOrderEventBus"/>
+		<property name="afterUpdateAfterOrderEventBus" ref="afterUpdateAfterOrderEventBus"/>
+    </bean>
+
+	<bean id="NormalFinancialSettlementService"   class="net.xinshi.isone.modules.financials.sales.financialsettlement.impl.NormalFinancialSettlementService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queueService" ref="financialSettlementQueService"/>
+    </bean>
+
+    <bean id="financialSettlementQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_financialSettlement"/>
+    </bean>
+
+    <bean id="NormalSalesReportService"   class="net.xinshi.isone.modules.financials.sales.salesreport.impl.NormalSalesReportService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queueService" ref="salesReportIndexingQueService"/>
+        <property name="payRecsQueueService" ref="salesReportPayRecsQueService"/>
+    </bean>
+
+    <bean id="salesReportIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_salesReport"/>
+    </bean>
+
+    <bean id="salesReportPayRecsQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_salesReportPayRecs"/>
+    </bean>
+
+    <bean id="defaultOrderItemViewDataFilter"
+          class="net.xinshi.isone.modules.order.view.impl.DefaultOrderItemViewDataFilter">
+    </bean>
+
+    <bean id="defaultOrderViewDataFilter"
+          class="net.xinshi.isone.modules.order.view.impl.DefaultOrderViewDataFilter">
+    </bean>
+
+
+    <bean id="orderFinancialAddCacheQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="orderfinancialAddCache_queue"/>
+    </bean>
+
+    <bean id="orderFinancialRemoveCacheQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="orderfinancialRemoveCache_queue"/>
+    </bean>
+
+    <bean id="orderFinancialFailureCacheQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="orderfinancialFailureCache_queue"/>
+    </bean>
+
+    <bean id="orderFinancialIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="orderFinancialIndexing_queue"/>
+    </bean>
+
+    <bean id="normalFinancialCacheDataSearcher"
+          class="net.xinshi.isone.modules.orderfinancial.impl.CacheDataSearcher">
+    </bean>
+
+    <bean id="normalConditionAnalysisService"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalConditionAnalysisService">
+    </bean>
+
+    <bean id="normalFinancialCacheDataService"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalFinancialCacheDataService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="normalOrderFinancialService"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalOrderFinancialService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="normalFinancialCacheInspector"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalFinancialCacheInspector">
+    </bean>
+
+    <bean id="normalFinancialCacheDataBuilder"
+          class="net.xinshi.isone.modules.orderfinancial.impl.CacheDataBuilder">
+        <property name="addToBuildCacheQueueService" ref="orderFinancialAddCacheQueService"/>
+        <property name="addToRemoveCacheQueueService" ref="orderFinancialRemoveCacheQueService"/>
+        <property name="failureCacheQueueService" ref="orderFinancialFailureCacheQueService"/>
+
+    </bean>
+
+    <bean id="normalOrderFinancialSumProvider"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalOrderFinancialSumProvider">
+    </bean>
+
+    <!-- 订单支付账务结果数据提供服务 -->
+    <bean id="normalOrderFinancialRecordProvider"
+          class="net.xinshi.isone.modules.orderfinancial.impl.NormalOrderFinancialRecordProvider">
+    </bean>
+
+    <!-- 异步事件线 -->
+    <bean id="asynEventService"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.ASYNEventService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 订单支付记录键序号生产器 -->
+    <bean id="payRecKeyGenerator"
+          class="net.xinshi.isone.modules.order.payreckeypolicy.impl.PayRecKeyGenerator">
+        <property name="payRecKeyGeneratorByAddOrder" ref="payRecKeyGeneratorByAddOrderImpl"/>
+        <property name="payRecKeyGeneratorByUpdateOrder" ref="payRecKeyGeneratorByUpdateOrderImpl"/>
+    </bean>
+
+    <!-- 增加订单时支付记录键序号生产器 -->
+    <bean id="payRecKeyGeneratorByAddOrderImpl"
+          class="net.xinshi.isone.modules.order.payreckeypolicy.impl.PayRecKeyGeneratorByAddOrderImpl"/>
+
+    <!-- 修改订单时支付记录键序号生产器 -->
+    <bean id="payRecKeyGeneratorByUpdateOrderImpl"
+          class="net.xinshi.isone.modules.order.payreckeypolicy.impl.PayRecKeyGeneratorByUpdateOrderImpl"/>
+
+    <!-- 订单商品行满减优惠价格分摊 -->
+    <bean id="resetUnitPriceBySufRebatePreferPrice"
+          class="net.xinshi.isone.modules.order.resetitemunitprice.impl.ResetUnitPriceBySufRebatePreferPrice">
+        <property name="resetItemUnitPrice" ref="NormalResetItemUnitPrice"/>
+    </bean>
+
+    <!-- 商品行价格分摊实现 -->
+    <bean id="NormalResetItemUnitPrice"
+          class="net.xinshi.isone.modules.order.resetitemunitprice.impl.NormalResetItemUnitPrice">
+        <property name="priceRepartitionService" ref="NormalPriceRepartitionPolicy"/>
+    </bean>
+
+    <!-- 普通的价格分摊算法 -->
+    <bean id="NormalPriceRepartitionPolicy"
+          class="net.xinshi.isone.modules.order.pricerepartitionpolicy.impl.NormalPriceRepartitionPolicy"/>
+
+    <!-- 回滚金额类的服务 -->
+    <bean id="orderRollbackMoneyService"
+          class="net.xinshi.isone.modules.order.orderaccountrollback.impl.OrderAccountMoneyRollback">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 回滚卡号类的服务 -->
+    <bean id="ticketIdFilterChain"
+          class="net.xinshi.isone.modules.order.orderaccountrollback.impl.TicketIdFilterChain"/>
+    <bean id="orderRollbackNumberService"
+          class="net.xinshi.isone.modules.order.orderaccountrollback.impl.OrderAccountNumberRollback">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="numbersChain" ref="ticketIdFilterChain"/>
+    </bean>
+
+    <!-- 标识服务 -->
+    <bean id="orderSignService" class="net.xinshi.isone.modules.order.impl.NormalOrderSignService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 导出信息服务 -->
+    <bean id="orderExportService" class="net.xinshi.isone.modules.order.export.impl.NormalExpFileService">
+        <property name="exportFileResultService" ref="exportResultService"/>
+        <property name="expConditionQueue" ref="expConditionQueueService"/>
+    </bean>
+    <!-- 导出信息结果服务 -->
+    <bean id="exportResultService" class="net.xinshi.isone.modules.order.export.impl.NormalExpFileResultService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 导出EXCEL数据参数配置 -->
+    <bean id="expExcelParam"
+          class="net.xinshi.isone.modules.order.export.bean.ExpExcelParam">
+        <!--<property name="maxSheetCount">-->
+        <!--<value>20</value>-->
+        <!--</property>-->
+        <property name="maxSheetNumb">
+            <value>3</value>
+        </property>
+        <!--<property name="onceWriteNumb">-->
+        <!--<value>500</value>-->
+        <!--</property>-->
+    </bean>
+
+
+    <bean id="defaultAliasCodeGenerator"
+          class="net.xinshi.isone.modules.order.aliascodepolicy.impl.DefaultAliasCodeGenerator">
+    </bean>
+
+    <bean id="orderStateUpdate"
+          class="net.xinshi.isone.modules.order.orderstateupdatepolicy.impl.NormalOrderStateUpdate">
+    </bean>
+
+    <bean id="orderIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_order"/>
+    </bean>
+
+    <bean id="orderStaticQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="Que_OrderStatic"/>
+    </bean>
+    <bean id="excelOrderQue" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="Que_ExcelOrder"/>
+    </bean>
+    <bean id="succOrderQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="Que_SuccOrder"/>
+    </bean>
+
+    <bean id="giveCategotyCardFromOrderQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="giveCategotyCard_List"/>
+    </bean>
+    <bean id="giveProductCardFromOrderQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="giveProductCard_List"/>
+    </bean>
+    <bean id="expConditionQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="ExpConditionQueueList"/>
+    </bean>
+
+
+    <bean id="orderService" class="net.xinshi.isone.modules.order.impl.NormalOrderService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="aliasCodeGenerator" ref="defaultAliasCodeGenerator"/>
+        <property name="orderDefaultStateValue" ref="PaidCheckOrderStateValue"/>
+        <property name="orderStateUpdate" ref="orderStateUpdate"/>
+        <property name="combineSplitPolicy" ref="normalCombineSplit"/>
+        <property name="freeGroupSplitPolicy" ref="freeGroupSplitPolicy"/>
+        <property name="resetUnitPrice" ref="resetUnitPriceBySufRebatePreferPrice"/>
+    </bean>
+    <bean id="excelOrderService" class="net.xinshi.isone.modules.order.excelorder.impl.ExcelOrderService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="excelOrderQue" ref="excelOrderQue"/>
+    </bean>
+
+
+    <bean id="normalOrderLogisticsService" class="net.xinshi.isone.modules.orderlogistics.impl.NormalOrderLogisticsService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="orderLogService" class="net.xinshi.isone.modules.order.impl.NormalOrderLogService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="shoppingCart" class="net.xinshi.isone.modules.shoppingcart.impl.NormalShoppingCart">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="backEndShoppingCart" class="net.xinshi.isone.modules.shoppingcart.impl.BackEndShoppingCart">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="delVouchersShoppingCart" class="net.xinshi.isone.modules.shoppingcart.impl.DelVouchersShoppingCart">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+    <bean id="taobaoshoppingCart" class="net.xinshi.isone.modules.shoppingcart.impl.TaobaoShoppingCart">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+    <!-- 订单各种规则信息 -->
+    <bean id="orderRule" class="net.xinshi.isone.modules.order.orderrule.impl.NormalOrderRule">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+    <bean id="orderRuleWithERPCheck" class="net.xinshi.isone.modules.order.orderrule.impl.UseERPOrderRule">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 订单栏目列表分派实现(修改订单) - -->
+    <bean id="orderListDispatchForUpdateOrder"
+          class="net.xinshi.isone.modules.order.orderlistdispatchpolicy.impl.OrderListDispatchForUpdateOrder">
+    </bean>
+
+    <!-- 订单栏目列表分派实现(增加订单使用) -->
+    <bean id="orderListDispatchForAddOrder"
+          class="net.xinshi.isone.modules.order.orderlistdispatchpolicy.impl.OrderListDispatchForAddOrder">
+    </bean>
+
+    <!-- 订单拆分组合虚拟商品实现 -->
+    <bean id="normalCombineSplit"
+          class="net.xinshi.isone.modules.order.combinesplitpolicy.impl.NormalCombineSplit">
+    </bean>
+
+    <!-- 订单拆分自由组合虚拟商品实现 -->
+    <bean id="freeGroupSplitPolicy"
+          class="net.xinshi.isone.modules.order.combinesplitpolicy.impl.FreeGroupCombineSplit">
+    </bean>
+
+    <!-- 订单商品行数量汇总信息（通过订单所关联的所有包裹单进行获取数据） -->
+    <bean id="orderItemAmountsSumByPackOrderList"
+          class="net.xinshi.isone.modules.order.orderitemamountssum.impl.AmountsSumByPackOrderList">
+    </bean>
+
+
+    <!-- ================================================= 订单初始化状态定义 =====================================  -->
+    <bean id="orderDefaultStateValue"
+          class="net.xinshi.isone.modules.order.defaultorderstatevalue.impl.NormalDefaultOrderStateValue">
+        <property name="topStateKey" value="states"/>
+        <property name="statesMap">
+            <map>
+                <!-- 普通销售单 -->
+                <entry key="common">
+                    <map>
+                        <entry>
+                            <key>
+                                <value>javascript:order.allPaid()==true</value>
+                            </key>
+                            <value>
+                                {processState:{state:'p101'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>
+                                <value></value>
+                            </key>
+                            <value>
+                                {processState:{state:'p100'},payState:{state:'p200'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                    </map>
+                </entry>
+                <!-- 团购销售单 -->
+                <entry key="group">
+                    <map>
+                        <entry>
+                            <key>
+                                <value>javascript:order.allPaid()==true</value>
+                            </key>
+                            <value>
+                                {processState:{state:'p101'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>
+                                <value></value>
+                            </key>
+                            <value>
+                                {processState:{state:'p100'},payState:{state:'p200'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                    </map>
+                </entry>
+                <!-- 抢购销售单 -->
+                <entry key="panic">
+                    <map>
+                        <entry>
+                            <key>
+                                <value>javascript:order.allPaid()==true</value>
+                            </key>
+                            <value>
+                                {processState:{state:'p101'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>
+                                <value></value>
+                            </key>
+                            <value>
+                                {processState:{state:'p100'},payState:{state:'p200'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+                            </value>
+                        </entry>
+                    </map>
+                </entry>
+                <!-- 包裹单 -->
+                <entry key="pack">
+                    <map>
+                        <entry>
+                            <key>
+                                <value></value>
+                            </key>
+                            <value>
+                                {pkProcessState:{state:'pkp100'},pkShipState:{state:'pks100'},pkCollectState:{state:'pkc100'}}
+                            </value>
+                        </entry>
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--简化的下单初始化策略，以实现支付和未支付（未完全支付）的订单初始化状态-->
+    <bean id="PaidCheckOrderStateValue"
+          class="net.xinshi.isone.modules.order.defaultorderstatevalue.impl.PaidCheckOrderStateValue">
+        <property name="topStateKey" value="states"/>
+        <property name="zeroPayStateStr">
+            <value>
+                {processState:{state:'p100'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+            </value>
+        </property>
+        <property name="virtualPaidAllStateStr">
+            <value>
+                {processState:{state:'p100'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+            </value>
+        </property>
+        <property name="paidAllStateStr">
+            <value>
+                {processState:{state:'p101'},payState:{state:'p201'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+            </value>
+        </property>
+        <property name="defaultStateStr">
+            <value>
+                {processState:{state:'p100'},payState:{state:'p200'},refundState:{state:'p300'},approvalState:{state:'a100'}}
+            </value>
+        </property>
+    </bean>
+
+
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    订单事件 begin     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+    <!-- 关闭订单后事件处理线 -->
+    <bean id="closeOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!--完成订单执行会员升降级规则事件-->
+                <ref bean="MemberGradeUpdateEvent"/>
+                <!--完成订单执行自动好评事件-->
+                <ref bean="AutoPositiveCommentEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 通用下订单前事件处理线 -->
+    <bean id="addOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单前事件 -->
+                <!-- 重新计算订单商品总优惠金额 -->
+                <ref bean="ResetOrderProductTotalPreferPriceEvent"/>
+                <!-- 下单前设置商品行的进价信息 -->
+                <ref bean="SetOrderItemSupplyPriceEvent"/>
+                <!-- 下单前设置订单商品行的相关扩展属性 -->
+                <ref bean="SetOrderItemDynaValuesEvent"/>
+                <!-- 下单扣减商品物料库存 -->
+                <ref bean="orderReduceSkuInventoryEvent"/>
+                <!-- 下单作废用户使用的券-->
+                <ref bean="OrderUseTicketEvent"/>
+                <!-- 下单扣减会员的预存款-->
+                <ref bean="OrderUseEWalletEvent"/>
+                <!-- 下单扣减会员的积分账 -->
+                <ref bean="OrderUseIntegralEvent"/>
+                <!-- 下单扣减储值卡金额 -->
+                <!--<ref bean="OrderUseStoredCardEvent"/>-->
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+                <!-- 将订单金额减掉营销价 -->
+                <ref bean="ReduceOrderPromotionPrice"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 通用下订单后事件处理线 -->
+    <bean id="addOrderAfterEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单后事件 -->
+                <!--增加订单到自动关闭队列 -->
+                <ref bean="OrderAddAutoCloseQueueEvent"/>
+                <!--下单成功后计算特价(团购价、抢购价等)的销量-->
+                <ref bean="addOrderAfterCalcPriceSalesAmountEvent"/>
+                <!--订单佣金比例时间-->
+                <ref bean="OrderBrokerageEvent"/>
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 会员下单后通知商家 -->
+                <ref bean="OrderNoticeMerchantTriggerEvent_afterAddOrder"/>
+                <!-- 下单后自提订单预先生成自提验证码事件 -->
+                <ref bean="OrderValidateCodeEvent_orderAddAfter"/>
+                <!-- 将订单写到ERP -->
+                <ref bean="addOrder2ErpSystemEvent"/>
+                <!-- 订单金额平摊事件-->
+                <ref bean="EqualSharesAmountEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <ref bean="RecordSalesInfoEvent_create"/>
+                <!--冻结商家赠送的积分-->
+                <ref bean="freezeMerchantIntegralEvent"/>
+                <!--关联服务门店-->
+                <ref bean="linkedStoreEvent"/>
+                <!-- 下单后已支付的对接到昂捷 -->
+                <ref bean="addConfirmOrder2AngJieErpSystemEvent"/>
+
+                <!--订单添加后有支付记录的就直接对接到ERP-->
+                <ref bean="addOrderToErp"/>
+                <!-- 下单后如果订单已支付完成则自动生成消费验证码 -->
+                <ref bean="OrderPayStateCreateVerificationCodeEvent"/>
+				<!-- 完成订单添加到销售报表-->
+                <ref bean="AddFinishOrderToSalesReportEvent"/>
+                <!-- 聚分享 客户下单支付后给客户绑定卡并发送短信信息 (零元支付订单)-->
+                <ref bean="orderPayFinishSendJfCardSms"/>
+                <!--使用积分或储值卡整单支付后自动执行支付订单后事件 (因为使用积分或储值卡全部支付后不会触发已支付事伯)-->
+                <ref bean="pointPayOrStoredCardPayOrderFinish"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 通用下订单失败事件处理线 -->
+    <bean id="addOrderFailureEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单失败事件 -->
+                <!-- 下单失败回退已冻结的库存 -->
+                <ref bean="OrderFailureRollbackSkuInventoryEvent"/>
+                <!-- 下单失败回退用户使用支付的积分 -->
+                <ref bean="OrderFailureRollbackIntegralEvent"/>
+                <!-- 下单失败回退用户使用支付的预存款 -->
+                <ref bean="OrderFailureRollbackEWalletEvent"/>
+                <!-- 下单失败回退用户使用支付的购物券 -->
+                <ref bean="OrderFailureRollbackTicketEvent"/>
+                <!-- 下单失败回退用户使用支付的储值卡 -->
+                <ref bean="OrderFailureRollbackStoredCardEvent"/>
+                <!-- 下单失败解冻已被冻结的赠券信息 -->
+                <ref bean="OrderFailureUnFreezeGiveTicketEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoFailureScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 下虚拟订单事件处理线 -->
+    <bean id="addVirtualOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单事件 -->
+                <!-- 重新计算订单商品总优惠金额 -->
+                <ref bean="ResetOrderProductTotalPreferPriceEvent"/>
+                <!-- 下单扣减商品物料库存 -->
+                <ref bean="orderReduceSkuInventoryEvent"/>
+                <!-- 下单作废用户使用的券-->
+                <ref bean="OrderUseTicketEvent"/>
+                <!-- 下单扣减会员的预存款-->
+                <ref bean="OrderUseEWalletEvent"/>
+                <!-- 下单扣减会员的积分账 -->
+                <ref bean="OrderUseIntegralEvent"/>
+                <!-- 下单扣减储值卡金额 -->
+                <!--<ref bean="OrderUseStoredCardEvent"/>-->
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+                <!-- 将订单金额减掉营销价 -->
+                <ref bean="ReduceOrderPromotionPrice"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 下虚拟订单后事件处理线 -->
+    <bean id="addVirtualOrderAfterEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单后事件 -->
+                <!--增加订单到自动关闭队列 -->
+                <ref bean="OrderAddAutoCloseQueueEvent"/>
+                <!--订单佣金比例时间-->
+                <ref bean="OrderBrokerageEvent"/>
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 会员下单后通知商家 -->
+                <ref bean="OrderNoticeMerchantTriggerEvent_afterAddOrder"/>
+                <!-- 订单金额平摊事件-->
+                <ref bean="EqualSharesAmountEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <!--关联服务门店-->
+                <ref bean="linkedStoreEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 提货券下订单事件处理线 -->
+    <bean id="addVouchersOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单扣减商品物料库存 -->
+                <ref bean="orderReduceSkuInventoryEvent"/>
+                <!-- 下单冻结提货券-->
+                <ref bean="OrderUseVouchersEvent"/>
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 提货券下订单失败事件处理线 -->
+    <bean id="addVouchersOrderFailureEventBus"
+          class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单失败事件 -->
+                <!-- 下单失败回退已冻结的库存 -->
+                <ref bean="OrderFailureRollbackSkuInventoryEvent"/>
+                <!-- 下单失败解冻使用的提货券 -->
+                <ref bean="OrderFailureRollbackVouchersEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoFailureScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 提货券下订单后事件处理线 -->
+    <bean id="addVouchersOrderAfterEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!--增加订单到自动关闭队列 -->
+                <ref bean="OrderAddAutoCloseQueueEvent"/>
+                <!--订单佣金比例时间-->
+                <ref bean="OrderBrokerageEvent"/>
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 会员下单后通知商家 -->
+                <ref bean="OrderNoticeMerchantTriggerEvent_afterAddOrder"/>
+                <!-- 将订单写到ERP -->
+                <ref bean="addOrder2ErpSystemEvent"/>
+                <!-- 订单金额平摊事件-->
+                <ref bean="EqualSharesAmountEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <!--关联服务门店-->
+                <ref bean="linkedStoreEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 换货下订单事件处理线 -->
+    <bean id="addBarterOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单事件 -->
+                <!-- 重新计算订单商品总优惠金额 -->
+                <ref bean="ResetOrderProductTotalPreferPriceEvent"/>
+                <!-- 下单扣减商品物料库存 -->
+                <ref bean="orderReduceSkuInventoryEvent"/>
+                <!-- 下单作废用户使用的券-->
+                <ref bean="OrderUseTicketEvent"/>
+                <!-- 下单扣减会员的预存款-->
+                <ref bean="BarterOrderUseEWalletEvent"/>
+                <!-- 下单扣减会员的积分账 -->
+                <ref bean="BarterOrderUseIntegralEvent"/>
+                <!-- 下单扣减储值卡金额 -->
+                <!--<ref bean="OrderUseStoredCardEvent"/>-->
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+                <!--订单佣金比例时间-->
+                <ref bean="OrderBrokerageEvent"/>
+                <!-- 将订单金额减掉营销价 -->
+                <ref bean="ReduceOrderPromotionPrice"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 影院订单前事件处理线 -->
+    <bean id="addMovieOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单前事件 -->
+                <!-- 重新计算订单商品总优惠金额 -->
+                <ref bean="ResetOrderProductTotalPreferPriceEvent"/>
+                <!-- 下单作废用户使用的券-->
+                <ref bean="OrderUseTicketEvent"/>
+                <!-- 下单扣减会员的预存款-->
+                <ref bean="OrderUseEWalletEvent"/>
+                <!-- 下单扣减会员的积分账 -->
+                <ref bean="OrderUseIntegralEvent"/>
+                <!-- 下单扣减储值卡金额 -->
+                <!--<ref bean="OrderUseStoredCardEvent"/>-->
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+                <!-- 格瓦拉下单锁定座位信息事件 -->
+                <ref bean="AddOrderToGewaraEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 影院订单后事件处理线 -->
+    <bean id="addMovieOrderAfterEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 增加订单后事件 -->
+                <!--增加订单到自动关闭队列 -->
+                <ref bean="OrderAddAutoCloseQueueEvent"/>
+                <!-- 各类订单通知触发事件 -->
+                <ref bean="OrderNoticeTriggerEvent_afterAddOrder"/>
+                <!-- 会员下单后通知商家 -->
+                <ref bean="OrderNoticeMerchantTriggerEvent_afterAddOrder"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <!--冻结商家赠送的积分-->
+                <ref bean="freezeMerchantIntegralEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 影院订单失败事件处理线 -->
+    <bean id="addMovieOrderFailureEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 下单失败事件 -->
+                <!-- 下单失败回退用户使用支付的积分 -->
+                <ref bean="OrderFailureRollbackIntegralEvent"/>
+                <!-- 下单失败回退用户使用支付的预存款 -->
+                <ref bean="OrderFailureRollbackEWalletEvent"/>
+                <!-- 下单失败回退用户使用支付的购物券 -->
+                <ref bean="OrderFailureRollbackTicketEvent"/>
+                <!-- 下单失败解冻已被冻结的赠券信息 -->
+                <ref bean="OrderFailureUnFreezeGiveTicketEvent"/>
+                <!-- 脚本事件 -->
+                <ref bean="DoFailureScriptEvent"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 订单事件处理线 -->
+    <bean id="orderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!-- 解挂订单 -->
+                <!--审批通过后解挂订单-->
+                <ref bean="OrderHoldOffAfterApprovalEvent"/>
+
+                <!--修改订单-->
+                <!--订单手工直接修改为已签收后事件-->
+                <ref bean="OrderSignedAmountSettingEvent"/>
+                <!--订单手工直接修改为配送中后事件-->
+                <ref bean="OrderShippingAmountSettingEvent"/>
+                <!-- 订单出库修改本地库存 -->
+                <ref bean="OrderShippingUpdateProductInventoryEvent"/>
+
+                <!-- 更新前脚本事件 -->
+                <ref bean="DoBeforeScriptEvent"/>
+
+                <!--订单佣金比例时间-->
+                <ref bean="OrderBrokerageEvent"/>
+
+                <!-- 订单支付状态变更前后事件-->
+                <!--进行在线支付方式检查-->
+                <ref bean="OrderOnLinePayRecCheckEvent"/>
+                <!--将所有支付记录都调整为已支付-->
+                <ref bean="OrderPayRecPaidCheckEvent"/>
+                <ref bean="OrderPayRecPaidEvent"/>
+
+                <!-- 各类订单通知触发事件 -->
+                <!-- 确认订单发通知 -->
+                <ref bean="OrderNoticeTriggerEvent_afterConfirmOrder"/>
+                <ref bean="OrderNoticeTriggerEvent_afterAutoConfirmOrder"/>
+
+                <!--记录商品购买数量记录-->
+                <ref bean="RecordSalesInfoEvent_confirm"/>
+                <ref bean="RecordSalesInfoEvent_finish"/>
+                <ref bean="RecordSalesInfoEvent_cancel"/>
+
+                <!-- 完成订单事件检查 -->
+                <ref bean="OrderFinishBeforeEventByHand"/>
+                <ref bean="OrderFinishAfterEventByHand"/>
+                <ref bean="OrderFinishBeforeEventByHandWithPaid"/>
+                <ref bean="OrderFinishAfterEventByHandWithPaid"/>
+                <ref bean="OrderFinishBeforeEventByAutoRule"/>
+                <ref bean="OrderFinishAfterEventByAutoRule"/>
+
+                <ref bean="OrderFinishBeforeEventByAutoRuleWithPaid"/>
+                <ref bean="OrderFinishAfterEventByAutoRuleWithPaid"/>
+                <!-- 修改订单后完成订单 -->
+                <ref bean="FinishOrderAfterEventByUpdate"/>
+                <!--修改订单后重算商家赠送的冻结积分-->
+                <ref bean="redoFreezeMerchantIntegralEvent"/>
+                <!-- 审批通过后完成订单 -->
+                <ref bean="FinishOrderAfterEventByApproval"/>
+
+                <!-- 取消订单事件 -->
+                <!--取消订单增加下单会员的特价限制数量 -->
+                <ref bean="addSpecialPriceLimitCountEvent"/>
+                <!-- 取消订单回退订单商品库存 -->
+                <ref bean="CancelOrderRollbackSkuInventoryEvent"/>
+                <!-- 取消订单回退会员使用支付的积分 -->
+                <ref bean="CancelOrderRollbackIntegralEvent"/>
+                <!-- 取消订单回退会员使用支付的预存款 -->
+                <ref bean="CancelOrderRollbackEWalletEvent"/>
+                <!-- 取消订单回退会员使用支付的购物券 -->
+                <ref bean="CancelOrderRollbackTicketEvent"/>
+                <!-- 取消订单回退会员使用支付的储值卡 -->
+                <ref bean="CancelOrderRollbackStoredCardEvent"/>
+                <!-- 取消订单解冻已被冻结的赠券信息 -->
+                <ref bean="OrderCancelUnFreezeGiveTicketEvent"/>
+                <!--取消订单后根据退款意向信息生成退款申请单-->
+                <!--<ref bean="AddOrderRefundBillsAfterCancelEvent"/>-->
+                <!--取消订单后还原换货单可新增换货单状态-->
+                <ref bean="UpdateBarterAfterOrderCancelEvent"/>
+                <!-- 取消订单解冻使用的提货券-->
+                <ref bean="OrderRollbackVouchersEvent"/>
+                <!-- 订单完成根据退款意向或者需退金额生成退款单(无退款意向)-->
+                <ref bean="OrderRollbackPayRecEvent"/>
+                <!-- 取消订单根据现金支付记录自动生成退款单(无退款意向)-->
+                <ref bean="OrderCancelRollbackPayRecEvent"/>
+                <!-- 取消订单根据支付记录退回(有退款意向)-->
+                <!--<ref bean="OrderRollbackPayRecIntentionEvent"/>-->
+                <!-- 取消订单增加订单关闭信息事件 -->
+                <ref bean="OrderAddCloseInfoAfterOrderCancelEvent"/>
+                <!-- 取消订单发通知 -->
+                <ref bean="OrderNoticeTriggerEvent_afterCancelOrder"/>
+                <!-- 取消团购、抢购订单回滚可卖数 -->
+                <ref bean="cancelOrderRollbackGroupOrPanicSellAbleCount"/>
+                <!--订单取消解冻商家冻结的赠送积分-->
+                <ref bean="orderCancelUnFreezeMerchantIntegral"/>
+                <!--订单取消前挂起订单-->
+                <ref bean="orderCancelHoldOnOrderEvent"/>
+                <!--订单取消后解挂订单-->
+                <ref bean="orderCancelHoldOffOrderEvent"/>
+
+                <!-- 完成订单事件 -->
+                <!--完成订单设置订单完成信息-->
+                <ref bean="OrderAddFinishInfoEvent"/>
+                <!-- 完成订单修改换货单的换货状态 -->
+                <ref bean="FinishAfterServiceBarterOrderEvent"/>
+                <!-- 完成订单根据订单退款意向信息自动生成退款申请单-->
+                <ref bean="AddOrderRefundBillsAfterFinishEvent"/>
+                <!-- 完成订单增加订单关闭信息事件 -->
+                <ref bean="OrderAddCloseInfoAfterOrderFinishEvent"/>
+                <!-- 增加成功购买用户队列 -->
+                <ref bean="AddSuccessBuyUserEvent"/>
+                <!-- 增加赠送用户积分队列 -->
+                <ref bean="OrderGiveIntegralToUserEvent"/>
+                <!-- 增加赠送用户购物券队列 -->
+                <ref bean="OrderGiveCardToUserEvent"/>
+                <!-- 订单签收完成后激活订单赠送的券 -->
+                <ref bean="orderFinishActivatedGiveCardEvent"/>
+                <!--完成订单后执行推荐好友购物后送积分规则事件-->
+                <ref bean="RecommendMemberRewardEvent"/>
+
+                <!-- 完成订单发通知 -->
+                <ref bean="OrderNoticeTriggerEvent_afterFinishOrder"/>
+                <!-- 将会员加入商品购买者列表 -->
+                <ref bean="add2ProductBuyerListEvent"/>
+
+                <!-- 将订单写到ERP -->
+                <ref bean="addConfirmOrder2ErpSystemEvent"/>
+
+                <!-- 脚本事件 -->
+                <ref bean="DoAfterScriptEvent"/>
+                <!-- 增加赠送用户CPS佣金队列 -->
+                <ref bean="OrderGiveCpsCommissionRateToUserEvent"/>
+                <!-- 完成订单修改erp库存 泰富用-->
+                <ref bean="OrderAddFinishInfoToErpEvent"/>
+                <!--订单状态为已发货时把状态对接到第三方平台（比如淘宝）-->
+                <ref bean="openPlatformOrderShippedEvent"/>
+
+                <!-- 订单完成把会员使用的提货券进行作废 -->
+                <ref bean="orderFinishUpdateVouchersStatusEvent"/>
+
+                <!--昂捷对接-->
+                <ref bean="addConfirmOrder2AngJieErpSystemEvent"/>
+                <ref bean="addCancelOrder2AngJieErpSystemEvent"/>
+                <ref bean="addUpdateOrder2AngJieErpSystemEvent"/>
+                <!-- 完成订单添加到销售报表-->
+                <ref bean="AddFinishOrderToSalesReportEvent"/>
+                <!--<ref bean="checkOrderCamUpdateEvent"/>-->
+                <!--拍卖保证金订单支付成功后-->
+                <ref bean="OrderPayRecPaidForAuctionSecurityDepositEvent"/>
+
+                <!-- 订单支付完成后自动检查同步已支付总状态到到格瓦拉影院  -->
+                <ref bean="OrderPayStateToGewaraEvent"/>
+
+                <!--订单支付完成后需要生成验证码消费的商品自动生成验证码并给买家发送短信 -->
+                <ref bean="OrderPayStateCreateVerificationCodeEvent"/>
+                <!-- 聚分享 客户下单支付后给客户绑定卡并发送短信信息 -->
+                <ref bean="orderPayFinishSendJfCardSms"/>
+                <!--订单支付后触发售卖卡接口事件-->
+                <ref bean="orderPayAfterCallCULSaleCard"/>
+                <!--订单支付后消费线下优惠券 ewj o2o优惠券-->
+                <ref bean="OrderAddConsumeThirdCouponEvent"/> 
+				<!--订单出库后同步换货单的出库状态-->
+                <ref bean="UpdateBartOrderDeliveryEvent"/>
+				<!--订单签收、拒收后同步换货单的结束状态-->
+                <ref bean="UpdateBartOrderFinishedEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 订单审批通过后取消订单事件  -->
+    <bean id="CancelOrderAfterApprovalEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelEvent">
+        <property name="eventName">
+            <value>orderApprovalAfter,orderApprovalAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="eventDesc">
+            <value>订单审批通过后</value>
+        </property>
+    </bean>
+
+    <!-- 订单审批通过后取消订单事件  -->
+    <bean id="CancelOrderAfterOrderUpdateEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelEvent">
+        <property name="eventName">
+            <value>orderUpdateAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="eventDesc">
+            <value>订单修改后</value>
+        </property>
+    </bean>
+
+
+    <!-- 订单审批通过后解挂事件  -->
+    <bean id="OrderHoldOffAfterApprovalEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderHandleOffEvent">
+        <property name="eventName">
+            <value>orderApprovalAfter,orderApprovalAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="rebuildPackOrder">
+            <value>1</value>
+            <!-- 需要重新生成包裹单-->
+        </property>
+        <property name="eventDesc">
+            <value>订单审批通过后</value>
+        </property>
+    </bean>
+
+    <bean id="RecordSalesInfoEvent_create"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RecordSalesInfoEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition" value=""/>
+        <property name="purchaseCondition" value="create"/>
+    </bean>
+
+    <bean id="RecordSalesInfoEvent_confirm"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RecordSalesInfoEvent">
+        <property name="eventName">
+            <value>orderConfirmAutoAfter,orderConfirmAfter</value>
+        </property>
+        <property name="condition" value=""/>
+        <property name="purchaseCondition" value="confirm"/>
+    </bean>
+
+    <bean id="RecordSalesInfoEvent_finish"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RecordSalesInfoEvent">
+        <property name="eventName">
+            <value>orderFinishAutoAfter,orderFinishAfter</value>
+        </property>
+        <property name="condition" value=""/>
+        <property name="purchaseCondition" value="finish"/>
+    </bean>
+
+    <bean id="RecordSalesInfoEvent_cancel"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RecordSalesInfoEvent">
+        <property name="eventName">
+            <value>orderCancelAutoAfter,orderCancelAfter</value>
+        </property>
+        <property name="condition" value=""/>
+        <property name="purchaseCondition" value="cancel"/>
+    </bean>
+
+    <!-- 订单支付状态调整为已支付前事件  -->
+    <bean id="OrderOnLinePayRecCheckEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderOnLinePayRecCheckEvent">
+        <property name="eventName">
+            <value>orderPaidBefore,orderPaidAutoBefore</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.orderHasUnpPaidPayRec()==true</value>
+        </property>
+    </bean>
+
+    <!-- 订单支付完成后自动检查同步已支付总状态到各支付记录信息  -->
+    <bean id="OrderPayRecPaidCheckEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayRecPaidCheckEvent">
+        <property name="eventName">
+            <value>orderPaidBefore,orderPaidAutoBefore</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.orderHasUnpPaidPayRec()==true</value>
+        </property>
+    </bean>
+
+    <!-- 订单支付完成后自动检查同步已支付总状态到各支付记录信息  -->
+    <bean id="OrderPayRecPaidEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayRecPaidEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.orderHasUnpPaidPayRec()==true</value>
+        </property>
+    </bean>
+
+    <!-- 订单退款完成后自动检查同步已退款总状态到各支付记录信息  -->
+    <bean id="OrderPayRecRefundedEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayRecRefundedEvent">
+        <property name="eventName">
+            <value>orderRefundedAfter,orderRefundedAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.orderHasPaidPayRec()==true</value>
+        </property>
+    </bean>
+
+    <!-- 订单增加后计算自动关闭时间事件 -->
+    <bean id="OrderAddAutoCloseQueueEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderAddAutoCloseQueueEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value>payType==300</value>
+        </property>
+    </bean>
+
+    <!-- 下单成功后计算特价(团购价、抢购价等)的销量 -->
+    <bean id="addOrderAfterCalcPriceSalesAmountEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderAfterCalcPriceSalesAmountEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value>payType==300</value>
+        </property>
+    </bean>
+
+    <!--订单添加后有支付记录的就直接对接到ERP-->
+    <bean id="addOrderToErp"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderToERPQueueEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前所有商品扣减 sku库存事件 -->
+    <bean id="orderReduceSkuInventoryEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderReduceSkuInventoryEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 重新计算订单商品总优惠金额事件 -->
+    <bean id="ResetOrderProductTotalPreferPriceEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.ResetOrderProductTotalPreferPriceEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前设置商品行的进价信息 -->
+    <bean id="SetOrderItemSupplyPriceEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.SetOrderItemSupplyPriceEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前设置订单商品行的相关扩展属性 -->
+    <bean id="SetOrderItemDynaValuesEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.SetOrderItemDynaValuesEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前把会员使用的券进行作废 -->
+    <bean id="OrderUseTicketEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUseTicketEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前把会员使用的积分额进行账户扣减 -->
+    <bean id="OrderUseIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUseIntegralEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 换货下单前把会员使用的积分额进行账户扣减 -->
+    <bean id="BarterOrderUseIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.BarterOrderUseIntegralEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前把会员使用的预存款进行账户扣减 -->
+    <bean id="OrderUseEWalletEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUseEWalletEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 换货下单前把会员使用的预存款进行账户扣减 -->
+    <bean id="BarterOrderUseEWalletEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.BarterOrderUseEWalletEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前把会员使用的储值卡进行扣减或者作废 -->
+    <bean id="OrderUseStoredCardEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUseStoredCardEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单前将订单金额减掉营销价(亚泰)-->
+    <bean id="ReduceOrderPromotionPrice"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.ReduceOrderPromotionPrice">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 取消订单所有商品回退 sku库存事件 -->
+    <bean id="CancelOrderRollbackSkuInventoryEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackSkuInventoryEvent">
+        <property name="eventName">
+            <value>orderCancelBefore,orderCancelAutoBefore</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+
+    <!-- 订单金额平摊事件-->
+    <bean id="EqualSharesAmountEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.EqualSharesAmountEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+    <!-- 取消订单取消所有包裹单信息事件 -->
+    <bean id="CancelOrderCancelPackOrderEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelPackOrderEvent">
+        <property name="eventName">
+            <value>orderCancelBefore,orderCancelAutoBefore</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.hasPackOrder()==true</value>
+        </property>
+        <property name="cancelType">
+            <value>0</value>
+        </property>
+    </bean>
+
+    <!-- 下单如果全额支付则订单对接到ERP系统事件 -->
+    <bean id="addOrder2ErpSystemEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderToERPEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p101</value>
+        </property>
+    </bean>
+
+    <!-- 确认订单后对接订单到ERP系统事件 -->
+    <bean id="addConfirmOrder2ErpSystemEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderToERPEvent">
+        <property name="eventName">
+            <value>
+                orderPaidAfter,orderPaidAutoAfter,orderConfirmAfter,orderConfirmAutoAfter,orderShippingAfter,orderShippingAutoAfter,orderSignedAfter,orderSignedAutoAfter,orderFinishAfter,orderFinishAutoAfter,orderCancelAutoAfter,orderCancelAfter,orderApprovalAfter,orderApprovalAutoAfter,orderUpdateAfter
+            </value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.needApproval()==false,states.processState.state==p101</value>
+        </property>
+    </bean>
+
+    <!-- 将会员加入商品购买者列表 -->
+    <bean id="add2ProductBuyerListEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.Add2ProductBuyerListEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 取消订单回退顾客所使用的券 -->
+    <bean id="CancelOrderRollbackTicketEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackTicketEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.hasRefundRec()==false,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 取消订单回退顾客所使用的储值卡金额 -->
+    <bean id="CancelOrderRollbackStoredCardEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackStoredCardEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.hasRefundRec()==false,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 取消订单回退会员已支付的积分 -->
+    <bean id="CancelOrderRollbackIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackIntegralEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.hasRefundRec()==false,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 取消订单回退会员已支付的预存款 -->
+    <bean id="CancelOrderRollbackEWalletEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackEWalletEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.hasRefundRec()==false,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 取消订单增加下单会员的特价限制数量 -->
+    <bean id="addSpecialPriceLimitCountEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddSpecialPriceLimitCountEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==common,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 订单取消解冻已被冻结的赠券信息-->
+    <bean id="OrderCancelUnFreezeGiveTicketEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUnFreezeGiveTicketEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单取消后</value>
+        </property>
+    </bean>
+
+    <!-- 订单取消后自动根据退款意向信息生成退款申请单 -->
+    <bean id="AddOrderRefundBillsAfterCancelEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderRefundBillsEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isOrderCancelRefundMode()==true,javascript:order.isBeMerger()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单取消后</value>
+        </property>
+        <property name="type">
+            <value>cancel</value>
+        </property>
+    </bean>
+
+    <!-- 订单取消后还原换货单的可增加新订单状态 -->
+    <bean id="UpdateBarterAfterOrderCancelEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.UpdateBarterAfterOrderCancelEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==barter,javascript:order.isBeMerger()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单取消后</value>
+        </property>
+    </bean>
+
+    <!-- 订单完成根据退款意向或者需退金额生成退款单(无退款意向) -->
+    <bean id="OrderRollbackPayRecEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackPayRecEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+        <property name="filterPay">
+            <list>
+                <!-- 购物券-->
+                <value>payi_2</value>
+                <!-- 积分支付-->
+                <value>payi_4</value>
+                <!--预存款支付-->
+                <value>payi_5</value>
+                <value>payi_5_1</value>
+                <!-- 提货券支付-->
+                <value>payi_9</value>
+                <!-- 储值卡支付-->
+                <value>payi_10</value>
+                <!-- 武商一卡通支付-->
+                <value>payi_125</value>
+                <!-- 积分换购支付-->
+                <value>payi_136</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 取消订单根据支付记录或者退款意向退回或者生成退款单(无退款意向) -->
+    <bean id="OrderCancelRollbackPayRecEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelRollbackPayRecEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单不存在退款意向信息时触发 -->
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+        <property name="filterPay">
+            <list>
+                <!-- 购物券-->
+                <!--<value>payi_2</value>-->
+                <!-- 积分支付-->
+                <!--<value>payi_4</value>-->
+                <!--预存款支付-->
+                <!--<value>payi_5</value>-->
+                <!-- 提货券支付-->
+                <value>payi_9</value>
+                <!-- 储值卡支付-->
+                <value>payi_10</value>
+                <!-- 武商一卡通支付-->
+                <!--<value>payi_125</value>-->
+                <!-- 积分换购支付-->
+                <value>payi_136</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 取消订单根据支付记录退回(有退款意向) -->
+    <bean id="OrderRollbackPayRecIntentionEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackPayRecIntentionEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <!-- 当订单存在退款意向信息时触发 -->
+            <value>
+                javascript:order.hasRefundRec()==true,javascript:order.isOrderCancelRefundMode()==false,javascript:order.isBeMerger()==false
+            </value>
+        </property>
+        <property name="filterPay">
+            <list>
+                <!-- 购物券-->
+                <value>payi_2</value>
+                <!-- 积分支付-->
+                <value>payi_4</value>
+                <!--预存款支付-->
+                <value>payi_5</value>
+                <value>payi_5_1</value>
+                <!-- 提货券支付-->
+                <value>payi_9</value>
+                <!-- 储值卡支付-->
+                <value>payi_10</value>
+                <!-- 武商一卡通支付-->
+                <value>payi_125</value>
+                <!-- 积分换购支付-->
+                <value>payi_136</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 下单前把会员使用的提货券进行冻结 -->
+    <bean id="OrderUseVouchersEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUseVouchersEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+
+    <!-- 下单失败把会员使用的提货券进行解冻 -->
+    <bean id="OrderFailureRollbackVouchersEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackVouchersEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==delVouchers</value>
+        </property>
+    </bean>
+
+    <!-- 取消订单把会员使用的提货券进行解冻 -->
+    <bean id="OrderRollbackVouchersEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderRollbackVouchersEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==delVouchers,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 订单完成把会员使用的提货券进行作废 -->
+    <bean id="orderFinishUpdateVouchersStatusEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishUpdateDeliveryTicketStatusEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==delVouchers,javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!--下单后冻结商家需赠送积分的事件-->
+    <bean id="freezeMerchantIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderAfterFreezeMerIntegralEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+    </bean>
+
+    <!--下单后检查订单是否自提订单,如果是,下单人设置保存此自提点对应的服务门店的事件-->
+    <bean id="linkedStoreEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderAfterLinkedStoreEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+    </bean>
+
+    <!--//==================================== 完成订单 =========================================-->
+
+    <!-- 将成功订单加入用户成功购物列表，用于DSS分析 -->
+    <bean id="AddSuccessBuyUserEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddSuccessBuyUserEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="successOrderQueueService">
+            <ref bean="succOrderQueueService"/>
+        </property>
+    </bean>
+
+    <!-- 订单完成时设置订单完成 -->
+    <bean id="OrderAddFinishInfoEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderAddFinishInfoEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 增加订单关闭信息(订单完成后) -->
+    <bean id="OrderAddCloseInfoAfterOrderFinishEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderAddCloseInfoEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="refundTypes">
+            <value>change,cancel,reason</value>
+        </property>
+    </bean>
+
+    <!-- 增加订单关闭信息(订单取消后) -->
+    <bean id="OrderAddCloseInfoAfterOrderCancelEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderAddCloseInfoEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="refundTypes">
+            <value>change,cancel,reason</value>
+        </property>
+    </bean>
+
+    <!-- 订单完成后自动根据退款意向信息生成退款申请单 -->
+    <bean id="AddOrderRefundBillsAfterFinishEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AddOrderRefundBillsEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="eventDesc">
+            <value>订单完成后</value>
+        </property>
+        <property name="type">
+            <value>change</value>
+        </property>
+    </bean>
+
+    <!-- 将成功订单加入赠送会员积分队列 -->
+    <bean id="OrderGiveIntegralToUserEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderGiveIntegralToUserEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+    <!-- 将成功订单加入赠送会员购物券队列 -->
+    <bean id="OrderGiveCardToUserEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderGiveCardToUserEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 订单签收完成后激活订单赠送的券 -->
+    <bean id="orderFinishActivatedGiveCardEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishActivatedGiveCardEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!--完成订单后执行推荐好友购物后送积分规则事件-->
+    <bean id="RecommendMemberRewardEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RecommendMemberRewardEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!--聚分享 客户下单支付后给客户绑定卡并发送短信信息 -->
+    <bean id="orderPayFinishSendJfCardSms"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayFinishSendJfCardSms">
+        <property name="eventName">
+            <value>orderAddAfter,orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!--使用积分或储值卡整单支付后自动执行支付订单后事件 -->
+    <bean id="pointPayOrStoredCardPayOrderFinish"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderPaidAutoAfter</value>
+        </property>
+    </bean>
+
+    <!-- 将成功订单加入赠送会员CPS佣金队列 -->
+    <bean id="OrderGiveCpsCommissionRateToUserEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderGiveCpsCommissionRateToUserEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+    <!-- 调整换货单据的换货状态 -->
+    <bean id="FinishAfterServiceBarterOrderEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.FinishAfterServiceBarterOrderEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>orderType==barter</value>
+        </property>
+    </bean>
+
+    <!--完成订单执行会员升降级规则事件-->
+    <bean id="MemberGradeUpdateEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.MemberGradeUpdateEvent">
+        <property name="eventName">
+            <value>orderCloseAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 完成订单执行自动好评事件 -->
+    <bean id="AutoPositiveCommentEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.AutoPositiveCommentEvent">
+        <property name="eventName">
+            <value>orderCloseAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+    </bean>
+
+    <!-- 下单失败回退会员已支付的积分 -->
+    <bean id="OrderFailureRollbackIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackIntegralEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单失败回退会员已支付的预存款 -->
+    <bean id="OrderFailureRollbackEWalletEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackEWalletEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单失败回退会员使用的购物券 -->
+    <bean id="OrderFailureRollbackTicketEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackTicketEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单失败回退会员使用的储值卡金额 -->
+    <bean id="OrderFailureRollbackStoredCardEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackStoredCardEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 下单失败解冻已被冻结的赠券信息-->
+    <bean id="OrderFailureUnFreezeGiveTicketEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUnFreezeGiveTicketEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+        <property name="eventDesc">
+            <value>下单失败后</value>
+        </property>
+    </bean>
+
+    <!-- 下单失败后回退已冻结的库存-->
+    <bean id="OrderFailureRollbackSkuInventoryEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFailureRollbackSkuInventoryEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 无ERP时手工调整订单为配送中事件 -->
+    <bean id="OrderShippingAmountSettingEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderShippingAmountSettingEvent">
+        <property name="eventName">
+            <value>orderShippingAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isOrderWorkWithERP()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单调整状态为配送中后，</value>
+        </property>
+    </bean>
+
+    <!-- 无ERP时订单出库修改本地库存 -->
+    <bean id="OrderShippingUpdateProductInventoryEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderShippingUpdateProductInventoryEvent">
+        <property name="eventName">
+            <value>orderShippingAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isOrderWorkWithERP()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单出库修改本地库存，</value>
+        </property>
+    </bean>
+
+    <!-- 无ERP时手工调整订单为已签收事件 -->
+    <bean id="OrderSignedAmountSettingEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderSignedAmountSettingEvent">
+        <property name="eventName">
+            <value>orderSignedAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isOrderWorkWithERP()==false</value>
+        </property>
+        <property name="eventDesc">
+            <value>订单调整状态为已签收后，</value>
+        </property>
+    </bean>
+
+    <!-- ================================= 订单完成事件检查，并触发完成事件 =======================================-->
+    <!-- == 由手工修改完成订单前事件 -->
+    <bean id="OrderFinishBeforeEventByHand"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderSignedBefore,orderPaidBefore</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishBefore</value>
+        </property>
+    </bean>
+    <!-- == 由手工修改完成订单后事件 -->
+    <bean id="OrderFinishAfterEventByHand"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderSignedAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAfter</value>
+        </property>
+    </bean>
+    <!-- == 由规则自动执行完成订单前事件 -->
+    <bean id="OrderFinishBeforeEventByAutoRule"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderSignedAutoBefore</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoBefore</value>
+        </property>
+    </bean>
+    <!-- == 由规则自动执行完成订单后事件 -->
+    <bean id="OrderFinishAfterEventByAutoRule"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderSignedAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoAfter</value>
+        </property>
+    </bean>
+    <!-- == 由手工修改完成订单前事件 -->
+    <bean id="OrderFinishBeforeEventByHandWithPaid"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderPaidBefore</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishBefore</value>
+        </property>
+    </bean>
+    <!-- == 由手工修改完成订单后事件 -->
+    <bean id="OrderFinishAfterEventByHandWithPaid"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderPaidAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAfter</value>
+        </property>
+    </bean>
+    <!-- == 由规则自动执行完成订单前事件 -->
+    <bean id="OrderFinishBeforeEventByAutoRuleWithPaid"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderPaidAutoBefore</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoBefore</value>
+        </property>
+    </bean>
+    <!-- == 由规则自动执行完成订单后事件 -->
+    <bean id="OrderFinishAfterEventByAutoRuleWithPaid"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoAfter</value>
+        </property>
+    </bean>
+    <!-- == 审批通过后完成订单 -->
+    <bean id="FinishOrderAfterEventByApproval"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderApprovalAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoAfter</value>
+        </property>
+    </bean>
+    <!-- == 修改订单后完成订单 -->
+    <bean id="FinishOrderAfterEventByUpdate"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderFinishCheckEventHandler">
+        <property name="eventName">
+            <value>orderUpdateAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.processState.state==p112,javascript:order.allPaid()==true</value>
+        </property>
+        <property name="triggerEventName">
+            <value>orderFinishAutoAfter</value>
+        </property>
+    </bean>
+
+    <!--修改订单后重算商家赠送的冻结积分-->
+    <bean id="redoFreezeMerchantIntegralEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderUpdateFreezeMerIntegralEvent">
+        <property name="eventName">
+            <value>orderUpdateAfter</value>
+        </property>
+    </bean>
+
+    <!-- ============================ 订单通知触发事件 begin ================================== -->
+    <!-- 下单后触发通知事件 -->
+    <bean id="OrderNoticeTriggerEvent_afterAddOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeTriggerEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_50200</value>
+        </property>
+    </bean>
+
+    <!-- 会员下单后通知商家-->
+    <bean id="OrderNoticeMerchantTriggerEvent_afterAddOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeMerchantTriggerEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_54600</value>
+        </property>
+    </bean>
+
+    <!-- 下单后自提订单预先生成自提验证码事件 -->
+    <bean id="OrderValidateCodeEvent_orderAddAfter"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderValidateCodeEvent">
+        <property name="eventName">
+            <value>orderAddAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 手工确认订单后触发通知事件 -->
+    <bean id="OrderNoticeTriggerEvent_afterConfirmOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeTriggerEvent">
+        <property name="eventName">
+            <value>orderConfirmAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_50300</value>
+        </property>
+    </bean>
+
+    <!-- 在线订单支付后自动确认触发通知事件 -->
+    <bean id="OrderNoticeTriggerEvent_afterAutoConfirmOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeTriggerEvent">
+        <property name="eventName">
+            <value>orderConfirmAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_50400</value>
+        </property>
+    </bean>
+
+    <!-- 手工取消订单后触发通知事件 -->
+    <bean id="OrderNoticeTriggerEvent_afterCancelOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeTriggerEvent">
+        <property name="eventName">
+            <value>orderCancelAutoAfter,orderCancelAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_50800</value>
+        </property>
+    </bean>
+
+    <!-- 完成订单后触发通知事件 -->
+    <bean id="OrderNoticeTriggerEvent_afterFinishOrder"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderNoticeTriggerEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+
+        <property name="noticeTypeId">
+            <value>notice_51000</value>
+        </property>
+    </bean>
+
+    <!-- 订单佣金计算事件 -->
+    <bean id="OrderBrokerageEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderBrokerageEvent">
+        <property name="eventName">
+            <value>orderAddAfter,orderUpdateAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 取消团购、抢购订单回滚可卖数 -->
+    <bean id="cancelOrderRollbackGroupOrPanicSellAbleCount"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.RollbackGroupOrPanicSellAbleCount">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+    </bean>
+
+    <!--订单取消解冻商家冻结的赠送积分-->
+    <bean id="orderCancelUnFreezeMerchantIntegral"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelUnFreezeMerIntegralEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+    </bean>
+
+    <!--订单取消前挂起订单-->
+    <bean id="orderCancelHoldOnOrderEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderCancelHoldOnOrderEvent">
+        <property name="eventName">
+            <value>orderCancelBefore,orderCancelAutoBefore</value>
+        </property>
+    </bean>
+    <!--订单取消后解挂订单-->
+    <bean id="orderCancelHoldOffOrderEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.orderCancelHoldOffOrderEvent">
+        <property name="eventName">
+            <value>orderCancelAfter,orderCancelAutoAfter</value>
+        </property>
+    </bean>
+    <!-- ============================ 订单通知触发事件 end ================================== -->
+    <!-- 更新失败脚本事件 -->
+    <bean id="DoFailureScriptEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.DoScriptEvent">
+        <property name="eventName">
+            <value>orderAddFailureAfter</value>
+        </property>
+        <!--是否需要抛出异常-->
+        <property name="throwException" value="false"/>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+
+    <!-- 更新后脚本事件 -->
+    <bean id="DoAfterScriptEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.DoScriptEvent">
+        <property name="eventName">
+            <value>
+                orderAddAfter,orderPaidAfter,orderPaidAutoAfter,orderConfirmAfter,orderConfirmAutoAfter,orderShippingAfter,orderShippingAutoAfter,orderSignedAfter,orderSignedAutoAfter,orderFinishAfter,orderFinishAutoAfter,orderCancelAfter,orderCancelAutoAfter,orderApprovalAfter,orderApprovalAutoAfter,orderUpdateAfter,orderCloseAfter
+            </value>
+        </property>
+        <!--是否需要抛出异常-->
+        <property name="throwException" value="false"/>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 更新前脚本事件 -->
+    <bean id="DoBeforeScriptEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.DoScriptEvent">
+        <property name="eventName">
+            <value>
+                orderAddBefore,orderPaidBefore,orderPaidAutoBefore,orderConfirmBefore,orderConfirmAutoBefore,orderShippingBefore,orderShippingAutoBefore,orderSignedBefore,orderSignedAutoBefore,orderFinishBefore,orderFinishAutoBefore,orderCancelBefore,orderCancelAutoBefore,orderApprovalBefore,orderApprovalAutoBefore,orderUpdateBefore
+            </value>
+        </property>
+        <property name="throwException" value="true"/>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <!-- 订单完成时修改erp商品库存 泰富用 -->
+    <bean id="OrderAddFinishInfoToErpEvent"
+          class="net.xinshi.thirdinterface.taifu.event.OrderAddFinishInfoToERPEvent">
+        <property name="eventName">
+            <value>orderFinishAfter,orderFinishAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!--昂捷对接，已确认订单，已取消订单，已修改订单，已确认退货单对接到ERP-->
+    <bean id="addConfirmOrder2AngJieErpSystemEvent"
+          class="net.xinshi.thirdinterface.angjie.event.AddConfirmOrderToAngJieERPEvent">
+        <property name="eventName">
+            <value>
+                orderPaidAfter,orderPaidAutoAfter,orderConfirmAfter,orderConfirmAutoAfter,orderAddAfter
+            </value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.needApproval()==false,states.processState.state==p101</value>
+        </property>
+    </bean>
+
+    <bean id="addCancelOrder2AngJieErpSystemEvent"
+          class="net.xinshi.thirdinterface.angjie.event.AddCancelOrderToAngJieERPEvent">
+        <property name="eventName">
+            <value>
+                orderCancelAutoAfter,orderCancelAfter
+            </value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.isBeMerger()==false</value>
+        </property>
+    </bean>
+
+    <bean id="addUpdateOrder2AngJieErpSystemEvent"
+          class="net.xinshi.thirdinterface.angjie.event.AddUpdateOrderToAngJieERPEvent">
+        <property name="eventName">
+            <value>
+                orderApprovalAfter,orderApprovalAutoAfter
+            </value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.needApproval()==false,states.processState.state==p101</value>
+        </property>
+    </bean>
+
+    <bean id="checkOrderCamUpdateEvent"
+          class="net.xinshi.thirdinterface.angjie.event.CheckOrderCamUpdateEvent">
+        <property name="eventName">
+            <value>
+                orderCancelBefore,orderCancelAutoBefore,orderApprovalBefore,orderApprovalAutoBefore,orderUpdateBefore
+            </value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 完成订单添加到销售报表 -->
+    <bean id="AddFinishOrderToSalesReportEvent"
+          class="net.xinshi.isone.modules.financials.sales.salesreport.event.FinishOrderToSalesReportEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter,orderConfirmAfter,orderConfirmAutoAfter,orderAddAfter,orderUpdateAfter,orderApprovalAfter,orderApprovalAutoAfter,orderShippingAfter,orderShippingAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.allPaid()==true</value>
+        </property>
+        <property name="refundTypes">
+            <value>change,cancel,reason,return</value>
+        </property>
+    </bean>
+
+    <!--保证金订单支付成功后发送短信提取支付信息-->
+    <bean id="OrderPayRecPaidForAuctionSecurityDepositEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayRecPaidForASDEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>javascript:order.orderHasPaidPayRec()==true</value>
+        </property>
+    </bean>
+
+    <!-- 格瓦拉下单锁定座位信息事件 -->
+    <bean id="AddOrderToGewaraEvent"
+          class="net.xinshi.thirdinterface.gewara.event.AddOrderToGewaraEvent">
+        <property name="eventName">
+            <value>orderAddBefore</value>
+        </property>
+        <property name="condition">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- 订单支付完成后自动检查同步已支付总状态到到格瓦拉影院  -->
+    <bean id="OrderPayStateToGewaraEvent"
+          class="net.xinshi.thirdinterface.gewara.event.OrderPayStateToGewaraEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+    </bean>
+
+    <!--订单支付完成后需要生成验证码消费的商品自动生成验证码并给买家发送短信 -->
+    <bean id="OrderPayStateCreateVerificationCodeEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayStateCreateVerificationCodeEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter,orderAddAfter</value>
+        </property>
+    </bean>
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝    订单事件 end     ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝-->
+
+    <!-- =================================   订单失败信息视图策略 begin ========================================-->
+    <!--提货券订单使用提货券失败详细信息-->
+    <bean id="OrderUseVouchersFailureView"
+          class="net.xinshi.isone.modules.order.orderfailureresultpolice.impl.OrderUseVouchersFailureView"/>
+    <!--库存失败详细信息-->
+    <bean id="OrderReduceInventoryFailureView"
+          class="net.xinshi.isone.modules.order.orderfailureresultpolice.impl.OrderReduceInventoryFailureView"/>
+    <!--普通的失败信息显示，按原有数据输出-->
+    <bean id="NormalOrderFailureResultView"
+          class="net.xinshi.isone.modules.order.orderfailureresultpolice.impl.NormalOrderFailureResultView"/>
+
+    <!-- =================================   订单失败信息视图策略 end ========================================-->
+
+    <!-- 审核售后单后事件处理线 -->
+    <bean id="updateAfterOrderCertifyStateEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+            </list>
+        </property>
+    </bean>
+    <!-- 审核售后单后事件处理线 -->
+    <!-- 审核退款单后事件处理线 -->
+    <bean id="updateRefundOrderCertifyStateEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+            </list>
+        </property>
+    </bean>
+    <!-- 审核退款单后事件处理线 -->
+
+    <!-- 退款完成退款单后事件处理线 -->
+    <bean id="updateRefundOrderRefundStateEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+            </list>
+        </property>
+    </bean>
+    <!-- 退款完成退款单后事件处理线 -->
+
+   <bean id="frontEndBeforeAddReturnOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <ref bean="normalCalcRefundInfoEvent"/>
+                <ref bean="HuarunCalcRefundInfoEvent"/>
+                <ref bean="CommonCalcRefundInfoEvent"/>
+                <ref bean="hengdaCalcRefundInfoEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="normalCalcRefundInfoEvent" class="net.xinshi.isone.modules.order.afterservice.event.NormalCalcRefundInfoEvent">
+        <property name="eventName">
+            <value>frontEndBeforeAddReturnOrderEvent</value>
+        </property>
+        <property name="condition">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="HuarunCalcRefundInfoEvent" class="net.xinshi.isone.modules.order.afterservice.event.HuarunCalcRefundInfoEvent">
+        <property name="eventName">
+            <value>frontEndBeforeAddReturnOrderEvent</value>
+        </property>
+        <property name="condition">
+            <value>false</value>
+        </property>
+    </bean>
+	
+	<bean id="CommonCalcRefundInfoEvent" class="net.xinshi.isone.modules.order.afterservice.event.CommonCalcRefundInfoEvent">
+        <property name="eventName">
+            <value>frontEndBeforeAddReturnOrderEvent</value>
+        </property>
+        <property name="condition">
+            <value>false</value>
+        </property>
+    </bean>
+
+	<bean id="hengdaCalcRefundInfoEvent" class="net.xinshi.isone.modules.order.afterservice.event.HengdaCalcRefundInfoEvent">
+        <property name="eventName">
+            <value>frontEndBeforeAddReturnOrderEvent</value>
+        </property>
+        <property name="condition">
+            <value>true</value>
+        </property>
+    </bean>
+    <!--订单支付后触发售卖卡接口事件-->
+    <bean id="orderPayAfterCallCULSaleCard"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderPayAfterCallCULSaleCard">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+    </bean>
+
+    <!--售后单修改后事件-->
+    <bean id="afterUpdateAfterOrderEventBus" class="net.xinshi.isone.modules.order.ordereventbus.impl.AdvancedEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <!--<ref bean="returnOrderInStorageAddInventoryEvent"/>-->
+                <ref bean="updateBartOrderInstoreEvent"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="returnOrderInStorageAddInventoryEvent" class="net.xinshi.isone.modules.order.afterservice.event.ReturnOrderInStorageAddInventoryEvent">
+        <property name="eventName">
+            <value>afterOrderInStorageEvent</value>
+        </property>
+        <property name="condition">
+            <value>true</value>
+        </property>
+    </bean>-->
+	
+	<bean id="updateBartOrderInstoreEvent" class="net.xinshi.isone.modules.order.afterservice.event.UpdateBartOrderInstoreEvent">
+        <property name="eventName">
+            <value>afterOrderInStorageEvent</value>
+        </property>
+        <property name="condition">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <!--订单支付后消费线下优惠券 ewj o2o优惠券核销-->
+    <bean id="OrderAddConsumeThirdCouponEvent"
+          class="net.xinshi.isone.modules.order.ordereventbus.event.OrderAddConsumeThirdCouponEvent">
+        <property name="eventName">
+            <value>orderPaidAfter,orderPaidAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>states.payState.state==p201,javascript:order.allPaid()==true</value>
+        </property>
+    </bean>
+	
+	<!-- 订单出库后同步换货单的出库状态 -->
+    <bean id="UpdateBartOrderDeliveryEvent" class="net.xinshi.isone.modules.order.ordereventbus.event.UpdateBartOrderDeliveryEvent">
+        <property name="eventName">
+            <value>orderShippingAfter,orderShippingAutoAfter</value>
+        </property>
+        <property name="condition">
+            <value>false</value>
+        </property>
+    </bean>
+	
+	<!-- 订单签收、拒收后同步换货单的结束状态 -->
+    <bean id="UpdateBartOrderFinishedEvent" class="net.xinshi.isone.modules.order.ordereventbus.event.UpdateBartOrderFinishedEvent">
+        <property name="eventName">
+            <value>orderSignedAfter,orderSignedAutoAfter,orderUpdateAfter</value>
+        </property>
+        <property name="condition">
+            <value>false</value>
+        </property>
+    </bean>
+</beans>

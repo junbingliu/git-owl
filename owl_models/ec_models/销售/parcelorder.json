@@ -1,0 +1,266 @@
+{
+  "id": "string(12),tab:01,searchable:true,disabled:true,listTab:01;包裹单id",
+  "orderId": "string(12),listTab:04,tab:02;订单ID",
+  "b2cOrderId":"string(12),listTab:28,tab:021;b2c订单ID",
+  "b2cOrderAliasCode": "string(12),listTab:07,tab:03;b2c订单外部号",
+  "channelId": "string(12), required:true,hidden:true,listTab:26,tab:031;渠道Id",
+  "channelName": "string(12),listTab:09,tab:032;渠道",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,listTab:27,tab:04;店铺id",
+  "isStorage": "choice,values:1_是/0_否,required:true,searchable:true,listSize:10,listTab:10,tab:04;是否入库",
+  "agent": "string(8),listTab:16,tab:05;经办人",
+  "warehouseId": "string(16),disabled:true,hidden:true,listTab:02,tab:06;发货仓库Id",
+  "warehouseName": "linkId,listSize:10,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,listTab:18,tab:07;发货仓库",
+  "supplierId": "string(16),disabled:true,hidden:true,listTab:02,tab:08;供应商ID",
+  "supplierName": "linkId,listSize:10,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,fieldsWidth:100/120,searchable:true,listTab:02,tab:09;供应商",
+  "logisticsFeedbackStatus": "choice,values:1_已反馈/0_未反馈,listSize:10,searchable:true,listTab:20,tab:10;物流反馈状态",
+  "packageStatus": "choice,values:1_正常/0_取消,listSize:10,searchable:true,listTab:21,tab:11;包裹单状态",
+  "deliveryStatus": "choice,values:1_已出库/0_未出库,listSize:10,searchable:true,listTab:22,tab:12;出库状态",
+  "deliveryTime":"date,listTab:29,tab:13;出库时间",
+  "signStatus": "choice,values:1_已签收/0_未签收,listSize:10,searchable:true,listTab:23,tab:14;签收状态",
+  "exchangeStatus": "choice,values:1_待发货/2_已取消/3_已出库待反馈/4_部分反馈/5_已出库已反馈/6_已签收,listSize:10,searchable:true,listTab:23,tab:14;仓库对接状态",
+  "exchangeDesc":"string(16),listSize:10,tab:14;对接状态描述",
+  "signTime":"date,listTab:30,tab:15;签收时间",
+  "totalProductAmount": "number(10),hidden:true,listTab:31,tab:16;商品总数量",
+  "outPayNo": "string(16),listTab:24,tab:17;支付流水",
+  "orgiOrderPayDate": "date,listTab:25,tab:17;订单支付时间",
+  "orderDeliveryDate": "date,listTab:25,tab:17;订单发货时间",
+  "cancelReason": "string(16),listTab:32,tab:18;取消原因",
+  "salesOutputId": "string(8),listTab:33,tab:19;销售出库单Id",
+  "isCreateSettlement":"choice,values:true_已生成/false_未生成,defaultValue:false,listTab:25,tab:20;是否生成结算单",
+  "type":"choice,values:1_普通店铺/2_严选店铺/3_80周年店铺,listSize:14,tab:39,listTab:45;店铺类型",
+  "remark": "string(64),listTab:34,tab:21;备注",
+  "_createTime":"date,searchable:true,disabled:true,tab:22,listTab:35;创建时间",
+  "items": [
+  {
+    "#meta": {
+      "fieldLabel": "商品清单",
+      "position": "card",
+      "tab": "10",
+      "addMulti":{
+        "linkId":"skuId",
+        "from":"id",
+        "label":"选择物料...",
+        "dataSource":"/erp_sku/handlers/list.jsx",
+        "fields":["id","name","code","priceInfo.taxPrice"],
+        "toFields":["skuId","skuName","skuCode","unitPrice"],
+        "fieldLabels":["物料ID","物料名称","物料编码","价格"],
+        "fieldWidths":[140,120,120,120],
+        "searchArgs":{"supplierInfo.supplierId":"@supplierId"},
+        "unique":true
+      },
+      "aggregateFields": [
+        {
+          "label": "总数量",
+          "field": "amount"
+        },
+        {
+          "label": "总价格",
+          "field": "totalPrice"
+        },
+        {
+          "label" : "总优惠",
+          "field" : "discounts"
+        }
+      ]
+    },
+    "itemId": "string(8),disabled:true,tab:01;包裹单项id",
+    "orderId": "string(8),tab:02;订单Id",
+    "productId": "string(8),tab:03;商品ID",
+    "skuId": "string(8),tab:03;物料Id",
+    "skuCode": "string(8),tab:03;物料编号",
+    "skuName": "string(16),tab:04;物料名称",
+    "amount": "number(6),tab:05;数量",
+    "channelSalePrice": "number(8),tab:06,listTab:53;第三方渠道价",
+    "discountRate": "number(8),tab:06,listTab:53;折扣率",
+    "unitPrice": "number(8),isMoney:true,tab:07;商品单价",
+    "totalPrice": "number(8),isMoney:true,value:#unitPrice*#amount,disabled:true,tab:08;商品总价",
+    "originalPrice": "number(8),isMoney:true,tab:09;原价",
+    "discounts": "number(8),isMoney:true,tab:10;优惠",
+    "merchantDistributeCouponPrice": "string(16),tab:11,listSize:10,listTab:56;商家券分摊的金额",
+    "platformDistributeCouponPrice": "string(16),tab:12,listSize:10,listTab:57;平台券分摊的金额",
+    "pointConsume": "string(16),tab:13,listSize:10,listTab:60;商品积分",
+    "oi_point_consume": "string(16),tab:14,listSize:10,listTab:60;使用积分",
+    "cSn": "string(16),tab:15,listSize:10,listTab:61;优惠券序列号",
+    "couponBatchId": "string(16),tab:16,listSize:10,listTab:62;券批次ID",
+    "couponBatchName": "string(16),tab:17,listSize:10,listTab:63;券批次名称",
+    "platformNeedPayPercent": "string(16),tab:18,listSize:10,listTab:64;平台承担比例",
+    "platformNeedPayMoney": "string(16),tab:19,listSize:10,listTab:65;平台承担金额",
+    "batches": [
+      {
+        "batchId": "string(8),tab:01;批次ID",
+        "batchCode": "string(8),tab:02;批次编码",
+        "amount": "string(6),tab:03;数量"
+      }
+    ]
+  }
+],
+  "priceInfo": {
+    "#meta": {
+      "fieldLabel": "价格信息",
+      "tab": "13"
+    },
+    "totalProductPrice": "number(10),listTab:02,tab:01;商品总金额",
+    "totalDeliveryPrice": "number(10),listTab:35,tab:02;运费金额",
+    "exp_fee": "number(10),listTab:35,tab:02;严选运费",
+    "totalOrderPrice": "number(10),listTab:06,tab:03;订单总金额",
+    "totalDiscountPrice": "number(10),listTab:36,tab:04;券优惠金额",
+    "totalOffMoney": "number(10),listTab:38,tab:06;满减金额",
+    "integralGivePrice": "number(10),listTab:39,tab:07;积分赠送金额",
+    "integralPayPrice": "number(10),listTab:40,tab:08;积分使用金额"
+  },
+  "deliveryInfo": {
+    "#meta": {
+      "fieldLabel": "配送信息",
+      "tab": "11"
+    },
+    "consignee": "string(16),listTab:03,tab:02;收货人",
+    "telPhone": "string(16),listTab:05,tab:03;联系电话",
+    "mobilePhone": "string(16),listTab:08,tab:03;手机",
+    "province": "string(8),listTab:13,tab:04;省份",
+    "city": "string(8),listTab:14,tab:04;城市",
+    "district": "string(8),listTab:15,tab:04;地区",
+    "regionPath": "string(16),listTab:12,tab:04;收货地区",
+    "address": "string(16),listTab:11,tab:04;收货地址",
+    "buyerRemark": "string(16),listTab:40,tab:07;买家留言",
+    "deliveryDesc": "string(16),listTab:41,tab:08;配送要求",
+    "isDeliveryPoint": "choice,values:1_是/0_否,listTab:19,tab:09;是否自提",
+    "deliveryPointName": "string(16),listTab:42,tab:10;自提点名称"
+  },
+  "logisticsInfo": {
+    "#meta": {
+      "fieldLabel": "物流信息",
+      "tab": "12"
+    },
+    "logisticsName": "string(16),listTab:43,tab:19;配送商名称",
+    "logisticsStatus": "choice,values:1_已配送/2_未配送,listTab:44,tab:20;配送状态",
+    "deliveryTime": "string(16),listTab:45,tab:22;配送时间",
+    "trackingNumber": "string(16),listTab:46,tab:23;运单号",
+    "remark": "string(64),listTab:47,tab:30;备注"
+  },
+  "invoiceInfo": {
+    "#meta": {
+      "fieldLabel": "发票信息",
+      "tab": "12"
+    },
+    "isNeedInvoice": "choice,values:1_需要/0_不需要,listTab:48,tab:01;是否需要发票",
+    "invoiceTitle": "string(16),listTab:49,tab:02;发票抬头",
+    "invoiceContent": "string(16),listTab:50,tab:03;发票内容",
+    "taxCode": "string(16),listTab:51,tab:04;发票税号",
+    "invoiceType": "choice,values:0_普通发票/1_增值税发票,listTab:17,tab:05;发票类型"
+  },
+
+  "_t": "parcel",
+  "#meta": {
+    "readOnly":true,
+    "rem": "包裹单",
+    "parent": [
+      "parcel"
+    ],
+    "projectName": "包裹单",
+    "visitType": [
+      "warehouse",
+      "shop"
+    ],
+    "pos":2,
+    "group":{"id":"sale","name":"销售","pos":2},
+    "export":[
+      {
+        "label":"只导出子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"items",
+          "itemFields":[
+            "$parent.id",
+            "$parent.orderId",
+            "$parent.b2cOrderId",
+            "$parent.b2cOrderAliasCode",
+            "$parent.channelId",
+            "$parent.channelName",
+            "$parent.shopId",
+            "$parent.isStorage",
+            "$parent.agent",
+            "$parent.warehouseId",
+            "$parent.warehouseName",
+            "$parent.supplierId",
+            "$parent.supplierName",
+            "$parent.logisticsFeedbackStatus",
+            "$parent.packageStatus",
+            "$parent.deliveryStatus",
+            "$parent.deliveryTime",
+            "$parent.signStatus",
+            "$parent.signTime",
+            "$parent.totalProductAmount",
+            "$parent.outPayNo",
+            "$parent.cancelReason",
+            "$parent.salesOutputId",
+            "$parent.isCreateSettlement",
+            "$parent.remark",
+            "$parent._createTime",
+            "$parent.priceInfo.totalProductPrice",
+            "$parent.priceInfo.totalDeliveryPrice",
+            "$parent.priceInfo.totalOrderPrice",
+            "$parent.priceInfo.totalDiscountPrice",
+            "$parent.priceInfo.totalOffMoney",
+            "$parent.priceInfo.integralGivePrice",
+            "$parent.priceInfo.integralPayPrice",
+            "$parent.deliveryInfo.consignee",
+            "$parent.deliveryInfo.telPhone",
+            "$parent.deliveryInfo.mobilePhone",
+            "$parent.deliveryInfo.province",
+            "$parent.deliveryInfo.city",
+            "$parent.deliveryInfo.district",
+            "$parent.deliveryInfo.regionPath",
+            "$parent.deliveryInfo.address",
+            "$parent.deliveryInfo.buyerRemark",
+            "$parent.deliveryInfo.deliveryDesc",
+            "$parent.deliveryInfo.isDeliveryPoint",
+            "$parent.deliveryInfo.deliveryPointName",
+            "$parent.logisticsInfo.logisticsName",
+            "$parent.logisticsInfo.logisticsStatus",
+            "$parent.logisticsInfo.deliveryTime",
+            "$parent.logisticsInfo.trackingNumber",
+            "$parent.logisticsInfo.remark",
+            "$parent.invoiceInfo.isNeedInvoice",
+            "$parent.invoiceInfo.invoiceTitle",
+            "$parent.invoiceInfo.invoiceContent",
+            "$parent.invoiceInfo.taxCode",
+            "$parent.invoiceInfo.invoiceType",
+            "itemId","orderId","productId","skuId","skuCode",
+            "skuName",
+            "amount",
+            "unitPrice",
+            "totalPrice",
+            "originalPrice",
+            "discounts",
+            "merchantDistributeCouponPrice",
+            "platformDistributeCouponPrice",
+            "pointConsume",
+            "oi_point_consume",
+            "cSn",
+            "couponBatchId",
+            "couponBatchName",
+            "platformNeedPayPercent",
+            "platformNeedPayMoney"]
+        }
+      },
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

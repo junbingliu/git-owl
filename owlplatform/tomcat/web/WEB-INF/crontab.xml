@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<crontab>
+
+    <crontabentry id="231">
+        <seconds>5,10,15,20,25,30,35,40,45,50,55</seconds>
+        <minutes>*</minutes>
+        <hours>*</hours>
+        <daysofmonth>*</daysofmonth>
+        <months>*</months>
+        <daysofweek>*</daysofweek>
+        <years>*</years>
+        <bussinesdays>true</bussinesdays>
+        <startDate></startDate>
+        <endDate></endDate>
+        <class>net.xinshi.isone.modules.jobs.process.NormalTaskProcess</class>
+        <method>run</method>
+        <parameters>slow</parameters>
+        <description>app使用的慢速定时任务</description>
+    </crontabentry>
+
+    <crontabentry id="232">
+        <seconds>*</seconds>
+        <minutes>*</minutes>
+        <hours>*</hours>
+        <daysofmonth>*</daysofmonth>
+        <months>*</months>
+        <daysofweek>*</daysofweek>
+        <years>*</years>
+        <bussinesdays>true</bussinesdays>
+        <startDate></startDate>
+        <endDate></endDate>
+        <class>net.xinshi.isone.modules.jobs.process.NormalTaskProcess</class>
+        <method>run</method>
+        <parameters>tasks</parameters>
+        <description>快速队列</description>
+    </crontabentry>
+
+    <crontabentry id="233">
+        <seconds>0,30</seconds>
+        <minutes>*</minutes>
+        <hours>*</hours>
+        <daysofmonth>*</daysofmonth>
+        <months>*</months>
+        <daysofweek>*</daysofweek>
+        <years>*</years>
+        <bussinesdays>true</bussinesdays>
+        <startDate></startDate>
+        <endDate></endDate>
+        <class>net.xinshi.isone.modules.jobs.process.NormalTaskProcess</class>
+        <method>run</method>
+        <parameters>veryslow</parameters>
+        <description>最慢速</description>
+    </crontabentry>
+
+</crontab>

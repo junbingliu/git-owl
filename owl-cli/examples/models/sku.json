@@ -1,0 +1,252 @@
+{
+  "id": "string(16),listSize:16,tab:a1,disabled:true,hidden:false;物料Id",
+  "name": "string(64),listSize:16,tab:a2;物料名称",
+  "shopId": "string(16),listSize:12,disabled:true,hidden:true,defaultValue:$shopId,tab:a11;店铺id",
+  "code": "string(16),inputType:numberLetter,listSize:8,tab:a3;物料编码",
+  "barcode": "string(16),inputType:numberLetter,required:true,listSize:8,tab:a4;条形码",
+  "categoryId": "tree,listSize:12,tab:a5,dataSource:/owlApi/category/tree.jsx,searchable:true;分类",
+  "producerName": "string(12),listSize:12,required:true,tab:a6;生产商名称",
+  "producerNo": "string(64),inputType:numberLetter,listSize:8,tab:a7;生产商编号",
+  "warehouseName": "linkId,required:true,listSize:16,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:120/120,searchable:true,tab:a8;对接仓库",
+  "warehouseId": "string(16),listSize:12,disabled:true,searchable:true,hidden:true,tab:a9;对接仓库Id",
+  "makePlace": "string(16),listSize:8,tab:a91;产地",
+  "_createTime":"date,searchable:true,disabled:true,listSize:8,tab:a92;创建时间",
+  "priceInfo": {
+    "#meta": {
+      "fieldLabel": "参考价格",
+      "tab": "b",
+      "position": "subcard"
+    },
+    "noTaxPrice": "number(8),listSize:12,isMoney:true,required:true,tab:b1;不含税价",
+    "taxRate": "choice,values:0_0/3_3/6_6/7.7_7.7/10_10/11_11/11.9_11.9/13_13/15_15/16_16/17_17/20_20/21_21/26.353_26.353/32.375_32.375,listSize:8,required:true,tab:b2;进项率利(%)",
+    "outPutTax": "choice,values:0_0/3_3/6_6/7.7_7.7/10_10/11_11/11.9_11.9/13_13/15_15/16_16/17_17/20_20/21_21/26.353_26.353/32.375_32.375,listSize:8,tab:b2;销项税率",
+    "taxPrice": "number(8),listSize:8,isMoney:true,disabled:true,value:$priceInfo.noTaxPrice*(1+$priceInfo.taxRate/100),tab:b3;含税价",
+    "profits": "number(4),listSize:8,tab:b4;毛利",
+    "bucklePoint": "number(4),listSize:8,tab:b5;扣点(%)"
+  },
+  "management": {
+    "#meta": {
+      "fieldLabel": "管理参数",
+      "tab": "c",
+      "position": "subcard"
+    },
+    "alarmNumber": "number(12),listSize:12,tab:c1;库存预警值;",
+    "businessModel": "choice,values:1_经销/0_代销,listSize:12,tab:c3;经营模式",
+    "isZeroSell": "choice,values:1_是/0_否,listSize:8,tab:c4;是否零负可卖",
+    "zeroSellNumber": "number(12),listSize:12,tab:c5;零负可卖数量;",
+    "isCrossBorderPurchase": "choice,values:1_是/0_否,listSize:8,tab:c6;是否跨境购",
+    "isStorage": "choice,values:1_是/0_否,required:true,searchable:true,listSize:12,tab:c7;是否入库",
+    "isVirtualGoods": "choice,values:1_是/0_否,listSize:12,tab:c8;是否虚拟商品",
+    "taxTypeCode": "string(16),listSize:8,tab:c9;税收分类编码"
+  },
+  "b2c": {
+    "#meta": {
+      "fieldLabel": "b2c对接参数",
+      "tab": "d",
+      "position": "subcard"
+    },
+    "merchantId": "string(16),listSize:12,inputType:numberLetter,tab:d1;商家id",
+    "b2cShopId": "string(16),listSize:12,inputType:numberLetter,tab:d11;B2C店铺Id",
+    "productId": "string(16),listSize:12,inputType:numberLetter,tab:d2;商品Id",
+    "productCode": "string(16),listSize:12,tab:d3;商品编号",
+    "skuId":"string(64),listSize:12,inputType:numberLetter,tab:d4;skuId",
+    "skuCode":"string(64),listSize:12,tab:d5;skuCode",
+    "brand": "string(16),listSize:12,tab:d6;品牌",
+    "categoryName": "string(32),listSize:12,tab:d7;商品类型",
+    "standardName": "string(32),listSize:12,tab:d8;规格名称",
+    "shippingType": "string(32),listSize:12,tab:d9;发货类型"
+  },
+  "measurement": {
+    "#meta": {
+      "fieldLabel": "计量单位",
+      "tab": "e",
+      "position": "subcard"
+    },
+    "length": "number(6),help:单位厘米,listSize:6,tab:e1;长",
+    "width": "number(6),help:单位厘米,listSize:6,tab:e2;宽",
+    "height": "number(6),help:单位厘米,listSize:6,tab:e3;高",
+    "volume": "number(6),help:单位毫升,listSize:6,tab:e4;体积",
+    "weight": "number(6),help:单位克,listSize:6,tab:e5;重量"
+  },
+  "purchaseInfo": {
+    "#meta": {
+      "fieldLabel": "采购数据",
+      "tab": "f",
+      "position": "card"
+    },
+    "buyUnit": "string(6),inputType:letterChina,required:true,listSize:8,tab:f1;采购单位",
+    "buyUnitCount": "number(4),listSize:8,help:每采购单位包含的单品数量,tab:f2;采购单位数量",
+    "shelflife": "number(5),listSize:14,help:保质期(天数),tab:f4;保质期(天数)"
+  },
+  "salesInfo": {
+    "#meta": {
+      "fieldLabel": "销售数据",
+      "tab": "g",
+      "position": "card"
+    },
+    "saleUnit": "string(6),inputType:letterChina,listSize:8,tab:g1;销售单位",
+    "saleUnitCount": "number(6),listSize:8,tab:g2;销售单位数量"
+  },
+  "supplierInfo": [
+    {
+      "#meta": {
+        "fieldLabel": "供应商",
+        "tab": "h",
+        "addMulti": {
+          "linkId": "supplierId",
+          "from": "id",
+          "label": "选择供应商...",
+          "dataSource": "/erp_supplier/handlers/list.jsx",
+          "searchArgs": {
+          },
+          "fields": [
+            "id",
+            "name"
+          ],
+          "toFields": [
+            "supplierId",
+            "supplierName"
+          ],
+          "fieldLabels": [
+            "供应商Id",
+            "供应商"
+          ],
+          "fieldWidths": [
+            100,
+            120
+          ]
+        }
+      },
+      "supplierId": "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,searchable:true,listSize:12,tab:h1;供应商",
+      "supplierName": "string(16),disabled:true,listSize:8,tab:h2;供应商名称",
+      "supplyPrice": "number(8),inputType:number,listSize:8,tab:h3;供价",
+      "startTime": "date,compare:<=|endTime,listSize:12,tab:h4;开始时间",
+      "endTime": "date,compare:>=|startTime,listSize:12,tab:h5;结束时间",
+      "bucklePoint": "number(4),inputType:number,listSize:8,tab:h6;扣点"
+    }
+  ],
+  "channelInfo": [
+    {
+      "#meta": {
+        "fieldLabel": "销售渠道",
+        "tab": "i",
+        "addMulti": {
+          "linkId": "channelId",
+          "from": "id",
+          "label": "选择渠道...",
+          "dataSource": "/erp_saleChannel/handlers/list.jsx",
+          "searchArgs": {
+          },
+          "unique": true,
+          "fields": [
+            "id",
+            "code",
+            "name"
+          ],
+          "toFields": [
+            "channelId",
+            "code",
+            "name"
+          ],
+          "fieldLabels": [
+            "渠道Id",
+            "渠道编码",
+            "渠道名称"
+          ],
+          "fieldWidths": [
+            150,
+            120,
+            120
+          ]
+        }
+      },
+      "channelId": "string(16),listSize:12,disable:true,tab:h1;渠道Id",
+      "code": "string(16),listSize:12,disable:true,tab:h2;渠道编码",
+      "name": "string(16),listSize:12,disable:true,tab:h3;渠道名称",
+      "percent": "number(6),listSize:8,inputType:number,min:0,max:100,tab:h4;分配百分比"
+    }
+  ],
+  "inventoryInfo": [
+    {
+      "#meta": {
+        "fieldLabel": "库存信息",
+        "tab": "i",
+        "type": "external",
+        "dataSource": "/erp_inventory/handlers/list.jsx",
+        "searchArgs": {
+          "skuId": "@id"
+        },
+        "fields": [
+          "warehouseName",
+          "amount"
+        ],
+        "toFields": [
+          "warehouseName",
+          "amount"
+        ]
+      },
+      "warehouseName": "string(16),listSize:20,disable:true,tab:i2;仓库",
+      "amount": "number(6),listSize:8,disable:true,tab:i3;数量"
+    }
+  ],
+  "channelnventoryInfo": [
+    {
+      "#meta": {
+        "fieldLabel": "渠道库存信息",
+        "tab": "j",
+        "type": "external",
+        "dataSource": "/erp_channelInventory/handlers/list.jsx",
+        "searchArgs": {
+          "skuId": "@id"
+        },
+        "fields": [
+          "channelName",
+          "amount",
+          "freezeAmount"
+        ],
+        "toFields": [
+          "channelName",
+          "amount",
+          "freezeAmount"
+        ]
+      },
+      "channelName": "string(16),disable:true,tab:j2;渠道名称",
+      "amount": "number(6),disable:true,listSize:8,tab:j3;数量",
+      "freezeAmount":"number(6),disable:true,listSize:8,tab:j4;冻结数"
+    }
+  ],
+  "_t": "sku",
+  "#meta": {
+    "rem": "物料",
+    "parent": [
+      "sku"
+    ],
+    "projectName": "物料",
+    "visitType": [
+      "shop",
+      "warehouse"
+    ],
+    "pos": -1,
+    "group": {
+      "id": "mainData",
+      "name": "主数据",
+      "pos": 1
+    },
+    "export":[
+      {
+        "label":"导出完整单据",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        },
+        "subTitleInterval":20
+      }
+    ]
+  }
+}

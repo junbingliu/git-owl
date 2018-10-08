@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="taskRunner" class="net.xinshi.isone.modules.jobs.impl.NormalTaskRunner">
+        <property name="pigeon" ref="rawPigeonEngine"/>
+        <property name="runnerName" value="tasks"/>
+        <property name="threadNumber" value="10"/>
+    </bean>
+
+    <bean id="slowTaskRunner" class="net.xinshi.isone.modules.jobs.impl.NormalTaskRunner">
+        <property name="pigeon" ref="rawPigeonEngine"/>
+        <property name="runnerName" value="slowTasks"/>
+        <property name="threadNumber" value="5"/>
+    </bean>
+
+    <bean id="verySlowTaskRunner" class="net.xinshi.isone.modules.jobs.impl.NormalTaskRunner">
+        <property name="pigeon" ref="rawPigeonEngine"/>
+        <property name="runnerName" value="verySlowTasks"/>
+        <property name="threadNumber" value="10"/>
+    </bean>
+
+    <bean id="is1JobsEngine" class="net.xinshi.isone.modules.jobs.IsoneJobsEngine">
+        <property name="taskRunner" ref="taskRunner"/>
+        <property name="slowTaskRunner" ref="slowTaskRunner"/>
+        <property name="verySlowTaskRunner" ref="verySlowTaskRunner"/>
+    </bean>
+</beans>

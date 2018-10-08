@@ -1,0 +1,45 @@
+{
+  "id": "string(12),tab:a01,disabled:true,hidden:true;渠道库存id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:a16;店铺id",
+  "skuId": "string(12),tab:a02,disabled:true;物料id",
+  "skuName": "string(12),tab:a021,disabled:true;物料",
+  "channelId": "string(12),tab:a03,hidden:true,disabled:true;渠道id",
+  "channelName": "string(12),tab:a031,disabled:true;渠道",
+  "amount": "number(12),tab:a04,disabled:true;库存数",
+  "freezeAmount": "number(12),tab:a05,disabled:true;冻结数",
+  "availableAmount": "number(12),tab:a06,value:$amount-$freezeAmount,disabled:true;可卖数量",
+  "lastMemo":"string(16),tab:a06,disabled:true;备注",
+  "lastDocId":"string(16),tab:a08,disabled:true;单据Id",
+  "lastDocType":"string(16),tab:a09,disabled:true;单据类型",
+  "supplierId": "string(16),disabled:true,hidden:true,listSize:8,tab:a032;供应商id",
+  "supplierName": "string(16),disabled:true,listSize:8,tab:a033;供应商名称",
+  "purchasePrice": "number(12),disabled:true,listSize:8,tab:a034;采购价",
+  "_t": "channelInventory",
+  "#meta": {
+    "readOnly":true,
+    "rem": "渠道库存",
+    "projectName": "渠道库存",
+    "visitType": [
+      "shop"
+    ],
+    "group": {
+      "id": "inventoryGroup",
+      "name": "库存",
+      "pos":2
+    },
+    "pos":4,
+    "id":"{{@skuId}}_{{@channelId}}",
+    "lock":"{{@skuId}}",
+    "export":[
+      {
+        "label":"导出完整单据",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"]
+      }
+    ]
+  }
+}

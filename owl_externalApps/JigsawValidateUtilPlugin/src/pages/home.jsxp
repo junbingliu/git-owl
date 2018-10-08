@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <!--<script src="../bootstrap/js/html5shiv.js"></script>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/resources/bootstrap3.3.0/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/resources/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap3.3.0/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="../res/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../res/css/diyUpload.css">
+    <script type="text/javascript" src="../res/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="../res/js/diyUpload.js"></script>
+</head>
+<style>
+    #box{
+        margin: 10px 20px;
+        width: 900px;
+    }
+    .parentFileBox{
+        width:900px !important
+    }
+    .uploaded{
+        margin-left: 0;
+        height: 118px;
+        padding-left: 10px;
+    }
+    .uploaded ul{
+        width:800px;
+        height:200px;
+        clear: both}
+    .uploaded img{
+        width: 100%;
+    }
+    .uploaded li{
+        float: left;
+        list-style-type: none;
+        margin: 10px;
+        width: 195px;
+        height: 98px;
+        overflow: hidden;
+    }
+</style>
+<body>
+
+{{=$.inc("pages/include_nav.jsx")}}
+
+<div id="box">
+    <div id="upload"></div>
+</div>
+
+
+<div style="margin: 20px;border-top: solid 1px #ccc;"> <p></p> <p>已上传的图片</p></div>
+
+<div><button id="clearImg">清空</button></div>
+
+<ul class="uploaded" id="uploaded">
+    {{~it.jigsawBgImages:value:index}}
+    <li>
+        <img src="{{=value}}"/>
+    </li>
+    {{~}}
+</ul>
+
+
+
+</body>
+<script type="text/javascript">
+    $('#upload').diyUpload({
+        url:'../handler/ArgsForm_handler.jsx',
+        success:function( data ) {
+            if(data.code=='ok'){
+                if($.trim($("#uploaded").html())==''){
+                    $("#uploaded").html("<li><img/></li>");
+                    $("#uploaded img").attr('src',data.imgUrl);
+                }else {
+                    $("#uploaded li").last().after("<li><img/></li>");
+                    $("#uploaded img").last().attr('src',data.imgUrl);
+                }
+            }
+        },
+        error:function( err ) {
+            console.info( "err========="+JSON.stringify(err) );
+        },
+        fileNumLimit:5
+    });
+    $("#clearImg").click(function () {
+        $.post("../handler/clear.jsx",function (res) {
+            if(res.code=="0"){
+              $("#uploaded").html("");
+            }
+        },"json")
+    })
+
+</script>
+</html>

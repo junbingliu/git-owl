@@ -1,0 +1,97 @@
+{
+	"id" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;单据ID",
+	"supplierId" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:id,fields:id/name,toFields:supplierId/supplierName,disabled:true,hidden:true,listSize:12,tab:02;供应商",
+	"supplierName" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,disabled:true,searchable:true,tab:03;供应商名称",
+	"createDate" : "date, defaultValue:$now,disabled:true,searchable:true,tab:04;创建日期",
+	"choiceDate" : "string(16),disabled:true,tab:05;选择日期",
+	"shoppingMallID":"string(16),disabled:true,inputType:numberLetter,tab:05;商城店铺ID",
+	"shopId" : "string(16),required:true,disabled:true,hidden:true,defaultValue:$shopId,listSize:12,tab:06;店铺ID",
+	"shopName" : "string(16),required:true,defaultValue:$shopName,disabled:true,tab:07;店铺名称",
+	"totalSalesOutputPurchasePrice" : "number(16),listSize:8,disabled:true,tab:08;进货成本(含税)",
+	"totalReturnStoragePurchasePrice" : "number(16),listSize:16,disabled:true,tab:09;退货成本(含税)",
+	"totalPlatformNeedPayMoney" : "number(16),listSize:12,disabled:true,tab:10;平台承担金额",
+	"totalDeliveryPrice" : "number(16),listSize:12,disabled:true,tab:11;运费",
+	"feePrice" : "number(16),listSize:12,disabled:true,tab:11;费用总金额",
+	"payablePrice" : "number(16),listSize:8,disabled:true,tab:12;应付金额",
+	"invoicePrice" : "number(6),listSize:8,disabled:true,tab:13;开票金额(含税)",
+	"status" : "choice,values:none_未审核/approved_已审核/paid_已付款/canceled_已取消,searchable:true,listSize:6,tab:14;单据状态",
+	"accountDate" : "number(16),disabled:true,tab:15;付款账期",
+	"multiTaxPrices" : [{
+			"#meta" : {
+				"fieldLabel" : "多税率金额",
+				"tab" : "a"
+			},
+			"taxRate" : "number(16),disable:true,tab:01;税率",
+			"salesOutputBuyTaxMoney":"number(16),disable:true,tab:02;销售订单进项税金",
+			"returnStorageBuyTaxMoney":"number(16),disable:true,tab:03;销售退货单进项税金",
+			"buyTaxTotalMoney":"number(16),disable:true,tab:04;进项税金汇总",
+			"salesOutputSalesTaxMoney":"number(16),disable:true,tab:02;销售订单销项税金",
+			"returnStorageSalesTaxMoney":"number(16),disable:true,tab:03;销售退货单销项税金",
+			"salesTaxTotalMoney":"number(16),disable:true,tab:04;销项税金汇总",
+			"totalPriceWithTax" : "number(16),disable:true,tab:02;金额"
+		}
+	],
+	"_t" : "notStorageYanXuanSettlement",
+	"#meta" : {
+		"rem" : "严选不入库结算单",
+		"parent" : [
+			"notStorageYanXuanSettlement"
+		],
+		"projectName" : "采购不入库结算单",
+		"visitType" : [
+			"shop"
+		],
+		"pos" : 6,
+		"group" : {
+			"id" : "purchaseSettlement",
+			"name" : "严选不入库结算单",
+			"pos" : 4
+		},
+		"export":[
+			{
+				"label":"只导出子项",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":[],
+				"items":{
+					"name":"items",
+					"itemFields":[
+						"$parent.id",
+						"$parent.shopId",
+						"$parent.purchaseOrderId",
+						"$parent.createDate",
+						"$parent.orgiOrderPayDate",
+						"$parent.supplierName",
+						"$parent.supplierId",
+						"$parent.warehouseName",
+						"$parent.warehouseId",
+						"$parent.warehouseOrderNo",
+						"$parent.isStorage",
+						"$parent.create_uid",
+						"$parent.create_realName",
+						"$parent.state",
+						"$parent.isCreateSettlement",
+						"$parent.remark",
+						"$parent._createTime"]
+				}
+			},
+			{
+				"label":"导出完整",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+      "exportDoc" : true
+	}
+}

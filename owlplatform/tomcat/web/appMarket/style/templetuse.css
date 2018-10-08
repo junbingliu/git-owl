@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*当前模板页右侧内容*/
+.templetuse{border:1px solid #99bbe8; }
+.box{ padding:20px 26px; padding-bottom:0; padding-right:0;overflow:hidden;display: block; clear:both;_height: 1%;}
+.box h2{ width:154px; height:30px; background:url(images/templetuse_title1.gif) no-repeat; text-indent:-9999px; margin-bottom:20px;}
+.box .download{background:url(images/templetuse_title2.gif) no-repeat;}
+.box dl{ width:208px; float:left;margin:0px 30px 36px 0;}
+.box dd{ border:1px solid #cccccc; padding:3px; }
+.box h3{ color:#666666; text-align:center; font-weight:bold; padding:8px 0;}
+.box .star{ height:12px; overflow:hidden; text-align:center; margin-bottom:8px;}
+.box .star span,.box .star em{ display:inline-block;}
+.box .star span,.box .star span i{  width:63px; height:11px; background:url(images/star2.jpg) no-repeat;}
+.box .star span{ position:relative;}
+.box .star span i{ position:absolute; left:0; right:0; background:url(images/star1.jpg) no-repeat;}
+.box .star em{ color:#666666;}
+.box .deal{ text-align:center}
+.box .deal a{ display:inline-block; width:70px; height:28px; background:url(images/templetuse_ui.png) no-repeat 0 0; color:#FFF; line-height:27px;}
+.box .deal a:hover{ text-decoration:none}
+.box .deal .del{ background-position:0 -31px; color:#486377;}
+.box .deal .install{ background-position:0 -62px; color:#006699;}
+/*end当前模板页右侧内容*/
+
+

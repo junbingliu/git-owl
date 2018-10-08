@@ -1,0 +1,7 @@
+<form name='payOrderForm' id="payOrderForm" target='_top' method='post' action='$payUrl'>
+    <input type="hidden" name="iv" value='$iv'/>
+    <input type="hidden" name="code" value='$cipher'/>
+    <input type='hidden' name="merchantId" value='${merchantId}'/>
+    <input type='hidden' name="appId" value='${appId}'/>
+    <input type="submit" value="确定"/>
+</form>

@@ -1,0 +1,179 @@
+{
+	"id" : "string(16),tab:01,disabled:true;单据id",
+	"supplierId" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:id,fields:id/name,toFields:supplierId/supplierName,disabled:true,hidden:true,tab:02;供应商Id",
+	"supplierName" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,disabled:true,searchable:true,tab:03;供应商名称",
+	"createDate": "date, defaultValue:$now,searchable:true,tab:04;创建日期",
+	"choiceDate": "string(16),disabled:true,tab:05;选择日期",
+	"shoppingMallID":"string(16),disabled:true,inputType:numberLetter,tab:05;商城店铺ID",
+	"shopId" : "string(16),required:true,defaultValue:$shopId,disabled:true,hidden:true,tab:06;店铺id",
+	"shopName" : "string(16),required:true,defaultValue:$shopName,disabled:true,tab:07;店铺名称",
+	"purchasePriceWithTax" : "number(16),key:purchasePriceWithTax,isMoney:true,disabled:true,tab:08;采购成本(含税)",
+	"purchaseReturnPriceWithTax" : "number(16),key:purchaseReturnPriceWithTax,isMoney:true,disabled:true,tab:09;退货成本(含税)",
+	"feePrice" : "number(16),key:feePrice,isMoney:true,disabled:true,tab:10;费用单",
+	"payablePrice" : "number(16),key:payablePrice,isMoney:true,disabled:true,tab:11;应付金额",
+	"invoicePrice" : "number(6),key:invoicePrice,isMoney:true,disabled:true,tab:12;开票金额(含税)",
+	"status" : "choice,values:none_未审核/approved_已审核/paid_已付款/canceled_已取消,searchable:true,tab:13;单据状态",
+	"multiTaxPrices" : [{
+			"#meta" : {
+				"fieldLabel" : "多税率金额",
+				"tab" : "a"
+			},
+			"taxRate" : "number(16),disable:true,tab:01;税率",
+			"totalPriceWithTax" : "number(16),disable:true,tab:02;金额"
+		}
+	],
+
+	"purchaseStorageOrders" : [{
+			"#meta" : {
+				"fieldLabel" : "采购入库单",
+				"tab" : "b",
+				"position" : "subcard",
+				"unique" : true,
+				"addSingle" : false
+			},
+			"isSettlement" : "choice,values:F_否/T_是,tab:01;是否结算",
+			"purchaseStorageId" : "string(16),disable:true,tab:01;采购入库单号",
+			"purchaseOrderId" : "string(16),disable:true,tab:02;采购单号",
+			"supplierId" : "string(16),disable:true,tab:03;供应商编码",
+			"supplierName" : "string(16),disable:true,tab:04;供应商名称",
+			"purchaseOrderCreateTime" : "string(16),disable:true,tab:05;采购单下单时间",
+			"storageCreateTime" : "string(16),disable:true,tab:06;入库单时间",
+			"accountDate" : "number(16),disable:true,tab:07;合同账期",
+			"payableDate" : "string(16),disable:true,tab:08;应付日期",
+			"totalPriceWithOutTax" : "number(16),disable:true,tab:09;不含税采购总金额",
+			"totalPriceWithTax" : "number(16),disable:true,tab:10;含税采购总金额",
+			"taxRate0" : "number(16),disable:true,tab:11;0%税率",
+			"taxPrice0" : "number(16),disable:true,tab:12;0%金额",
+			"taxRate11" : "number(16),disable:true,tab:13;11%税率",
+			"taxPrice11" : "number(16),disable:true,tab:14;11%金额",
+			"taxRate13" : "number(16),disable:true,tab:15;13%税率",
+			"taxPrice13" : "number(16),disable:true,tab:16;13%金额",
+			"taxRate17" : "number(16),disable:true,tab:17;17%税率",
+			"taxPrice17" : "number(16),disable:true,tab:18;17%金额",
+			"warehouseId" : "string(16),disable:true,tab:19;仓库编号",
+			"warehouseName" : "string(16),disable:true,tab:20;仓库"
+		}
+	],
+
+	"purchaseStockOutOrders" : [{
+			"#meta" : {
+				"fieldLabel" : "采购退货出库单",
+				"tab" : "c",
+				"position" : "subcard"
+			},
+			"isSettlement" : "choice,values:F_否/T_是,tab:01;是否结算",
+			"purchaseStockOutId" : "string(16),disable:true,tab:01;退货出库编号",
+			"purchaseReturnId" : "string(16),disable:true,tab:02;采购退货单号",
+			"supplierId" : "string(16),disable:true,tab:03;供应商编码",
+			"supplierName" : "string(16),disable:true,tab:04;供应商名称",
+			"purchaseReturnCreateTime" : "string(16),disable:true,tab:05;采购退货单下单时间",
+			"stockOutCreateTime" : "string(16),disable:true,tab:06;出库单时间",
+			"accountDate" : "number(16),disable:true,tab:07;合同账期",
+			"payableDate" : "string(16),disable:true,tab:08;应付日期",
+			"totalPriceWithOutTax" : "number(16),disable:true,tab:09;不含税采购总金额",
+			"totalPriceWithTax" : "number(16),disable:true,tab:10;含税采购总金额",
+			"taxRate0" : "number(16),disable:true,tab:11;0%税率",
+			"taxPrice0" : "number(16),disable:true,tab:12;0%金额",
+			"taxRate6" : "number(16),disable:true,tab:13;6%税率",
+			"taxPrice6" : "number(16),disable:true,tab:14;6%金额",
+			"taxRate11" : "number(16),disable:true,tab:15;11%税率",
+			"taxPrice11" : "number(16),disable:true,tab:16;11%金额",
+			"taxRate13" : "number(16),disable:true,tab:17;13%税率",
+			"taxPrice13" : "number(16),disable:true,tab:18;13%金额",
+			"taxRate17" : "number(16),disable:true,tab:19;17%税率",
+			"taxPrice17" : "number(16),disable:true,tab:20;17%金额",
+			"warehouseId" : "string(16),disable:true,tab:21;仓库编号",
+			"warehouseName" : "string(16),disable:true,tab:22;仓库"
+		}
+	],
+
+	"feeOrders" : [{
+			"#meta" : {
+				"fieldLabel" : "费用单",
+				"tab" : "e",
+				"position" : "subcard"
+			},
+			"isSettlement" : "choice,values:F_否/T_是,tab:01;是否结算",
+			"feeOrderId" : "string(16),disable:true,tab:01;单据编号",
+			"feeOrderType" : "string(16),disable:true,tab:02;单据类型",
+			"operationDate" : "string(16),disable:true,tab:03;生成日期",
+			"suppliersId" : "string(16),disable:true,tab:04;供应商名称",
+			"suppliersName" : "string(16),disable:true,tab:04;供应商名称",
+			"taxRate" : "number(16),disable:true,tab:05;税率",
+			"priceWithTax" : "number(16),disable:true,tab:06;含税金额",
+			"reasonType" : "string(16),disable:true,tab:07;费用单原因类型",
+			"reason" : "string(24),disable:true,tab:08;原因说明备注"
+		}
+	],
+
+	"purchaseStorageSkus" : [{
+			"#meta" : {
+				"fieldLabel" : "采购入库物料详情",
+				"tab" : "f",
+				"position" : "subcard"
+			},
+			"supplierId" : "string(16),disable:true,tab:01;供应商编码",
+			"supplierName" : "string(16),disable:true,tab:02;供应商名称",
+			"purchaseStorageId" : "string(16),disable:true,tab:03;入库单编号",
+			"purchaseOrderId" : "string(16),disable:true,tab:04;原采购单号",
+			"purchaseOrderCreateTime" : "string(16),disable:true,tab:05;采购单下单时间",
+			"storageCreateTime" : "string(16),disable:true,tab:06;入库单生成时间",
+			"skuId" : "string(16),disable:true,tab:07;物料编码",
+			"skuName" : "string(24),disable:true,tab:08;物料名称",
+			"skuCategoryId" : "string(16),disable:true,tab:09,hidden:true;商品品类id",
+			"skuCategoryName" : "string(16),disable:true,tab:10;商品品类",
+			"storageAmount" : "number(16),disable:true,tab:11;入库数量",
+			"unitPriceWithoutTax" : "number(16),disable:true,tab:12;不含税单价",
+			"unitPriceWithTax" : "number(16),disable:true,tab:13;含税单价",
+			"totalPriceWithoutTax" : "number(16),disable:true,tab:14;不含税采购总金额",
+			"totalPriceWithTax" : "number(16),disable:true,tab:15;含税采购总金额",
+			"buyTaxRate" : "number(16),disable:true,tab:16;进项税率",
+			"payablePrice" : "number(16),disable:true,tab:17;应付金额",
+			"accountDate" : "number(16),disable:true,tab:18;付款账期",
+			"payableDate" : "string(16),disable:true,tab:19;应付日期"
+		}
+	],
+
+	"purchaseStockOutSkus" : [{
+			"#meta" : {
+				"fieldLabel" : "采购退货出库单详情",
+				"tab" : "g",
+				"position" : "subcard"
+			},
+			"supplierId" : "string(16),disable:true,tab:01;供应商编码",
+			"supplierName" : "string(16),disable:true,tab:02;供应商名称",
+			"purchaseStockOutId" : "string(16),disable:true,tab:03;退货出库编号",
+			"purchaseReturnId" : "string(16),disable:true,tab:04;采购退货单号",
+			"purchaseReturnCreateTime" : "string(16),disable:true,tab:05;采购退货单下单时间",
+			"stockOutCreateTime" : "string(16),disable:true,tab:06;出库单生成时间",
+			"skuId" : "string(16),disable:true,tab:07;物料编码",
+			"skuName" : "string(16),disable:true,tab:08;物料名称",
+			"skuCategoryId" : "string(16),disable:true,tab:09,hidden:true;商品品类id",
+			"skuCategoryName" : "string(16),disable:true,tab:10;商品品类",
+			"stockOutAmount" : "number(16),disable:true,tab:08;出库数量",
+			"unitPriceWithoutTax" : "number(16),disable:true,tab:11;不含税单价",
+			"unitPriceWithTax" : "number(16),disable:true,tab:12;含税单价",
+			"totalPriceWithoutTax" : "number(16),disable:true,tab:13;不含税采购总金额",
+			"totalPriceWithTax" : "number(16),disable:true,tab:14;含税采购总金额",
+			"buyTaxRate" : "number(16),disable:true,tab:15;进项税率",
+			"payablePrice" : "number(16),disable:true,tab:16;应付金额",
+			"accountDate" : "number(16),disable:true,tab:17;付款账期",
+			"payableDate" : "string(16),disable:true,tab:18;应付日期"
+		}
+	],
+
+	"_t" : "storageSettlement",
+	"#meta" : {
+		"rem" : "采购入库结算单",
+		"parent" : ["storageSettlement"],
+		"projectName" : "采购入库结算单",
+		"visitType" : ["shop"],
+		"pos" : 6,
+		"group" : {
+			"id" : "purchaseSettlement",
+			"name" : "采购结算",
+			"pos" : 3
+		},
+		"exportDoc" : true
+	}
+}

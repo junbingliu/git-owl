@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="httpClientManager" class="net.xinshi.isone.commons.HttpClientManager">
+        <property name="staleCheck" value="true"/>
+        <property name="connection_timeout" value="30000"/>
+        <property name="socket_timeout" value="60000"/>
+        <property name="max_total_connections" value="5000"/>
+        <property name="max_connections_per_route" value="2000"/>
+    </bean>
+
+
+    <bean id="userService" class="net.xinshi.isone.modules.user.impl.UserService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="httpUtil" class="net.xinshi.isone.commons.HttpUtil">
+        <property name="httpClientManager" ref="httpClientManager"/>
+    </bean>
+
+
+    <bean id="isoneBaseEngine" class="net.xinshi.isone.base.IsoneBaseEngine">
+        <property name="sessionService" ref="sessionService"/>
+        <property name="fileService" ref="fileService"/>
+    </bean>
+</beans>

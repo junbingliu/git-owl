@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link rel="stylesheet" href="msg.css" type="text/css" media="screen" />
+ <title>msg demo</title>
+</head>
+<body>
+  <a id="msg" href="#">点击开始</a>
+  <script src="jquery.js" type="text/javascript"></script>
+  <script src="jqModal.js" type="text/javascript"></script>
+  <script src="msg.js" type="text/javascript"></script>
+  <script type="text/javascript">
+      $(function(){
+          $("#msg").click(function(){
+              XJ.Msg.info({txt:'李克勤 - 先赌为快',timeout:5000,isShowClose:true});
+              /*XJ.Msg.info('站得太久');
+              XJ.Msg.info('分岔口怎么去走');
+              XJ.Msg.info('我够胆孤注一掷');
+              XJ.Msg.info('完全没有颤抖');
+              XJ.Msg.info('爱你那段时侯');
+              XJ.Msg.info('简简单单经已足够');
+              XJ.Msg.info('到任何东西应有尽有');
+              XJ.Msg.info('谁还留力舐伤口');
+              XJ.Msg.info('人生太短');
+              XJ.Msg.info('出手要更大');
+              XJ.Msg.info('旁观者不需理解');
+              XJ.Msg.info('赢得风光');
+              XJ.Msg.info('豪得精彩');
+              XJ.Msg.info('自己偏偏感觉失败');
+              XJ.Msg.info('自尊心都可以出卖');
+              XJ.Msg.info('忘记我也是无坏');
+              XJ.Msg.info('连幸福都输掉醉在长街');
+              XJ.Msg.info('依然是我最大');
+              XJ.Msg.info('连梦想洒一地再任人踩');
+              XJ.Msg.info('依然笑得爽快');
+              XJ.Msg.info('...');*/
+
+
+              XJ.Msg.info('秦时明月汉时关');
+              XJ.Msg.info('万里长征人未还');
+              XJ.Msg.warn('power...');
+              XJ.Msg.info('但使龙城飞将在');
+              XJ.Msg.info('不教胡马度阴山');
+
+
+
+              XJ.Msg.alert('依然是我最大');
+              XJ.Msg.success();
+              XJ.Msg.fail();
+              XJ.Msg.success('只喝加温的啤酒');
+          });
+      });
+  </script>
+
+</body>
+</html>
+

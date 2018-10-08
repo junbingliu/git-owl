@@ -1,0 +1,43 @@
+{
+  "id": "string(16),tab:01,disabled:true;仓库Id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:16;店铺id",
+  "code": "string(16),required:true,inputType:numberLetter,tab:02;仓库编码",
+  "name": "string(16),required:true,inputType:numberLetterChina,tab:03;仓库名称",
+  "type": "choice,required:true,values:normal_普通仓/return_退货仓,tab:04;仓库类型",
+  "isSale": "choice,required:true,values:1_是/0_否,tab:05;是否可销售",
+  "isPurchase": "choice,required:true,values:1_是/0_否,tab:06;是否可采购",
+  "exchangeTypeName": "linkId,required:true,listSize:16,dataSource:/erpApi/util/getExchangeType.jsx,displayField:name,fields:id/name,toFields:exchangeType/exchangeTypeName,fieldsWidth:100/120,searchable:true,tab:05;对接仓库",
+  "exchangeType": "string(8),disabled:true,searchable:true,hidden:true,tab:08;对接类型",
+  "contactPerson": "string(16),tab:01,tab:09;联系人",
+  "phone": "string(16),inputType:mobile,tab:10;手机号",
+  "zip": "string(6),inputType:intNumber,tab:11;邮政编码",
+  "city": "tree,tab:12,dataSource:/erpApi/region/getArea.jsx,multiple:true;配送区域",
+  "address": "string(20),tab:13;地址",
+  "_t": "warehouse",
+  "#meta": {
+    "rem": "仓库管理",
+    "projectName": "仓库管理",
+    "visitType":["shop"],
+    "pos": -1,
+    "group":{
+      "id":"mainData",
+      "name":"主数据",
+      "pos":3
+    },
+    "export":[
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

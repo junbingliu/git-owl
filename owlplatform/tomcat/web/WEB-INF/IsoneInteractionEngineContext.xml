@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="isoneInteractionEngine" class="net.xinshi.isone.modules.IsoneInteractionEngine">
+        <property name="interactionService" ref="interactionService"/>
+        <property name="dataSendQueueService" ref="dataSendQueueService"/>
+        <property name="apiAppService" ref="apiAppService"/>
+        <property name="erpInventoryRollback" ref="erpInventoryRollback"/>
+        <property name="localInventoryRollback" ref="localInventoryRollback"/>
+    </bean>
+
+     <!-- 本地 商品库存回滚服务 -->
+    <bean id="localInventoryRollback" class="net.xinshi.isone.modules.interaction.rollback.impl.LocalInventoryRollbackImpl">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+     <!-- 本地下单失败释放库存异步释放操作实现 -->
+    <bean id="AddOrderLockFailureLocalReleaseFailure"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.AddOrderLockFailureLocalReleaseFailure">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryLocalReleaseOperate"/>
+    </bean>
+
+     <!-- 本地其它原因下单失败释放库存失败异步释放操作实现 -->
+    <bean id="AddOrderLocalReleaseFailure"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.AddOrderLocalReleaseFailure">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryLocalReleaseOperate"/>
+    </bean>
+
+     <!-- 本地修改订单失败释放库存失败异步释放操作实现 -->
+    <bean id="ModifyOrderLocalReleaseFailure"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.ModifyOrderLocalReleaseFailure">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryLocalModifyOperate"/>
+    </bean>
+
+    <!-- 通用本地的订单库存修改操作实现 -->
+    <bean id="NormalInventoryLocalModifyOperate"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.NormalInventoryLocalModifyOperate">
+        <property name="extProductService" ref="extProductService"/>
+    </bean>
+
+    <!-- 通用本地的订单库存释放操作实现 -->
+    <bean id="NormalInventoryLocalReleaseOperate"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.NormalInventoryLocalReleaseOperate">
+        <property name="extProductService" ref="extProductService"/>
+    </bean>
+
+     <!-- ERP 商品库存回滚服务 -->
+    <bean id="erpInventoryRollback" class="net.xinshi.isone.modules.interaction.rollback.impl.ERPInventoryRollbackImpl">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <!-- 通用的订单库存释放操作实现 -->
+    <bean id="NormalInventoryERPReleaseOperate"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.NormalInventoryERPReleaseOperate">
+        <property name="extProductService" ref="extProductService"/>
+    </bean>
+
+    <!-- 下单锁定库存超时回退库存操作实现 -->
+    <bean id="AddOrderERPLockTimeout" class="net.xinshi.isone.modules.interaction.rollback.impl.AddOrderERPLockTimeout">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryERPReleaseOperate"/>
+    </bean>
+
+
+
+    <!-- 下单失败后释放库存超时回退库存操作实现 -->
+    <bean id="AddOrderFailureERPReleaseTimeout"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.AddOrderFailureERPReleaseTimeout">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryERPReleaseOperate"/>
+    </bean>
+
+    <!-- 下单失败后释放库存失败回退库存操作实现 -->
+    <bean id="AddOrderFailureERPReleaseFailure"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.AddOrderFailureERPReleaseFailure">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryERPReleaseOperate"/>
+    </bean>
+
+    <!-- 取消订单释放库存超时回退库存操作实现 -->
+    <bean id="CancelOrderERPReleaseTimeout"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.CancelOrderERPReleaseTimeout">
+        <property name="inventoryRollbackOperate" ref="NormalInventoryERPReleaseOperate"/>
+    </bean>
+
+    <!-- 修改订单锁定库存失败回退库存操作实现 -->
+    <bean id="UpdateOrderERPLockTimeout"
+          class="net.xinshi.isone.modules.interaction.rollback.impl.UpdateOrderERPLockTimeout">
+        <property name="extProductService" ref="extProductService"/>
+    </bean>
+
+    <bean id="apiAppService" class="net.xinshi.isone.modules.apiApp.impl.NormalApiAppService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="interactionService" class="net.xinshi.isone.modules.interaction.impl.NormalInteractionService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="locker" ref="resourceLocker"/>
+        <property name="interactionLogService" ref="interactionLogService"/>
+        <property name="cardTypeService" ref="extCardTypeService"/>
+        <property name="cardInfoService" ref="extCardInfoService"/>
+        <property name="cardScoreService" ref="extCardScoreService"/>
+        <property name="memberInfoService" ref="extMemberInfoService"/>
+        <property name="cardLevelService" ref="extCardLevelService"/>
+        <property name="exchangeScoreService" ref="extExchangeScoreService"/>
+        <property name="orderService" ref="extOrderService"/>
+        <property name="productService" ref="extProductService"/>
+        <property name="packageService" ref="extPackageService"/>
+        <property name="afterService" ref="extAfterService"/>
+        <property name="deliveryPointService" ref="extDeliveryPointService"/>
+        <property name="refundService" ref="extRefundDocService"/>
+        <property name="orderHandOnOffService" ref="extOrderHandOnOffService"/>
+        <property name="transferQueueService" ref="transferInfoQueueService"/>
+    </bean>
+
+    <bean id="extCardTypeService" class="net.xinshi.isone.modules.interaction.service.ExtCardTypeService"/>
+
+    <bean id="extCardInfoService" class="net.xinshi.isone.modules.interaction.service.ExtCardInfoService"/>
+
+    <bean id="extCardScoreService" class="net.xinshi.isone.modules.interaction.service.ExtCardScoreService"/>
+
+    <bean id="extMemberInfoService" class="net.xinshi.isone.modules.interaction.service.ExtMemberInfoService"/>
+
+    <bean id="extCardLevelService" class="net.xinshi.isone.modules.interaction.service.ExtCardLevelService"/>
+
+    <bean id="extExchangeScoreService" class="net.xinshi.isone.modules.interaction.service.ExtExchangeScoreService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extOrderService" class="net.xinshi.isone.modules.interaction.service.ExtOrderService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extProductService" class="net.xinshi.isone.modules.interaction.service.ExtProductService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extPackageService" class="net.xinshi.isone.modules.interaction.service.ExtPackageService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extAfterService" class="net.xinshi.isone.modules.interaction.service.ExtAfterService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extDeliveryPointService" class="net.xinshi.isone.modules.interaction.service.ExtDeliveryPointService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extIntegralRecordService" class="net.xinshi.isone.modules.interaction.service.ExtIntegralRecordService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extRefundDocService" class="net.xinshi.isone.modules.interaction.service.ExtRefundService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="extOrderHandOnOffService" class="net.xinshi.isone.modules.interaction.service.ExtOrderHandOnOffService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="interactionLogService" class="net.xinshi.isone.modules.interaction.service.InteractionLogService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="interactionLogIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_interactionLog"/>
+    </bean>
+
+    <bean id="dataSendQueueService" class="net.xinshi.isone.modules.interaction.msgque.impl.NormalDataQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="transferInfoQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="queueService_transferQueue"/>
+    </bean>
+
+    <!--对接中间数据库连接配置-->
+    <bean id="datasource_interaction" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName">
+            <value>com.sybase.jdbc2.jdbc.SybDriver</value>
+        </property>
+        <property name="url">
+            <!--公网-->
+            <value>jdbc:sybase:Tds:200.100.103.161:9000/interaction?charset=cp936</value>
+            <!--测试-->
+            <!--<value>jdbc:sybase:Tds:10.10.10.229:5000/dataexchange?charset=cp936</value>-->
+        </property>
+        <property name="username">
+            <!--公网-->
+            <value>WEBUSER</value>
+            <!--<value>sa</value>-->
+        </property>
+        <property name="password">
+            <!--公网-->
+            <value>123456</value>
+            <!--<value></value>-->
+        </property>
+        <property name="poolPreparedStatements">
+            <value>false</value>
+        </property>
+        <property name="maxActive">
+            <value>100</value>
+        </property>
+        <property name="removeAbandoned">
+            <value>false</value>
+        </property>
+        <property name="defaultAutoCommit">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <!--本地对接中间数据库连接配置-->
+    <bean id="datasource_interaction_local" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName">
+            <value>com.sybase.jdbc2.jdbc.SybDriver</value>
+        </property>
+        <property name="url">
+            <!--
+            <value>jdbc:sybase:Tds:192.168.100.61:4000/posht?charset=cp936autoReconnect=true</value>
+            -->
+            <value>jdbc:sybase:Tds:172.16.47.8:5000/dataexchange?charset=cp936</value>
+        </property>
+        <property name="username">
+            <value>sa</value>
+        </property>
+        <property name="password">
+            <value></value>
+        </property>
+        <property name="poolPreparedStatements">
+            <value>false</value>
+        </property>
+        <property name="maxActive">
+            <value>100</value>
+        </property>
+        <property name="removeAbandoned">
+            <value>false</value>
+        </property>
+        <property name="defaultAutoCommit">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <bean id="InteractionEventBus"
+          class="net.xinshi.isone.modules.interaction.base.processevent.eventbusimp.DefaultEventBus">
+        <property name="eventHandlerList">
+            <list>
+                <ref bean="InteractionAddMemberPointLogEventHandler"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="InteractionAddMemberPointLogEventHandler"
+          class="net.xinshi.isone.modules.interaction.handlers.InteractionAddMemberPointLogEventHandler">
+        <property name="eventName">
+            <value>interactionMemberPointLog</value>
+        </property>
+
+    </bean>
+
+    <!--数据发送进程-->
+    <bean id="dataSendProcess" class="net.xinshi.isone.modules.interaction.process.MsgSendProcess">
+        <property name="msgSendManager" ref="msgSendManager"/>
+        <property name="objType">
+            <value>-1</value>
+        </property>
+    </bean>
+
+    <bean id="msgSendManager" class="net.xinshi.isone.modules.interaction.sender.MsgSendManager">
+        <property name="msgSendPolicys">
+            <list>
+<!--                &lt;!&ndash;订单数据发送到中间表&ndash;&gt;
+                &lt;!&ndash;<ref bean="orderDataSendPolicy"/>&ndash;&gt;
+                &lt;!&ndash;商品数据发送到中间表&ndash;&gt;
+                <ref bean="productDataSendPolicy"/>
+                &lt;!&ndash;退货单数据发送到中间表&ndash;&gt;
+                <ref bean="returnDataSendPolicy"/>
+                -->
+                <!--积分交易记录发送到ERP-->
+                <ref bean="integralRecordDataSendPolicy"/>
+                <!--退款单发送到ERP-->
+                <ref bean="refundDocDataSendPolicy"/>
+                <!--卡批次统计发送到ERP-->
+                <ref bean="cardDataSendPolicy"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="cardDataSendPolicy" class="net.xinshi.isone.modules.interaction.sender.card.CardDataSendPolicy"></bean>
+
+    <bean id="orderDataSendPolicy" class="net.xinshi.isone.modules.interaction.sender.order.OrderDataSendPolicy">
+        <property name="objType">
+            <value>2</value>
+        </property>
+        <property name="extOrderService">
+            <ref bean="extOrderService"></ref>
+        </property>
+        <property name="interactionLogService">
+            <ref bean="interactionLogService"></ref>
+        </property>
+    </bean>
+
+    <bean id="productDataSendPolicy" class="net.xinshi.isone.modules.interaction.sender.order.ProductDataSendPolicy">
+        <property name="objType">
+            <value>3</value>
+        </property>
+        <property name="extProductService">
+            <ref bean="extProductService"></ref>
+        </property>
+        <property name="interactionLogService">
+            <ref bean="interactionLogService"></ref>
+        </property>
+    </bean>
+
+    <bean id="returnDataSendPolicy" class="net.xinshi.isone.modules.interaction.sender.order.ReturnDataSendPolicy">
+        <property name="objType">
+            <value>4</value>
+        </property>
+        <property name="extAfterService">
+            <ref bean="extAfterService"></ref>
+        </property>
+        <property name="interactionLogService">
+            <ref bean="interactionLogService"></ref>
+        </property>
+    </bean>
+
+
+    <bean id="integralRecordDataSendPolicy"
+          class="net.xinshi.isone.modules.interaction.sender.integral.IntegralRecordDataSendPolicy">
+        <property name="objType">
+            <value>integralRecordType</value>
+        </property>
+        <property name="patchCount">
+            <value>300</value>
+        </property>
+        <property name="extIntegralRecordService">
+            <ref bean="extIntegralRecordService"></ref>
+        </property>
+        <property name="interactionLogService">
+            <ref bean="interactionLogService"></ref>
+        </property>
+    </bean>
+
+    <bean id="refundDocDataSendPolicy" class="net.xinshi.isone.modules.interaction.sender.order.RefundDataSendPolicy">
+        <property name="objType">
+            <value>refundDocType</value>
+        </property>
+        <property name="patchCount">
+            <value>30</value>
+        </property>
+        <property name="extRefundService">
+            <ref bean="extRefundDocService"></ref>
+        </property>
+        <property name="interactionLogService">
+            <ref bean="interactionLogService"></ref>
+        </property>
+    </bean>
+
+    <!-- ========================================线下会员卡对接====================================== -->
+    <!--<bean id="cardProcess" class="net.xinshi.isone.modules.interaction.process.DataReadProcess">-->
+        <!--<property name="readManager">-->
+            <!--<ref bean="cardReaderManager"></ref>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <bean id="cardReaderManager" class="net.xinshi.isone.modules.interaction.reader.DataReadManager">
+        <property name="readerList">
+            <list>
+                <ref bean="cardLevelReadPolicy"/>
+                <ref bean="cardTypeReadPolicy"/>
+                <ref bean="cardInfoReadPolicy"/>
+                <ref bean="cardMemberInfoReadPolicy"/>
+                <ref bean="cardScoreReadPolicy"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="cardInfoReadPolicy" class="net.xinshi.isone.modules.interaction.reader.card.ReadCardInfoPolicy"></bean>
+    <bean id="cardTypeReadPolicy" class="net.xinshi.isone.modules.interaction.reader.card.ReadCardTypePolicy"></bean>
+    <bean id="cardLevelReadPolicy" class="net.xinshi.isone.modules.interaction.reader.card.ReadCardLevelPolicy"></bean>
+    <bean id="cardMemberInfoReadPolicy"
+          class="net.xinshi.isone.modules.interaction.reader.card.ReadMemberInfoPolicy"></bean>
+    <bean id="cardScoreReadPolicy" class="net.xinshi.isone.modules.interaction.reader.card.ReadCardScorePolicy"></bean>
+
+    <!-- ========================================商品图片读取进程====================================== -->
+    <bean id="productImageReadProcess" class="net.xinshi.isone.modules.interaction.process.DataReadProcess">
+        <property name="readManager">
+            <ref bean="productImageReaderManager"></ref>
+        </property>
+    </bean>
+    <bean id="productImageReaderManager" class="net.xinshi.isone.modules.interaction.reader.DataReadManager">
+        <property name="readerList">
+            <list>
+                <ref bean="productImageReadPolicy"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="productImageReadPolicy"
+          class="net.xinshi.isone.modules.interaction.reader.product.ReadProductImagePolicy">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="realUploadPath">
+            <value>E:\myproject\isonev45\web\upload</value>
+        </property>
+        <property name="origPath">
+            <value>pictures/uploadProductImages</value>
+        </property>
+    </bean>
+
+</beans>

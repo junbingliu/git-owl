@@ -1,0 +1,14 @@
+version: '3'
+services: 
+  mysql:
+    image: 45157963/mysql_pigeon
+    hostname : mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pigeon123456
+    command: --max_allowed_packet=32m --lower_case_table_names=1
+
+
+
+
+
+

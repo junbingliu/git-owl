@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    {{=$.inc("pages/common/include_head.jsx")}}
+    <script>var m = "{{=it.m}}", s = "{{=it.s}}", w = "{{=it.w}}", appId = "{{=it.appId}}"</script>
+    <script type="text/javascript" src="../client/modules/index/leftMenu.js"></script>
+</head>
+<body>
+<div class="x-backstage">
+    <div class="x-component clearfix">
+        <div class="x-panel clearfix">
+            <div class="side-nav">
+                <ul>
+                    <li class="side-item home-item">
+                        <em class="ico-home"></em>
+                    </li>
+                    <li class="side-item {{?it.type==null}}active{{?}}" data-url="leftMenu.jsx">
+                        <div class="s-tab"><a href="javascript:void(0);">所有应用</a></div>
+
+                    </li>
+                    <!--  <li class="side-item process">
+                          <div class="s-tab"><a href="">正在使用</a></div>
+
+                      </li>-->
+                    <li class="side-item {{?it.type!=null}}active{{??}}lately{{?}}" data-url="viewHistory.jsx" id="type">
+                        <div class="s-tab"><a href="javascript:void(0);">最近使用</a></div>
+
+                    </li>
+                </ul>
+                <div class="side-option">
+                    <ul>
+                        <!--<li class="option-item state"><a class="ico-1" href=""><i></i></a></li>
+                        <li class="option-item"><a class="ico-2" href=""></a></li>-->
+                        <li class="option-item" id="modifyPass"><a class="ico-3" href="javascript:void(0);"></a></li>
+                        <li class="option-item" id="existSys"><a class="ico-4" href="javascript:void(0);"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="presentation">
+                <div class="shrink-ico"></div>
+                <div class="side-logo"><img src="../client/res/images/h-logo2.png"/></div>
+                <div class="side-search "><em class="ico"></em><input type="search" placeholder="请输入搜索关键字"/>
+                </div>
+                <ul class="rootTree">
+                    {{~it.apps:app:index}}
+                    {{? app.length>0}}
+                    <li class="use-item">
+                        <a href="javascript:void(0);" id="toggle">
+                            <em class="ico" style="background: url({{=app[0].icon}})  no-repeat;background-size:100%"></em>
+                            <span class="tab">{{=app[0].group.name}}</span>
+                            <i class="icon-arrows"></i>
+                        </a>
+                        <ul class="subclass" style="display: none;">
+                            {{~app:subApp:subIndex}}
+                            <li class="item" data-url="{{=subApp.url}}" data-appId="{{=subApp.id}}">
+                                <a href="javascript:void(0);">{{=subApp.name}}</a>
+                            </li>
+                            {{~}}
+                        </ul>
+                    </li>
+                    {{??}}
+                    <li class="use-item" data-url="{{=app.url}}" data-appId="{{=app.id}}">
+                        <a href="javascript:void(0);">
+                            <em class="ico " style="background: url({{=app.icon}})  no-repeat;background-size:100%"></em><span class="tab">{{=app.name}}</span><i
+                                class="icon-arrows icon-arrows-2"></i>
+                            <!--<img src="{{=app.icon}}" width="32px" height="32px"/><span class="tab">{{=app.name}}</span><i
+                                class="icon-arrows icon-arrows-2"></i>-->
+                        </a>
+                    </li>
+                    {{?}}
+                    {{~}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="TB_overlayBG" id="TB_overlayBG" style="display: none;"></div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="taglowleveldatasource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName">
+            <value>org.gjt.mm.mysql.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://127.0.0.1/tags?autoReconnect=true</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>123456</value>
+        </property>
+        <property name="poolPreparedStatements">
+            <value>true</value>
+        </property>
+        <property name="maxActive">
+            <value>100</value>
+        </property>
+        <property name="removeAbandoned">
+            <value>false</value>
+        </property>
+        <property name="defaultAutoCommit">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="tagdatasource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <constructor-arg index="0">
+            <ref local="taglowleveldatasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="tagtransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref local="tagdatasource"/>
+        </property>
+    </bean>
+
+    <bean id="tagidlowleveldatasource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName">
+            <value>org.gjt.mm.mysql.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://127.0.0.1/tags?autoReconnect=true</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>123456</value>
+        </property>
+        <property name="poolPreparedStatements">
+            <value>true</value>
+        </property>
+        <property name="maxActive">
+            <value>100</value>
+        </property>
+        <property name="removeAbandoned">
+            <value>false</value>
+        </property>
+        <property name="defaultAutoCommit">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="tagiddatasource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <constructor-arg index="0">
+            <ref local="tagidlowleveldatasource"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="tagidtransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref local="tagiddatasource"/>
+        </property>
+    </bean>
+
+    <bean id="tagdefaultDao" class="net.xinshi.pigeon.list.bandlist.ListBandDao">
+        <property name="tableName" value="t_pigeonlist"></property>
+        <property name="ds" ref="tagdatasource"></property>
+    </bean>
+
+
+    <bean id="tagbandSerializer" class="net.xinshi.pigeon.list.bandlist.SortBandStringSerializer"/>
+    <bean id="taglistFactory" class="net.xinshi.pigeon.list.bandlist.SortBandListFactory">
+        <property name="dao" ref="tagdefaultDao"></property>
+        <property name="txManager" ref="tagtransactionManager"/>
+        <property name="factoryName" value="pigeonDefaultList"></property>
+        <property name="logDirectory" value="d:/pigeondata/tags/list/"></property>
+
+        <property name="maxBandCacheSize" value="5000"></property>
+        <property name="maxListCacheSize" value="2000"></property>
+
+        <property name="bandSerializer" ref="tagbandSerializer"></property>
+        <property name="maxBandInfosPerBand" value="500"></property>
+        <property name="maxObjectsPerBand" value="500"></property>
+        <property name="idDataSource" ref="tagiddatasource"/>
+        <property name="idTxManager" ref="tagidtransactionManager"/>
+    </bean>
+
+
+    <!--
+
+        <bean id="tagmysqlidgenerator" class="net.xinshi.pigeon.idgenerator.impl.MysqlIDGenerator">
+            <property name="ds" ref="tagiddatasource"/>
+            <property name="txManager" ref="tagidtransactionManager"/>
+
+        </bean>
+
+        <bean id="tagpigeonEngine" class="net.xinshi.pigeon.adapter.impl.NormalPigeonEngine" init-method="init">
+
+            <property name="listFactory" ref="taglistFactory"/>
+            <property name="idGenerator" ref="tagmysqlidgenerator"/>
+        </bean>
+    -->
+
+    <bean id="tagpigeonEngine" class="net.xinshi.pigeon.adapter.impl.NormalPigeonEngine" destroy-method="stop">
+        <property name="fileSystem" ref="fileSystem"/>
+        <property name="pigeonStoreEngine" ref="pigeonStore"/>
+    </bean>
+
+
+    <bean class="net.xinshi.tags.impl.PrefixWordSplitter" id="prefixWordSplitter"/>
+
+    <bean class="net.xinshi.tags.impl.NormalTagService" id="tagService">
+        <property name="pigeon" ref="tagpigeonEngine"/>
+        <property name="wordSplitter" ref="prefixWordSplitter"/>
+    </bean>
+
+    <bean class="net.xinshi.tags.impl.HttpRemoteTagService" id="remoteTagService">
+        <property name="maxThread" value="5"/>
+        <property name="servicePointUrl" value="http://localhost:8080/tags/tagService.jsp"/>
+    </bean>
+
+    <bean class="net.xinshi.tags.extractors.baidu.TopTagExtractors" id="baiduExtractor">
+        <property name="maxThread" value="5"/>
+        <property name="urls">
+            <list>
+                <value>http://top.baidu.com/buzz/top10.html</value>
+                <value>http://top.baidu.com/buzz/weekhotspot.html</value>
+                <value>http://top.baidu.com/buzz/top_keyword.html</value>
+                <value>http://top.baidu.com/buzz/movie.html</value>
+                <value>http://top.baidu.com/buzz/tv.html</value>
+                <value>http://top.baidu.com/buzz/book.html</value>
+                <value>http://top.baidu.com/buzz/sport.html</value>
+                <value>http://top.baidu.com/buzz/dianshi.html</value>
+                <value>http://top.baidu.com/buzz/katong.html</value>
+                <value>http://top.baidu.com/buzz/shu.html</value>
+                <value>http://top.baidu.com/buzz/happygirl.html</value>
+                <value>http://top.baidu.com/buzz/girls.html</value>
+                <value>http://top.baidu.com/buzz/boys.html</value>
+                <value>http://top.baidu.com/buzz/ymingxing.html</value>
+                <value>http://top.baidu.com/buzz/nmingxing.html</value>
+                <value>http://top.baidu.com/buzz/ygeshou.html</value>
+                <value>http://top.baidu.com/buzz/ngeshou.html</value>
+                <value>http://top.baidu.com/buzz/renwu.html</value>
+                <value>http://top.baidu.com/buzz/rich.html</value>
+                <value>http://top.baidu.com/buzz/shuma.html</value>
+                <value>http://top.baidu.com/buzz/hzp.html</value>
+                <value>http://top.baidu.com/buzz/clothes.html</value>
+                <value>http://top.baidu.com/buzz/phone.html</value>
+
+
+                <value>http://top.baidu.com/buzz/shibochangguan.html</value>
+                <value>http://top.baidu.com/buzz/school.html</value>
+                <value>http://top.baidu.com/buzz/pet.html</value>
+                <value>http://top.baidu.com/buzz/soft.html</value>
+                <value>http://top.baidu.com/buzz/fengjingmingsheng.html</value>
+                <value>http://top.baidu.com/buzz/automobile.html</value>
+                <value>http://top.baidu.com/buzz/minicar.html</value>
+                <value>http://top.baidu.com/buzz/smallcar.html</value>
+                <value>http://top.baidu.com/buzz/jincoucar.html</value>
+                <value>http://top.baidu.com/buzz/zhongjicar.html</value>
+                <value>http://top.baidu.com/buzz/midcar.html</value>
+                <value>http://top.baidu.com/buzz/luxurycar.html</value>
+                <value>http://top.baidu.com/buzz/racingcar.html</value>
+                <value>http://top.baidu.com/buzz/suv.html</value>
+                <value>http://top.baidu.com/buzz/mpv.html</value>
+                <value>http://top.baidu.com/buzz/operator.html</value>
+                <value>http://top.baidu.com/buzz/mmogame.html</value>
+                <value>http://top.baidu.com/buzz/web_game.html</value>
+                <value>http://top.baidu.com/buzz/magic_rpg.html</value>
+                <value>http://top.baidu.com/buzz/martial_arts_rpg.html</value>
+                <value>http://top.baidu.com/buzz/myth_rpg.html</value>
+                <value>http://top.baidu.com/buzz/history_rpg.html</value>
+                <value>http://top.baidu.com/buzz/sf_game.html</value>
+
+                <value>http://top.baidu.com/buzz/leisure_game.html</value>
+                <value>http://top.baidu.com/buzz/pc_brand.html</value>
+                <value>http://top.baidu.com/buzz/notebook_brand.html</value>
+                <value>http://top.baidu.com/buzz/desktop_brand.html</value>
+                <value>http://top.baidu.com/buzz/notebook_product.html</value>
+                <value>http://top.baidu.com/buzz/desktop_product.html</value>
+                <value>http://top.baidu.com/buzz/jichujiaoyu.html</value>
+                <value>http://top.baidu.com/buzz/zhiyepeixun.html</value>
+                <value>http://top.baidu.com/buzz/yuyanpeixun.html</value>
+                <value>http://top.baidu.com/buzz/yingyupeixun.html</value>
+                <value>http://top.baidu.com/buzz/chinese_bank.html</value>
+                <value>http://top.baidu.com/buzz/foreign_bank.html</value>
+                <value>http://top.baidu.com/buzz/fund_company.html</value>
+                <value>http://top.baidu.com/buzz/open_ended_fund.html</value>
+                <value>http://top.baidu.com/buzz/closed_ended_fund.html</value>
+
+            </list>
+        </property>
+    </bean>
+</beans>

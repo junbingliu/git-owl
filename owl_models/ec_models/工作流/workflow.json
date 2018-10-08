@@ -1,0 +1,35 @@
+{
+  "id":"string(16),disabled:true,tab:01;渠道Id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:16;店铺id",
+  "docTypeId":"string(16),required:true,inputType:numberLetter,tab:03;单据类型",
+  "docId":"string(16),required:true,tab:04;单据Id",
+  "currentFlowId":"string(16),required:true,tab:05;使用的流程",
+  "currentStep":"string(16),required:true,tab:05;当前的步骤",
+  "logs":[
+    {
+      "#meta":{
+        "fieldLabel":"流程日志"
+      },
+      "timestamp":"date,required;发生时间",
+      "fromStepId":"string(16);前一步骤",
+      "toStepId":"string(16);到哪个步骤",
+      "signUserId":"string(16);审核人/经手人",
+      "memo": "string(64);备注"
+    }
+  ],
+  "_t": "workflowId",
+  "#meta": {
+    "rem": "工作流管理",
+    "parent": [
+      "shop"
+    ],
+    "projectName": "工作流管理",
+    "visitType":["shop"],
+    "pos":7,
+    "group":{
+      "id":"workflow",
+      "name":"工作流",
+      "pos":4
+    }
+  }
+}

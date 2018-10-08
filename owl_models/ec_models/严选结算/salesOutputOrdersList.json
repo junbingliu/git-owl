@@ -1,0 +1,67 @@
+{
+	"id" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;单据id",
+	"isSettlement" : "choice,values:F_否/T_是,tab:01;是否结算",
+	"settlementId" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;结算单ID",
+	"b2cOrderAliasCode" : "string(16),disable:true,tab:02;b2c销售订单号",
+	"salesOrderId" : "string(16),disable:true,tab:03;销售订单ID",
+	"salesOutputId" : "string(16),disable:true,tab:04;销售出库单id",
+	"parcelId" : "string(16),disable:true,tab:05;包裹单id",
+	"orderDeliveryDate" : "date,showTime:true,disable:true,tab:06;订单发货时间",
+	"settlementDate" : "date,showTime:true,disable:true,tab:06;结算时间",
+	"supplierId" : "string(16),disable:true,tab:07;供应商id",
+	"supplierName" : "string(16),disable:true,tab:08;供应商名称",
+	"shopId" : "string(16),disable:true,tab:09;店铺id",
+	"shopName" : "string(16),disable:true,tab:10;店铺名称",
+	"payTime" : "date,showTime:true,disable:true,tab:11;支付时间",
+	"payablePrice" : "number(16),disable:true,tab:12;应付金额",
+	"platformNeedPayMoney" : "number(16),disable:true,tab:13;平台承担金额",
+	"deliveryPrice" : "number(16),disable:true,tab:14;运费",
+	"payableDate" : "string(16),disable:true,tab:15;应付日期",
+	"_t" : "salesOutputOrders",
+	"#meta" : {
+		"rem" : "严选销售出库单列表",
+		"parent" : [
+			"salesOutputOrders"
+		],
+		"projectName" : "严选销售出库单列表",
+		"visitType" : [
+		],
+		"pos" : 6,
+		"group" : {
+			"id" : "purchaseSettlement",
+			"name" : "严选销售出库单列表",
+			"pos" : 4
+		},
+		"export":[
+			{
+				"label":"只导出子项",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":[
+					"*"
+				],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			},
+			{
+				"label":"导出完整",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+      "exportDoc" : true
+	}
+}

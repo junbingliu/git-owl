@@ -1,0 +1,36 @@
+{
+  "id":"string(16),disabled:true,tab:01;渠道Id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:16;店铺id",
+  "code":"string(16),required:true,inputType:numberLetter,tab:03;渠道编码",
+  "name":"string(16),required:true,tab:04;渠道名称",
+  "_t": "saleChannel",
+  "#meta": {
+    "rem": "销售渠道",
+    "parent": [
+      "shop"
+    ],
+    "projectName": "销售渠道",
+    "visitType":["shop"],
+    "pos": -1,
+    "group":{
+      "id":"mainData",
+      "name":"主数据",
+      "pos":4
+    },
+    "export":[
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

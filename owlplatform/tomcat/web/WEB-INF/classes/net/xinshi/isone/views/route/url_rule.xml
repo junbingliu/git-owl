@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <mode name="multi-merchant" description="多商家模式页面">
+        <!--平台-->
+        <url value="/index.jsp" description="首页"/>
+        <url value="/product_list.jsp" description="商品列表（搜索商品）"/>
+        <url value="/sort_channel.jsp" description="分类频道"/>
+        
+        <!--店铺-->
+        <url value="/shop/index.jsp" description="店铺首页"/>
+        <url value="/shop/product.jsp" description="店铺商品详情"/>
+        <url value="/shop/product_list.jsp" description="店铺商品列表"/>
+        <url value="/shop/mark.jsp" description="店铺评分"/>
+    </mode>
+    
+    <mode name="one-merchant" description="单商家模式页面">
+        <url value="/index.jsp" description="首页"/>
+        <url value="/product_list.jsp" description="商品列表（搜索商品）"/>
+        <url value="/sort_channel.jsp" description="分类频道"/>
+        <url value="/product.jsp" description="店铺商品详情"/>
+    </mode>
+
+    <common description="公共页面">
+        <!--会员专区-->
+        <url value="/member/index.jsp" description="会员专区首页"/>
+        <url value="/member/profile.jsp" description="个人资料"/>
+        <url value="/member/my_address.jsp" description="收货地址簿"/>
+        <url value="/member/msg_received.jsp" description="站内信列表，收件"/>
+        <url value="/member/msg_sent.jsp" description="站内信列表，已发送"/>
+        <url value="/member/msg_write.jsp" description="写信"/>
+        <url value="/member/order_list.jsp" description="订单列表，最新订单和历史订单"/>
+        <url value="/member/favor_list.jsp" description="收藏商品"/>
+        <url value="/member/modify_password.jsp" description="修改密码"/>
+    
+        <!--购物流程-->
+        <url value="/shopping/cart.jsp" description="购物车"/>
+        <url value="/shopping/order_form.jsp" description="订单结算"/>
+        <!--
+
+        order_form_consignee,order_form_delivery,order_form_payment,order_form_details
+
+        -->
+
+        <url value="/shopping/order_result.jsp" description="购物车"/>
+        <url value="/shopping/gift.jsp" description="赠品/礼品"/>
+    
+        <!--登录注册流程-->
+        <url value="/login/sign_in.jsp" description="登录"/>
+        <url value="/login/logout.jsp" description="退出"/>
+        <url value="/login/register.jsp" description="注册"/>
+        <url value="/login/agreement.jsp" description="注册协议"/>
+        <url value="/login/register_result.jsp" description="注册结果提示"/>
+        <url value="/login/lost_password.jsp" description="忘记密码"/>
+        <url value="/login/find_password.jsp" description="忘记密码提示"/>
+    </common>
+</rule>

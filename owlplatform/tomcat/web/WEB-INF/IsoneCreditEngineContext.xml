@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="isoneCreditEngine" class="net.xinshi.isone.modules.IsoneCreditEngine">
+        <property name="merchantCreditService" ref="merchantCreditService"/>
+        <property name="productCreditService" ref="productCreditService"/>
+        <property name="creditRecordService" ref="creditRecordService"/>
+        <property name="merchantAppraiseService" ref="merchantAppraiseService"/>
+        <property name="productAppraiseService" ref="productAppraiseService"/>
+        <property name="afterServiceAppraiseService" ref="afterServiceAppraiseService"/>
+        <property name="merchantCreditExecutor" ref="merchantCreditExecutor"/>
+        <property name="productCreditExecutor" ref="productCreditExecutor"/>
+        <property name="afterServiceCreditExecutor" ref="afterServiceCreditExecutor"/>
+        <property name="creditAppraiseIndexingQueService" ref="creditAppraiseIndexingQueService"/>
+        <property name="creditAppraiseOnRealTimeQueService" ref="creditAppraiseOnRealTimeQueService"/>
+    </bean>
+
+    <bean id="merchantCreditService" class="net.xinshi.isone.modules.credit.credit.impl.NormalMerchantCreditService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="locker" ref="resourceLocker"/>
+    </bean>
+    <bean id="productCreditService" class="net.xinshi.isone.modules.credit.credit.impl.NormalProductCreditService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="locker" ref="resourceLocker"/>
+    </bean>
+    <bean id="creditRecordService" class="net.xinshi.isone.modules.credit.credit.impl.NormalCreditRecordService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+    <bean id="merchantAppraiseService" class="net.xinshi.isone.modules.credit.appraise.impl.NormalMerchantAppraiseService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="lock" ref="resourceLocker"/>
+        <property name="indexingQueService" ref="creditAppraiseIndexingQueService"/>
+        <property name="creditAppraiseOnRealTimeQueService" ref="creditAppraiseOnRealTimeQueService"/>
+    </bean>
+    <bean id="productAppraiseService" class="net.xinshi.isone.modules.credit.appraise.impl.NormalProductAppraiseService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="lock" ref="resourceLocker"/>
+        <property name="indexingQueService" ref="creditAppraiseIndexingQueService"/>
+        <property name="creditAppraiseOnRealTimeQueService" ref="creditAppraiseOnRealTimeQueService"/>
+    </bean>
+    <bean id="afterServiceAppraiseService" class="net.xinshi.isone.modules.credit.appraise.impl.NormalAfterServiceAppraiseService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="lock" ref="resourceLocker"/>
+        <property name="indexingQueService" ref="creditAppraiseIndexingQueService"/>
+        <property name="creditAppraiseOnRealTimeQueService" ref="creditAppraiseOnRealTimeQueService"/>
+    </bean>
+
+    <bean id="merchantCreditExecutor" class="net.xinshi.isone.modules.credit.executor.impl.NormalMerchantCreditExecutor">
+    </bean>
+    <bean id="productCreditExecutor" class="net.xinshi.isone.modules.credit.executor.impl.NormalProductCreditExecutor">
+    </bean>
+    <bean id="afterServiceCreditExecutor" class="net.xinshi.isone.modules.credit.executor.impl.NormalAfterServiceCreditExecutor">
+    </bean>
+
+    <!--相关队列 begin-->
+    <bean id="creditAppraiseIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_CreditAppraise"/>
+    </bean>
+
+    <bean id="creditAppraiseOnRealTimeQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="CreditAppraiseQue_OnRealTime"/>
+    </bean>
+    <!--相关队列 end-->
+</beans>

@@ -1,0 +1,11 @@
+//curl -u elastic 'localhost:9200/is1erp/allinone/_search' -H 'Content-Type: application/json' -d '
+{
+  "size": 0,
+  "aggregations": {
+    "objTypes": {
+      "terms": {
+        "field": "_t"
+      }
+    }
+  }
+}'

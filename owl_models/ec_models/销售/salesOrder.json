@@ -1,0 +1,264 @@
+{
+  "id": "string(16),searchable:true,tab:01,listTab:01;订单编号Id",
+  "shopId": "string(12),tab:03,listTab:02;商店ID",
+  "channelId": "string(12),tab:a03,disabled:true,required:true,listTab:03;渠道Id",
+  "channelName": "string(12),tab:a031,disabled:true,required:true,listTab:04;渠道",
+  "leaveWords": "string(128),listSize:20,tab:19,listTab:40;买家留言",
+  "sellerComments": "string(128),listSize:20,tab:20,listTab:41;卖家备注",
+  "memo": "string(128),tab:39,listSize:20,listTab:42;erp备注",
+  "o_point_consume": "string(12),listSize:8,tab:39,listTab:42;使用积分",
+  "purchase_type": "choice,values:0_现金购买/1_积分购买/2_混合支付,listSize:10,tab:39,listTab:43;支付类型",
+  "isAddParcel": "choice,values:Y_是/N_否,listSize:14,tab:39,searchable:true,help:包裹单是否拆分,listTab:43;包裹单是否拆分",
+  "_createTime":"date,searchable:true,disabled:true,tab:39,listTab:44;创建时间",
+  "type":"choice,values:1_普通店铺/2_严选店铺,listSize:14,tab:39,listTab:45;店铺类型",
+  "b2cMerchantInfo":{
+    "#meta": {
+      "fieldLabel": "b2c对接信息",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "g"
+    },
+    "b2cMerchantCode": "string(16),tab:02,listTab:21;商户编号",
+    "b2cOrderId": "string(12),tab:04,listTab:43;b2c订单Id",
+    "b2cOrderAliasCode": "string(12),tab:03,listTab:04;b2c订单外部号"
+  },
+
+  "invoiceInfo":{
+    "#meta": {
+      "fieldLabel": "发票信息",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "b"
+    },
+    "needInvoice": "choice,values:0_否/1_是,searchable:true,tab:21,listSize:6,listTab:05;是否开发票",
+    "invType": "choice,values:0_电子发票-个人/1_电子发票-企业/2_纸质发票-个人/3_纸质发票-企业,searchable:true,tab:22,listSize:14,listTab:44;发票类型",
+    "invNormalTitleTypeText": "choice,values:0_个人/1_公司,tab:22,listSize:14,listTab:44;普通发票抬头",
+    "title": "string(64),tab:22,listSize:14,listTab:44;发票抬头名称",
+    "invContent": "string(64),listSize:14,tab:35,listTab:45;发票内容",
+    "invTaxpayerNumber": "string(64),listSize:14,tab:35,listTab:45;税号",
+    "InvoiceNumber": "string(64),listSize:14,tab:35,listTab:45;发票号码",
+    "InvoiceCode": "string(64),listSize:14,tab:35,listTab:45;发票代码",
+    "invMobile": "string(64),listSize:14,tab:35,listTab:45;电话号码",
+    "isPassInviice": "choice,values:0_未开票/1_开票,defaultValue:0,disabled:true,listSize:14,tab:35,listTab:45;开票状态"
+  },
+
+  "states":{
+    "#meta": {
+      "fieldLabel": "订单状态",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "c"
+    },
+    "orderState": "choice,values:1_待发货/2_待收货/3_交易结束/4_交易关闭/5_订单完成/6_售后处理中/7_部分发货,searchable:true,tab:05,listTab:06;订单状态;",
+    "processState": "string(8),tab:06,listTab:46;处理状态",
+    "afterStatus": "choice,values:1_没有售后/2_退款成功/3_退货成功/4_退款驳回/5_退货驳回,tab:23,listTab:08;售后状态",
+    "signStatus": "choice,values:1_已签收/0_未签收,listSize:10,searchable:true,tab:14,listTab:07;签收状态"
+  },
+
+  "discountInfo":{
+    "#meta": {
+      "fieldLabel": "优惠信息",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "d"
+    },
+    "store_coupon":"choice,values:1_是/0_否,listSize:14,tab:30,listTab:09;是否使用店铺优惠劵",
+    "storeCouponMoney": "string(16),tab:30,listTab:09;店铺优惠券金额",
+    "discount": "string(16),tab:31,listTab:47;优惠券金额",
+    "couponMoney": "string(16),tab:31,listTab:47;订单使用优惠券金额",
+    "offMoney": "string(16),tab:33,listTab:10;满减优惠金额"
+
+  },
+
+  "paymentInfo":{
+    "#meta": {
+      "fieldLabel": "支付信息",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "e"
+    },
+    "totalProductPayPrice": "string(16),tab:08,listTab:11;商品总金额",
+    "totalPrice": "string(16),tab:09,listTab:12;订单总金额",
+    "o_pay": "string(16),tab:10,listTab:12;已支付金额",
+    "costFreight": "string(16),tab:11,listTab:13;订单物流费用",
+    "exp_fee": "number(8),tab:12;严选物流费用",
+    "paymentMode": "choice,values:1_预存款/2_支付宝/20_支付宝/3_信用额度/4_华润e付/5_微信支付/6_积分支付/7_银联支付/8_民生支付/10_微信支付/99_线下支付/10000_礼品卡兑换/10001_微信礼品卡兑换,tab:13,listTab:14;支付方式",
+    "outPayNo": "string(16),tab:14,listTab:15;支付流水号"
+  },
+
+
+  "timeInfo":{
+    "#meta": {
+      "fieldLabel": "时间信息",
+      "position":"card",
+      "anotherLevel":false,
+      "tab": "f"
+    },
+    "payTime": "date,tab:24,searchable:true,listTab:16;订单支付时间",
+    "completedTime": "string(16),hidden:true,tab:25,listTab:17;无效数据",
+    "orderCompletedTime": "date,tab:25,hidden:true,listTab:17;无效数据",
+    "orderCompletedDate": "date,tab:25,listTab:17;订单完成时间",
+    "closedTime": "string(16),tab:26,hidden:true,listTab:18;无效数据",
+    "orderClosedTime": "date,tab:26,hidden:true,listTab:18;无效数据",
+    "orderClosedDate": "date,tab:26,listTab:18;订单关闭时间",
+    "tradeSuccTime": "string(16),tab:27,hidden:true,listTab:19;无效数据",
+    "orderTradeSuccTime": "date,tab:27,hidden:true,listTab:19;无效数据",
+    "orderTradeSuccDate": "date,tab:27,searchable:true,listTab:19;交易成功时间",
+    "deliveryTime": "string(16),tab:28,hidden:true,listTab:20;无效数据",
+    "orderDeliveryTime": "date,tab:28,hidden:true,listTab:20;无效数据",
+    "orderDeliveryDate": "date,tab:28,searchable:true,listTab:20;订单发货时间"
+  },
+
+
+
+  "consigneeInfo": {
+    "#meta": {
+      "fieldLabel": "收货人信息",
+      "tab": "h"
+    },
+    "receiverName": "string(8),tab:01,listTab:23;收货人",
+    "receiverMobile": "string(8),tab:02,listTab:24;手机",
+    "receiverTelphone": "string(8),tab:02,listTab:25;固话",
+    "receiverProvince": "string(8),tab:03,listTab:26;省份",
+    "receiverCity": "string(8),tab:04,listTab:27;城市",
+    "receiverDistrict": "string(8),tab:05,listTab:28;地区",
+    "address": "string(24),tab:06,listTab:29;地址",
+    "zipCode": "string(8),tab:07,listTab:30;邮编"
+  },
+
+  "buyerInfo": {
+    "#meta": {
+      "fieldLabel": "购买人信息",
+      "tab": "i"
+    },
+    "perchaser": "string(16),tab:01,listTab:31;购买人",
+    "zipCode": "string(16),tab:02,listTab:32;邮编",
+    "phone": "string(16),tab:03,listTab:33;手机"
+  },
+
+  "logisticsInfo": {
+    "#meta": {
+      "fieldLabel": "物流信息",
+      "tab": "j"
+    },
+    "logiName": "string(16),tab:01,listTab:34;物流公司名称",
+    "logiNo": "string(16),tab:02,listTab:35;物流公司单号",
+    "memo": "string(16),tab:03,listTab:36;物流备注",
+    "distributionMode": "string(16),tab:04,listTab:37;配送方式",
+    "distributionDate": "string(16),tab:07,listTab:38;配送日期",
+    "parcelIds": "string(8),disabled:true,tab:41,listTab:39;包裹单Id"
+  },
+
+  "goodsItems": [
+    {
+      "#meta": {
+        "fieldLabel": "商品清单",
+        "tab": "k"
+      },
+      "oi_id": "string(16),tab:01,listTab:47;订单行号",
+      "productId": "string(16),tab:02,listTab:48;商品编号",
+      "skuName": "string(16),tab:02,listTab:49;商品名称",
+      "specName": "string(16),tab:03,listTab:50;规格",
+      "skuCode": "string(16),tab:04,listTab:51;物料编号",
+      "originalUnitPrice": "string(16),tab:05,listTab:52;原价",
+      "pdt_market_price": "string(16),tab:05,listTab:53;市场价",
+      "unitPrice": "string(16),tab:06,listTab:53;购买单价",
+      "channelSalePrice": "number(8),tab:06,listTab:53;第三方渠道价",
+      "discountRate": "number(8),tab:06,listTab:53;折扣率",
+      "amount": "string(16),tab:07,help:商品购买总数,listTab:54;商品购买总数",
+      "tradePrice": "string(16),tab:08,listTab:55;商品总成交价格",
+      "purchase_type": "choice,values:1_预存款/2_支付宝/20_支付宝/3_信用额度/4_华润e付/5_微信支付/6_积分支付/7_银联支付/8_民生支付/10_微信支付/99_线下支付,listSize:10,tab:08,listTab:55;支付方式",
+      "merchantDistributeCouponPrice": "string(16),tab:09,listTab:56;商家券分摊的金额",
+      "platformDistributeCouponPrice": "string(16),tab:10,listTab:57;平台券分摊的金额",
+      "sn": "string(16),tab:13,listTab:60;货号",
+      "discounts": "number(8),tab:8,listTab:61;优惠",
+      "pointConsume": "string(16),tab:13,listTab:62;商品积分",
+      "oi_point_consume": "string(16),tab:14,listTab:63;使用积分",
+      "cSn": "string(16),tab:15,listTab:64;优惠券序列号",
+      "couponBatchId": "string(16),tab:16,listTab:65;券批次ID",
+      "couponBatchName": "string(16),tab:17,listTab:66;券批次名称",
+      "expenseAccountDept":"choice,values:100000_电商事业部/100100_运营组/100100_营销推广组/100300_产品研发组/100400_创新业务组/100500_统筹组/110000_商户拓展部/110100_商户管理组/110200_会员发展及品牌推广组/110300_支付及产品支持组/110400_会员管理组/110500_创新项目组/120000_数据应用部/120100_数字化营销组/120200_数据金融创新组/120300_数据工程组/120400_战略与分析组/130000_金融事业部/130100_润信小贷公司/130110_金融IT小组/140000_重点产品开发部/140100_技术组/140200_集采运营组/140300_商旅运营组/150000_平台技术部/150100_规划与项目管理组SMO/150200_基础架构组/150300_技术开发组/150400_技术运维组DevOps/150500_用户平台组/160000_综合管理部/160100_法律风控组/160200_人力资源组/160300_财务组/160400_行政组_/160500_办公室/170000_产品委员会,listSize:20,tab:18,listTab:67;费用承担部门",
+      "sendCardWays": "string(16),tab:19,listTab:70;发券方式",
+      "platformNeedPayPercent": "string(16),tab:20,listTab:67;平台承担比例",
+      "platformNeedPayMoney": "string(16),tab:21,listTab:68;平台承担金额"
+    }
+  ],
+
+  "_t": "salesOrder",
+  "#meta": {
+    "readOnly":true,
+    "rem": "销售订单",
+    "parent": [
+      "salesOrder"
+    ],
+    "projectName": "销售订单",
+    "visitType":["shop"],
+    "pos":2,
+    "group":{"id":"sale","name":"销售","pos":1},
+    "export":[
+      {
+        "label":"只导出子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"goodsItems",
+          "itemFields":[
+            "$parent.id",
+            "$parent.shopId",
+            "$parent.channelId",
+            "$parent.channelName",
+            "$parent.isAddParcel",
+            "$parent._createTime",
+            "$parent.b2cMerchantInfo.b2cMerchantCode",
+            "$parent.b2cMerchantInfo.b2cOrderId",
+            "$parent.b2cMerchantInfo.b2cOrderAliasCode",
+            "$parent.timeInfo.payTime",
+            "$parent.timeInfo.orderCompletedDate",
+            "$parent.timeInfo.orderClosedDate",
+            "$parent.timeInfo.orderTradeSuccDate",
+            "$parent.timeInfo.orderDeliveryDate",
+            "$parent.states.orderState",
+            "$parent.states.afterStatus",
+            "$parent.states.signStatus",
+            "productId",
+            "skuName",
+            "specName",
+            "skuCode",
+            "originalUnitPrice",
+            "unitPrice",
+            "amount",
+            "tradePrice",
+            "purchase_type",
+            "merchantDistributeCouponPrice",
+            "platformDistributeCouponPrice",
+            "sn",
+            "discounts",
+            "pointConsume",
+            "oi_point_consume",
+            "cSn",
+            "couponBatchId",
+            "couponBatchName",
+            "platformNeedPayPercent",
+            "platformNeedPayMoney"]
+        }
+      },
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"goodsItems",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

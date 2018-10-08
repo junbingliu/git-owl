@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="net.xinshi.isone.modules.task.service.impl.DefaultTaskTypeRepository" id="taskTypeRepository"/>
+
+    <bean class="net.xinshi.isone.modules.task.service.impl.DefaultTaskService" id="taskService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="taskTypeRepository" ref="taskTypeRepository"/>
+    </bean>
+
+    <bean class="net.xinshi.isone.modules.task.service.TaskQueFactory">
+        <property name="pigeon" ref="pigeonEngine"></property>
+        <property name="taskService" ref="taskService"></property>
+    </bean>
+
+    <bean class="net.xinshi.isone.modules.task.IsoneTaskEngine"  id="isoneTaskEngine">
+        <property name="taskTypeRepository" ref="taskTypeRepository"/>
+        <property name="taskService" ref="taskService"/>
+    </bean>
+</beans>

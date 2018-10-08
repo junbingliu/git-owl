@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="interactionMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- 换货 -->
+    <bean name="/interaction/addChangePost.form" class="net.xinshi.isone.modules.interaction.server.controller.AddChangeDocController">
+        <property name="successView">
+            <value>/json/json.jsp</value>
+        </property>
+    </bean>
+    <!-- 退货 -->
+    <bean name="/interaction/addReturnPost.form" class="net.xinshi.isone.modules.interaction.server.controller.AddReturnDocController">
+        <property name="successView">
+            <value>/json/json.jsp</value>
+        </property>
+    </bean>
+
+
+
+</beans>

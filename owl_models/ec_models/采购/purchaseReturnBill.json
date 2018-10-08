@@ -1,0 +1,150 @@
+{
+  "id": "string(16),tab:01,disabled:true;采购退货单Id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:02;店铺id",
+  "purchaseOrderId": "linkId,dataSource:/erp_purchaseOrder/handlers/list.jsx,fields:id/supplierName/warehouseName/supplierId/warehouseId/items,toFields:purchaseOrderId/supplierName/warehouseName/supplierId/warehouseId/items,displayField:id,fieldsWidth:150/120/120/,tab:02;采购单Id",
+  "isStorage": "choice,values:1_是/0_否,required:true,defaultValue:1,searchable:true,tab:04;是否入库",
+  "create_uid": "string(16),disabled:true,defaultValue:$loginUser.id,tab:10;创建人Id",
+  "create_realName": "string(16),disabled:true,defaultValue:$loginUser.realName,tab:11;创建人名称",
+  "dates": "date,tab:06;日期",
+  "supplierName": "string(16),disabled:true,listSize:16,tab:07;供应商",
+  "supplierId": "string(16),hidden:true,disabled:true,searchable:true,tab:08;供应商id",
+  "warehouseName": "string(16),disabled:true,listSize:16,tab:09;仓库",
+  "warehouseId": "string(16),hidden:true,disabled:true,searchable:true,tab:10;仓库id",
+  "approvalStatus": "choice,values:0_未审核/1_审核通过/-1_审核不通过,defaultValue:0,searchable:true,tab:11;审核状态",
+  "approve_uid": "linkId,dataSource:/erpApi/user/search.jsx,fields:id/realName,toFields:approve_uid/approve_realName,displayField:id,fieldsWidth:100/120,searchable:true,hidden:true,tab:12;审批人",
+  "remark": "string(64),tab:12;备注",
+  "_createTime":"date,searchable:true,disabled:true,tab:13;创建时间",
+  "items": [
+    {
+      "#meta": {
+        "fieldLabel": "入库商品清单",
+        "tab": "16",
+        "position":"card",
+        "addMulti":{
+          "linkId":"skuId",
+          "from":"id",
+          "label":"选择物料...",
+          "dataSource":"/erp_sku/handlers/list.jsx",
+          "fields":["id","name","code","barcode","profits","noTaxPrice","taxRate"],
+          "toFields":["skuId","name","code","barcode","profits","unitPriceWithoutTax","taxRate"],
+          "fieldLabels":["物料ID","物料名称","物料编码","条形码"],
+          "fieldWidths":[100,120,120,120],
+          "searchArgs":{"supplierInfo.supplierId":"@supplierId"},
+          "unique":true
+        },
+        "addSingle":false,
+        "aggregateFields": [
+          {
+            "label": "总含税价",
+            "field": "totalPriceWithTax"
+          },
+          {
+            "label": "不含税总价",
+            "field": "totalPriceWithoutTax"
+          },
+          {
+            "label" : "总数量",
+            "field" : "quantity"
+          }
+        ]
+      },
+      "skuId": "string(16),disable:true,tab:01;skuId",
+      "barcode": "string(16),listSize:10,disabled:true,tab:02;条形码",
+      "code": "string(16),listSize:10,disabled:true,tab:03;物料编号",
+      "name": "string(16),listSize:10,disabled:true,tab:04;物料名称",
+      "buyUnitAmount":"number(6),inputType:number,tab:05;数量",
+      "buyUnit":"string(8),disabled:true,tab:06;采购单位",
+      "buyUnitCount":"number(6),disabled:true,tab:07;每单位数",
+      "quantity": "number(6),inputType:number,disabled:true,tab:08,value:((#buyUnitCount||1)*#buyUnitAmount).toFixed(2);真实数量",
+      "profits": "number(6),inputType:number,tab:09;毛利",
+      "unitPriceWithTax": "number(6),inputType:number,disable:true,value:(#unitPriceWithoutTax*(1+#taxRate/100)).toFixed(2),tab:10;含税单价",
+      "unitPriceWithoutTax": "number(6),inputType:number,tab:08;不含税单价",
+      "taxRate": "choice,values:0_0/3_3/6_6/7.7_7.7/11_11/11.9_11.9/13_13/16_16/17_17/21_21/26.353_26.353/32.375_32.375,listSize:4,tab:09;税率(%)",
+      "totalPriceWithTax": "number(16),inputType:number,listSize:10,disable:true,value:(#unitPriceWithTax*#quantity).toFixed(2),tab:11;含税总价",
+      "totalPriceWithoutTax": "number(16),inputType:number,listSize:10,disable:true,value:(#unitPriceWithoutTax*#quantity).toFixed(2),tab:12;不含税总价",
+      "createProductDate": "date,tab:13;生产日期",
+      "intoStorageDate": "date,tab:14;入库日期",
+      "productExpired": "date,tab:15;有效期",
+      "batchId": "string(16),tab:16;批号"
+    }
+  ],
+  "_t": "purchaseReturnBill",
+  "#meta": {
+    "rem": "采购退货单",
+    "parent": [
+      "purchaseReturnBill"
+    ],
+    "projectName": "采购退货单",
+    "visitType": [
+      "shop"
+    ],
+    "pos":1,
+    "group": {
+      "id": "purchase",
+      "name": "采购",
+      "pos":3
+    },
+    "export":[
+      {
+        "label":"只导出采购子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"items",
+          "itemFields":[
+            "$parent.id",
+            "$parent.shopId",
+            "$parent.purchaseOrderId",
+            "$parent.isStorage",
+            "$parent.create_uid",
+            "$parent.create_realName",
+            "$parent.dates",
+            "$parent.supplierName",
+            "$parent.supplierId",
+            "$parent.warehouseName",
+            "$parent.warehouseId",
+            "$parent.approvalStatus",
+            "$parent.approve_uid",
+            "$parent.remark",
+            "$parent._createTime",
+            "skuId",
+            "barcode",
+            "code",
+            "name",
+            "buyUnitAmount",
+            "buyUnit",
+            "buyUnitCount",
+            "quantity",
+            "profits",
+            "unitPriceWithTax",
+            "unitPriceWithoutTax",
+            "taxRate",
+            "totalPriceWithTax",
+            "totalPriceWithoutTax",
+            "createProductDate",
+            "intoStorageDate",
+            "productExpired",
+            "batchId"]
+        }
+      },
+      {
+        "label":"导出完整采购单",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ],
+    "exportDoc":true
+  }
+}

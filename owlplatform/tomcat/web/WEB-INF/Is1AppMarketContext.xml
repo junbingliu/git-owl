@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="appPagesService" class="net.xinshi.isone.modules.appmarket.service.impl.NormalAppPagesService">
+        <property name="publicPigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="is1AppClientMarketService"
+          class="net.xinshi.isone.modules.appmarket.service.impl.NormalAppMarketClientService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="httpClientManager" ref="httpClientManager"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="appPagesService" ref="appPagesService"/>
+    </bean>
+
+    <bean id="installer" class="net.xinshi.isone.modules.appmarket.service.impl.SaasInstaller">
+        <property name="rawPigeon" ref="pigeonEngine"/>
+        <property name="appPigeon" ref="pigeonEngine"/>
+        <property name="pagesService" ref="appPagesService"/>
+        <property name="httpClientManager" ref="httpClientManager"/>
+        <property name="appMarketClientService" ref="is1AppClientMarketService"/>
+        <property name="appMarketDownloadUrl" value="http://localhost:8080/published/api/download.jsp"/>
+        <property name="serverLibs" value="@jsLib"/>
+    </bean>
+
+    <bean id="urlRuleService" class="net.xinshi.isone.modules.appmarket.service.impl.NormalUrlRuleService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="privatePageService" class="net.xinshi.isone.modules.appmarket.service.impl.NormalPrivatePageService">
+        <property name="privatePigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="appContextService" class="net.xinshi.isone.modules.appmarket.service.impl.NormalAppContextService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="appPages" ref="appPagesService"/>
+    </bean>
+
+    <bean id="pageExecutor" class="net.xinshi.isone.modules.appmarket.service.impl.NormalPageExecutor">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="serverLibs" value="@jsLib"/>
+    </bean>
+
+
+    <bean id="is1AppMerketEngine" class="net.xinshi.isone.modules.appmarket.Is1AppMarketEngine">
+        <property name="appMarketClientService" ref="is1AppClientMarketService"/>
+        <property name="urlRuleService" ref="urlRuleService"/>
+        <property name="installer" ref="installer"/>
+        <property name="privatePageService" ref="privatePageService"/>
+        <property name="appContextService" ref="appContextService"/>
+        <property name="appPages" ref="appPagesService"/>
+        <property name="pageExecutor" ref="pageExecutor"/>
+    </bean>
+</beans>

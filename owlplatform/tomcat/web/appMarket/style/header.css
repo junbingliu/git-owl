@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{  margin:0; padding:0; font-size:12px; word-wrap:break-word; color:#000; font-family:"宋体";}
+ul,li,dl,dt,dd,span,del,b,font,label,ol,tbody,td,tr{ padding:0px; margin:0px; list-style-type:none;}
+em,i{ font-style:normal;}
+p,input,form{ margin:0px; padding:0px;}
+h1,h2,h3,h4,h5,h6{ margin:0px; padding:0px; font-weight:normal; font-size:12px;}
+img{border:0;}
+a{ text-decoration:none; color:#F00;}
+a:hover{ text-decoration:underline; color:#f60;}
+.clear{ clear:both; height:0; line-height:0; font-size:0; overflow:hidden;}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix {display: inline-table;}
+* html .clearfix {height: 1%;} 
+*+html .clearfix{height: 1%;}
+.clearfix {display: block; clear:both}
+
+
+/* 宽度限制模块 */
+.wbox{width:1210px; margin:0 auto;clear:both;}
+.wbox:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.wbox { display:inline-block; }/* Hides from IE-mac \*/
+* html .wbox { zoom:1; }
+.wbox { display:block; }/* End hide from IE-mac */
+.w1000{width:1000px;}
+
+.fl{ float:left;}
+.fr{ float:right;}
+.mt5{ margin-top:5px;}
+.mt10{ margin-top:10px;}
+.mt15{ margin-top:15px;}
+.mt20{ margin-top:20px;}
+.mt25{ margin-top:25px;}
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>注册页</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link href="../res/css/common.css" rel="stylesheet">
+		<link href="../res/css/owl.css" rel="stylesheet">
+		<script src="/resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+		<script src="../JigsawValidateUtil/js/JigsawValidateUtil_inlay.js" type="text/javascript"></script>
+		<link href="../JigsawValidateUtil/style/JigsawValidateUtil_inlay.css" rel="stylesheet" />
+		<script src="../js/register.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div>
+			<div class="enter-cont">
+				<div class="enter-head login">
+					<div class="g-body">
+						<div class="logo">
+							<a href="" class="logo-ico"><img src="../res/images/logo-2.png"/></a>
+							<!--<em class="tab">欢迎加入OWL</em>-->
+						</div>
+						<div class="links">
+							<em>已有账号? <a href="login.jsx" class="enter-link">去登录</a></em>
+						</div>
+					</div>
+				</div>
+				<div class="g-doc" >
+					<div class="m-body register-body" >
+						<div class="enter-box">
+							<div class="g-cont">
+								
+								<div class="write-enter enter-cont-1">
+									<div class="phone">
+										<div class="num-region">中国  0086</div>
+										<input type="text" placeholder="你的手机号" id="phoneNum"/>
+										<div class="hint">
+										</div>
+									</div>
+									<div style="margin-bottom: 20px">
+										<div id="JigsawValidateUtilDiv"></div>
+									</div>
+									<div class="phone-yzm">
+										<input type="text" class="yzm" placeholder="验证码" id="mobileValidateCode"/>
+										<div class="yzm-bnt" id="sendCode" style="cursor: pointer;">
+											获取短信验证码
+										</div>
+										<div class="hint">
+										</div>
+									</div>
+									<div class="phone code">
+										<input type="text" placeholder="用户名" id="username">
+										<div class="hint">
+										</div>
+									</div>
+									<div class="phone code">
+										<input type="password" placeholder="密码（包含字母和数字，至少6位）" id="passwd"/>
+										<div class="hint">
+										</div>
+									</div>
+									<div class="phone code">
+										<input type="password" placeholder="再次输入密码" id="passwd2"/>
+										<div class="hint">
+										</div>
+									</div>
+
+									<div class="ticked active">
+										<input class="gou" type="checkbox" id="xieyi"/>
+										我已阅读并同意
+										<a class="deal" href="">
+											《Owl注册协议和隐私条款》
+										</a>
+										<div class="hint" style="margin: 15px 0 0 15px;font-size: 12px;color: #fd1b1b;">
+										</div>
+									</div>
+									<a class="next-step-bnt active" id="submit_btn">
+										注 册
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="enter-box-copy">
+					
+						<div class="copyright">Copyright © 1999-2017 infoscape.com.cn All rights reserved . 粤B2-20050067号</div>
+					</div>
+				
+				</div>
+				
+			</div>
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "libs_namespace": "@projectCode",
+    "libs": ["services/modelService.jsx"],
+    "obj_prefixes": ["@projectCode"],
+    "list_prefixes": ["@projectCode"],
+    "isApi":true,
+    "initPage":"init/init.jsx",
+    "#meta":@meta
+}

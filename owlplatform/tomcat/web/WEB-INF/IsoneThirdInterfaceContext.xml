@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="isoneThirdInterfacesEngine" class="net.xinshi.thirdinterface.IsoneThirdInterfacesEngine">
+        <!--第三方对接日志-->
+        <property name="thirdLogService" ref="thirdLogService"/>
+        <property name="udbService" ref="udbService"/>
+        <property name="ctOrderService" ref="ctOrderService"/>
+        <!--格瓦拉院线-->
+        <property name="gewaraService" ref="gewaraService"/>
+        <!--订单支付结果推送给格拉瓦院线队列-->
+        <property name="thirdOrderToGewaraQueueService" ref="thirdOrderToGewaraQueueService"/>
+
+        <!--京东开放接口-->
+        <property name="jdCategoryService" ref="jdCategoryService"/>
+        <property name="jdShopService" ref="jdShopService"/>
+        <property name="jdProductService" ref="jdProductService"/>
+        <property name="jdProductSkuService" ref="jdProductSkuService"/>
+        <property name="jdOrderService" ref="jdOrderService"/>
+        <property name="jdAfterService" ref="jdAfterService"/>
+        <property name="jdWosWorkService" ref="jdWosWorkService"/>
+        <property name="jdAfsserviceWaitfetchService" ref="jdAfsserviceWaitfetchService"/>
+        <property name="jdDeliveryLogisticsService" ref="jdDeliveryLogisticsService"/>
+        <property name="jdAreaService" ref="jdAreaService"/>
+        <property name="jdLogisticsService" ref="jdLogisticsService"/>
+        <property name="jdKuaicheService" ref="jdKuaicheService"/>
+        <property name="jdShopDataService" ref="jdShopDataService"/>
+        <property name="jdPromotionService" ref="jdPromotionService"/>
+        <property name="jdImgzoneService" ref="jdImgzoneService"/>
+        <property name="jdImpopService" ref="jdImpopService"/>
+    </bean>
+    <!--第三方会员对接信息-->
+    <bean id="thirdLogService" class="net.xinshi.thirdinterface.log.impl.NormalThirdLogService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="indexingQueService" ref="thirdLogIndexingQueService"/>
+    </bean>
+    <bean id="thirdLogIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_thridlog"/>
+    </bean>
+    <bean id="udbService" class="net.xinshi.thirdinterface.udb.impl.NormalUdbService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="ctOrderService" class="net.xinshi.thirdinterface.chinatelecom.CTOrderService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+    <!--格瓦拉院线-->
+    <bean id="gewaraService" class="net.xinshi.thirdinterface.gewara.impl.GewaraService">
+    </bean>
+    <bean id="thirdOrderToGewaraQueueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="orderToGewaraQueue_IndexQue"/>
+    </bean>
+
+    <!--京东开发接口-->
+    <bean id="jdCategoryService" class="net.xinshi.thirdinterface.jingdong.impl.JdCategoryService">
+    </bean>
+    <bean id="jdShopService" class="net.xinshi.thirdinterface.jingdong.impl.JdShopService">
+    </bean>
+    <bean id="jdProductService" class="net.xinshi.thirdinterface.jingdong.impl.JdProductService">
+    </bean>
+    <bean id="jdProductSkuService" class="net.xinshi.thirdinterface.jingdong.impl.JdProductSkuService">
+    </bean>
+    <bean id="jdOrderService" class="net.xinshi.thirdinterface.jingdong.impl.JdOrderService">
+    </bean>
+    <bean id="jdAfterService" class="net.xinshi.thirdinterface.jingdong.impl.JdAfterService">
+    </bean>
+    <bean id="jdWosWorkService" class="net.xinshi.thirdinterface.jingdong.impl.JdWosWorkService">
+    </bean>
+    <bean id="jdAfsserviceWaitfetchService" class="net.xinshi.thirdinterface.jingdong.impl.JdAfsserviceWaitfetchService">
+    </bean>
+    <bean id="jdDeliveryLogisticsService" class="net.xinshi.thirdinterface.jingdong.impl.JdDeliveryLogisticsService">
+    </bean>
+    <bean id="jdAreaService" class="net.xinshi.thirdinterface.jingdong.impl.JdAreaService">
+    </bean>
+    <bean id="jdLogisticsService" class="net.xinshi.thirdinterface.jingdong.impl.JdLogisticsService">
+    </bean>
+    <bean id="jdKuaicheService" class="net.xinshi.thirdinterface.jingdong.impl.JdKuaicheService">
+    </bean>
+    <bean id="jdShopDataService" class="net.xinshi.thirdinterface.jingdong.impl.JdShopDataService">
+    </bean>
+    <bean id="jdPromotionService" class="net.xinshi.thirdinterface.jingdong.impl.JdPromotionService">
+    </bean>
+    <bean id="jdImgzoneService" class="net.xinshi.thirdinterface.jingdong.impl.JdImgzoneService">
+    </bean>
+    <bean id="jdImpopService" class="net.xinshi.thirdinterface.jingdong.impl.JdImpopService">
+    </bean>
+</beans>

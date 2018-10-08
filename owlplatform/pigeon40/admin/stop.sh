@@ -1,0 +1,1 @@
+java -jar pigeonserver.4.0-SNAPSHOT-jar-with-dependencies.jar $1 $2 stop

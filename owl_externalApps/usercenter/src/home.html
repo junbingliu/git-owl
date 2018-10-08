@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>about:@projectCodeService</title>
+    <script type="text/javascript" src="../client/modules/index/getSystemTime.js"></script>
+</head>
+<body style="margin: 60px">
+<div class="section_title">我的店铺</div>
+<div class="my_shops">
+    <%for(var i=0; i < list.length; i++){ %>
+    <div><%=list[i].name%></div>
+    <% } %>
+</div>
+
+<div class="bottomBar">
+    <button>添加新的店铺</button>
+</div>
+</body>
+</html>

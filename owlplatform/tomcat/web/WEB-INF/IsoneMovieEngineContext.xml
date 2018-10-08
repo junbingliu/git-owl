@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="isoneMovieEngine" class="net.xinshi.isone.modules.IsoneMovieEngine">
+        <property name="cinemaRoomService" ref="cinemaRoomService"/>
+        <property name="code2MovieService" ref="code2MovieService"/>
+        <property name="code2CinemaService" ref="code2CinemaService"/>
+        <property name="code2OrderService" ref="code2OrderService"/>
+        <property name="merchantMovieService" ref="merchantMovieService"/>
+        <property name="localMovieHelper" ref="localMovieHelper"/>
+        <property name="gewaraMovieHelper" ref="gewaraMovieHelper"/>
+    </bean>
+
+    <bean id="cinemaRoomService" class="net.xinshi.isone.modules.movie.impl.NormalCinemaRoomService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="locker" ref="resourceLocker"/>
+    </bean>
+
+    <bean id="code2MovieService" class="net.xinshi.isone.modules.movie.impl.NormalCode2MovieService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="code2CinemaService" class="net.xinshi.isone.modules.movie.impl.NormalCode2CinemaService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="code2OrderService" class="net.xinshi.isone.modules.movie.impl.NormalCode2OrderService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="merchantMovieService" class="net.xinshi.isone.modules.movie.impl.NormalMerchantMovieService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="locker" ref="resourceLocker"/>
+    </bean>
+
+    <bean id="localMovieHelper" class="net.xinshi.isone.modules.movie.ui.impl.LocalMovieHelper">
+    </bean>
+
+    <bean id="gewaraMovieHelper" class="net.xinshi.isone.modules.movie.ui.impl.GewaraMovieHelper">
+    </bean>
+
+
+</beans>

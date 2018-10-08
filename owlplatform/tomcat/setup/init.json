@@ -1,0 +1,45 @@
+{
+    "apps":[
+        {
+            "id":"owl",
+            "name": "owl默认桌面",
+            "file":"file:///${SETUP_DIR}/apps/owlShell.zip"
+        },
+        {
+            "id":"owl_shop",
+            "name": "店铺管理",
+            "file":"file:///${SETUP_DIR}/apps/owl_shop.zip"
+        },
+        
+        {
+            "id":"owl_desktop_default",
+            "name": "owl默认PC端",
+            "file":"file:///${SETUP_DIR}/apps/owl_desktop_default.zip"
+        }
+        ,
+        {
+            "id":"owlApi",
+            "name": "owlApi接口",
+            "file":"file:///${SETUP_DIR}/apps/owlApi.zip"
+        },
+
+        {
+            "id":"owl_userRegister",
+            "name": "owl用户注册",
+            "file":"file:///${SETUP_DIR}/apps/owl_userRegister.zip"
+        },
+
+        {
+            "id":"JigsawValidateUtilPlugin",
+            "name": "拼图验证码插件",
+            "file":"file:///${SETUP_DIR}/apps/JigsawValidateUtilPlugin.zip"
+        },
+
+        {
+            "id":"owl_u",
+            "name": "用户api",
+            "file":"file:///${SETUP_DIR}/apps/owl_u.zip"
+        }
+        
+    ]
+}

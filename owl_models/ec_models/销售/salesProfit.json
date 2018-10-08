@@ -1,0 +1,39 @@
+{
+  "id":"string(20),tab:a01,disabled:true,searchable:true;ID",
+  "name":"string(12),tab:03,listTab:02;物料名称",
+  "b2cSkuCode":"string(12),tab:04;物料编号",
+  "b2cProductId":"string(12),tab:05;商品编码",
+  "categoryName":"string(12),tab:06;商品分类",
+  "shopName":"string(12),tab:07;店铺名称",
+  "standardName":"string(12),tab:08;规格",
+  "warehouseName":"string(12),tab:09;仓库名称",
+  "unitPriceWithTax":"number(16),tab:10;销售单价(含税)",
+  "unitPriceWithoutTax":"number(16),tab:10;销售单价(不含税)",
+  "taxRate":"number(12),tab:12;税率",
+  "amount":"number(12),tab:13;销售数量",
+  "totalPriceWithoutTax":"number(16),tab:14;销售总价(不含税)",
+  "totalPriceWithTax":"number(16),tab:15;销售总价(含税)",
+  "unitCost":"number(12),tab:16;单位成本",
+  "totalCost":"number(12),tab:17;销售总成本",
+  "profits":"number(12),tab:18;毛利率(%)",
+  "salesOutPutId":"String(16),tab:19;销售单ID",
+  "orgiOrderPayDate":"date,searchable:true,tab:20;原订单支付时间",
+  "warehouseId":"String(16),tab:21;仓库ID",
+  "isStorage": "choice,values:1_是/0_否,listSize:10,listTab:08,tab:22;是否入库",
+
+  "#meta":{
+    "readOnly":true,
+    "rem": "商品销售毛利率",
+    "projectName": "商品销售毛利率",
+    "id":"{{@b2cSkuCode}}_{{@salesOutPutId}}",
+    "export":[
+      {
+        "label":"导出完整单据",
+        "fields":["*"]
+      }
+    ],
+    "exportDoc":true
+  },
+  "_t":"salesProfit"
+
+}

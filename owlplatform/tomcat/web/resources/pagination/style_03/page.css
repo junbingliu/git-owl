@@ -1,0 +1,81 @@
+.pagination_03 ul{
+	margin:0px;
+}
+.pagination_03 ul li{
+	float:left;
+	line-height:22px;
+    height:24px;
+	list-style: none;
+	margin-right:2px;
+}
+
+.pagination_03 ul li span{
+    padding-left: 5px;padding-right: 5px;
+}
+
+.pagination_03 .upPage{
+	width:55px;
+	height:23px;
+	display:block;
+	background:url(images/page_prev.gif) no-repeat center left;
+}
+.pagination_03 .downPage{
+	width:55px;
+	height:23px;
+	display:block;
+	background:url(images/page_next.gif) no-repeat center center;
+}
+.pagination_03 .everyPage{
+	color:#333;
+	text-decoration:none;
+	width:20px;
+	line-height:21px;
+	display:block ;
+	text-align:center;
+	float:left;
+	background:url(images/page_bg01.gif);
+	border:#c6c6c6 1px solid;
+}
+.pagination_03 .everyPage:hover{
+	color:#666;
+	font-weight:bold;
+	text-decoration:none;
+	width:20px;
+	line-height:22px;
+	background:url(images/page_bg03.gif);
+	display:block ;
+	text-align:center;
+	float:left;
+	border:#c6c6c6 1px solid;
+}
+.pagination_03 .nowPage{
+	color:#fff;
+	font-weight:bold;
+	text-decoration:none;
+	width:24px;
+	line-height:21px;
+	background:url(images/page_hoverBg.gif);
+	display:block ;
+	text-align:center;
+	float:left;
+	border:#c6c6c6 1px solid;
+}
+.pagination_03 .totalPage{line-height:24px;height:24px;}
+.pagination_03 .nowPage:hover{color:#666;text-decoration:none;}
+.pagination_03 .goToPage{line-height:24px;height:24px;background:url(images/page_sure.gif) no-repeat;display:block;width:37px;}
+.pagination_03 .homePage{line-height:24px;height:24px;background:url(images/page_home.gif) no-repeat;display:block;width:37px;}
+.pagination_03 .lastPage{line-height:24px;height:24px;background:url(images/page_last.gif) no-repeat;display:block;width:37px;}
+.pagination_03 .inputPage{width:24px;height:14px;vertical-align:middle;}
+.pagination_03 .pages{
+	color:#333;
+}
+
+.pagination_03 .currentPage{
+	color:#dc4a02;
+}
+
+.pagination_03 .previous-page{background:url(images/previous-page.gif) no-repeat;width:16px;height:15px;display:block;margin:4px 8px 0px 0px;}
+.pagination_03 .next-page{background:url(images/next-page.gif) no-repeat;width:53px;height:20px;display:block;}
+.pagination_03 .no-next-page{background:url(images/no-next-page.gif) no-repeat;width:53px;height:20px;display:block;}
+.pagination_03 .page span{float:left;margin:5px 10px 0px 0px;}
+.pagination_03 .page a{float:left;}

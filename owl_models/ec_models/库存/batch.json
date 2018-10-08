@@ -1,0 +1,28 @@
+{
+    "id":"string(12),tab:01,disabled:true;批次ID",
+    "batchCode":"string(16),tab:02,required:true;批次编号;",
+    "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:a16;店铺id",
+    "skuId":"string(12),tab:03;物料ID",
+    "skuCode":"string(8),tab:04;物料编码",
+    "skuName":"string(16),tab:05;物料名称",
+    "taxPrice":"number(8),tab:06;含税价",
+    "noTaxPrice":"number(8),tab:07;不含税价",
+    "amount":"number(8),tab:08;数量",
+    "warehouseId": "string(8),disabled:true,searchable:true,hidden:true,tab:09;仓库Id",
+    "warehouseName": "linkId,listSize:8,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,tab:10;仓库名称",
+    "supplierId": "string(8),disabled:true,searchable:true,hidden:true,tab:11;供应商ID",
+    "supplierName": "linkId,listSize:8,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,fieldsWidth:100/120,searchable:true,tab:12;供应商",
+    "isStorage": "choice,values:1_是/0_否,required:true,searchable:true,tab:13;是否入库",
+    "docId":"string(8),tab:13;单据Id",
+    "docType":"string(8),tab:14;单据类型",
+    "productDate":"date,tab:15;生产日期",
+    "effectDate":"date,tab:16;有效日期",
+    "_t":"batch",
+    "#meta":{
+        "readOnly":true,
+        "rem":"批次管理",
+        "parent":["batch"],
+        "projectName":"批次管理",
+        "pos":5
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    {{=$.inc("pages/common/include_head.jsx")}}
+    <script>var m = "{{=it.m}}", s = "{{=it.s}}", w = "{{=it.w}}", appId = "{{=it.appId}}"</script>
+    <script type="text/javascript" src="../client/modules/index/main.js"></script>
+</head>
+<body>
+
+<!--<iframe id="subMain" name="subMain" src="subMain.jsx?m={{=it.m}}&s={{=it.s}}&w={{=it.w}}" scrolling="auto" frameborder="0"-->
+        <!--border="0"-->
+        <!--cellspacing="0" style="border-style: none;width: 100%; height: 100%;"></iframe>-->
+<div id="iframeContainer" >
+    <div id="iframeDIV"  style="height: 100%;position: absolute;width: 100%">
+        <iframe id="subMain" name="subMain" src="subMain.jsx?m={{=it.m}}&s={{=it.s}}&w={{=it.w}}" scrolling="auto" frameborder="0"
+                border="0"
+                cellspacing="0" style="border-style: none;width: 100%; height: 100%; "></iframe>
+    </div>
+</div>
+<div class="TB_BG">
+    <div class="tb_play modifyPass" style="display:none">
+        <div class="TB_overlayBG"></div>
+        <div class="TB_window">
+            <div class="error-hint  quit-hint" style="height: 340px;">
+                <div class="hint-tit">
+                    <em>修改密码</em><a class=" ico fr"></a>
+                </div>
+                <ul class="clearfix">
+                    <li class="amend clearfix">
+                        <p class="tab-1">会员登录ID：</p>
+                        <div class="tab-2">{{=it.loginId}}</div>
+                    </li>
+                    <li class="amend">
+                        <p class="tab-1">真实姓名：</p>
+                        <div class="tab-2">{{=it.name}}</div>
+                    </li>
+                    <li class="amend">
+                        <p class="tab-3">当前密码：</p>
+                        <input type="password" class="oldPass" id="oldPass" value=""/>
+                    </li>
+                    <li class="amend">
+                        <p class="tab-3">新密码：</p>
+                        <input type="password" class="newPass" id="newPass" value=""/>
+                    </li>
+                    <li class="amend">
+                        <p class="tab-3">确认密码：</p>
+                        <input type="password" class="confirmPass" id="confirmPass" value=""/>
+                    </li>
+                </ul>
+                <div class="quit-bnt">
+                    <a href="javascript:void(0);" id="cancelUpdate">取消</a>
+                    <a href="javascript:void(0);" id="updatePassword">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tb_play logout" style="display:none">
+        <div class="TB_overlayBG"></div>
+        <div class="TB_window">
+            <div class="error-hint  quit-hint">
+                <div class="hint-tit">
+                    <em>提示</em><a class=" ico fr"></a>
+                </div>
+                <div class="clearfix">
+                    <em class="ico-hint"></em>
+                    <p class="tab fl">确定要退出后台系统吗？</p>
+                </div>
+                <div class="quit-bnt">
+                    <a href="javascript:void(0);" id="cancelLoginout">取消</a>
+                    <a href="javascript:void(0);" id="loginout">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

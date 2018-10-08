@@ -1,0 +1,22 @@
+{
+  "id":"string(12),tab:01,disabled:true;公司Id",
+  "userId":"string(12),tab:02,disabled:true,hidden:true;拥有者Id",
+  "name":"string(16),tab:03,required:true;名称",
+  "address":"string(64),tab:04,required:false;地址",
+  "certificateNo":"string(16),tab05,required:false;工商登记号",
+  "_t":"shop",
+  "#meta":{
+    "rem": "我的公司",
+    "parent": [
+      "user"
+    ],
+    "projectName": "我的公司",
+    "visitType":["user"],
+    "pos": -1,
+    "group":{
+      "id":"userCenter",
+      "name":"用户中心",
+      "pos":4
+    }
+  }
+}

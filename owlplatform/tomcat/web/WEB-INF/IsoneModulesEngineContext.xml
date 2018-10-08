@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="isoneModulesEngine" class="net.xinshi.isone.modules.IsoneModulesEngine">
+        <property name="userService" ref="userService"/>
+        <property name="weiXinService" ref="weiXinService"/>
+        <property name="weiXinContext" ref="weiXinContext"/>
+        <property name="adminService" ref="adminService"/>
+        <property name="memberService" ref="memberService"/>
+    </bean>
+
+    <bean id="weiXinService" class="net.xinshi.isone.modules.weixin.impl.NormalWeiXinService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="weiXinContext" class="net.xinshi.isone.modules.weixin.impl.NormalWeiXinContext">
+    </bean>
+
+    <bean id="adminService" class="net.xinshi.isone.modules.user.impl.NormalAdminService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="memberService" class="net.xinshi.isone.modules.user.impl.NormalMemberService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+</beans>

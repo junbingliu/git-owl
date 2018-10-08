@@ -1,0 +1,74 @@
+{
+  "id": "string(16),tab:01,disabled:true,hidden:true;采购入库单id",
+  "name": "string(16),disabled:true,searchable:true,tab:02;商品名称",
+  "skuId": "string(16),disabled:true,searchable:true,tab:03;物料ID",
+  "b2cSkuCode": "string(16),disabled:true,searchable:true,tab:03;物料编号",
+  "productCode": "string(16),disabled:true,searchable:true,tab:04;商品编码",
+  "supplierName": "string(16),disabled:true,searchable:true,tab:05;供应商",
+  "supplierId": "string(16),tab:05;供应商ID",
+  "warehouseName": "string(16),searchable:true,listSize:16,tab:06;仓库名称",
+  "warehouseId": "string(16),tab:07;仓库ID",
+  "countMoneyTerm": "string(16),disabled:true,tab:08;账期",
+  "buyUnit": "string(16),disabled:true,tab:09;规格",
+  "kaind": "string(16),disabled:true,tab:10;大类",
+  "intoStorageDate": "date,tab:11;入库时间",
+  "unitPriceWithoutTax": "number(10),inputType:number,help:入库成本(不含税),tab:12;入库成本(不含税)",
+  "taxRate": "number(3),inputType:number,listSize:4,tab:13;进项税率",
+  "unitPriceWithTax": "number(10),inputType:number,disable:true,help:入库成本(含税),tab:14;入库成本(含税)",
+  "quantity": "string(16),hidden:true,disabled:true,tab:06;旧数据无效",
+  "buyQuantity": "number(16),disabled:true,tab:06;入库数量",
+  "totalPriceWithTax": "number(10),inputType:number,listSize:10,disable:true,help:总成本(含税),tab:15;总成本(含税)",
+  "totalUnitPriceWithTax": "number(10),inputType:number,listSize:10,disable:true,help:总成本(不含税),tab:16;总成本(不含税)",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,searchable:true,tab:17;店铺id",
+  "shopName": "string(16),tab:18;店铺名称",
+  "purchaseStorageOrderId": "string(16),disabled:true,searchable:true,tab:19;采购入库单号",
+  "isStorage": "choice,values:1_是/0_否,required:true,searchable:true,listSize:20,tab:c7;是否入库",
+  "_t": "showInStorageGood",
+  "#meta": {
+    "readOnly":true,
+    "rem": "采购入库物料",
+    "parent": [
+      "showInStorageGood"
+    ],
+    "projectName": "采购入库物料",
+    "visitType":["shop"],
+    "pos":1,
+    "group":{
+      "id":"purchase",
+      "name":"采购",
+      "pos":2
+    },
+    "export":[
+      {
+        "label":"只导出部分字段",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[
+          "id","shopId","b2cSkuCode","name","buyUnit","buyUnitAmount","buyQuantity","unitPriceWithTax","taxRate",
+          "unitPriceWithoutTax","totalPriceWithTax","purchaseStorageOrderId","createProductDate","intoStorageDate","productExpired","batchId","warehouseName","warehouseId"
+        ],
+        "items":{
+          "name":"items",
+          "itemFields":[
+          ]
+        }
+      },
+      {
+        "label":"导出完整单据",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

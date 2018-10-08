@@ -1,0 +1,178 @@
+.JigsawValidateUtil_slide_code div{
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slideBtn {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    cursor: pointer;
+    transition: background .2s linear;
+    width: 40px;
+    border-radius: 2px;
+    left: 0px;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slider-icon-black{
+    background-image: url(icon.png);
+    background-position: 0 -26px;
+    background-size: 34px 471px;
+    position: absolute;
+    margin-top: 14px;
+    margin-left: 13px;
+    width: 14px;
+    height: 10px;
+    cursor: pointer;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slider-icon-white{
+    background-position: 0px -13px;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slider-icon-right{
+    background-position: 0 0px;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slider-icon-wrong{
+    background-position: 0 -83px;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_backgroundImg{
+    /*vertical-align: top;*/
+    /*height: 100%;*/
+    /*border-radius: 2px;*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    vertical-align: top;
+    width: 100%;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_mattingImg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 100%;
+    border-radius: 2px;
+    z-index: 999;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_tips-box{
+    position: relative;
+    border: 1px solid #e4e7eb;
+    background-color: #f7f9fa;
+    height: 40px;
+    border-radius: 2px;
+    margin-top: 10px;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_tips-box .JigsawValidateUtil_tips{
+    line-height: 40px;
+    text-align: center;
+    color: #45494c;
+}
+.JigsawValidateUtil_slide_code{
+    margin:10px;
+    width: 300px;
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+}
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slide_indicator{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0;
+    height: 100%;
+    border-radius: 2px;
+    background-color: #d1e9fe;
+    border: 1px solid transparent;
+}
+
+.JigsawValidateUtil_slide_code .JigsawValidateUtil_slide-image-img{
+    /*width: 300px;*/
+    /*height: 150px;*/
+    /*position: relative;*/
+    width: 300px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.JigsawValidateUtil_TB_overlayBG {display: none; background:rgba(0,0,0,0.5)!important;  background:#000;  filter:alpha(opacity=50); position: fixed; z-index:99; top: 0px; height:100%; width:100%;}
+.JigsawValidateUtil_TB_window{display: none; position: fixed; top:30%;  width:100%;  z-index:10000;width: 320px;  left: 50%;  margin-left: -160px; }
+
+.JigsawValidateUtil_msgPanel {
+    width: 470px;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    z-index: 1000;
+    margin: 0 auto;
+}
+.JigsawValidateUtil_msgPanel .JigsawValidateUtil_hd {
+    background: #f3f3f3;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    font: 14px/40px microsoft yahei;
+    position: relative;
+}
+.JigsawValidateUtil_msgPanel .JigsawValidateUtil_hd .JigsawValidateUtil_close {
+    background: url(shopcart_ui.png) no-repeat -190px -120px;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+}
+
+
+
+
+/*.JigsawValidateUtil_alert_overlayBG { background:rgba(0,0,0,0.5)!important;  background:#000;  filter:alpha(opacity=50); position: fixed; z-index:99; top: 0px; height:100%; width:100%;}*/
+.JigsawValidateUtil_alert_window{display: none; position: fixed; top:5%;  width:100%;  z-index:10000;  left: 45%;  margin-left: -160px; }
+
+.JigsawValidateUtil_alert_msgPanel {
+    width: 400px;
+    height:200px;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    z-index: 1000;
+    margin: 0 auto;
+}
+.JigsawValidateUtil_alert_msgPanel .JigsawValidateUtil_alert_hd {
+    /*background: #f3f3f3;*/
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    font: 14px/40px microsoft yahei;
+    position: relative;
+}
+.JigsawValidateUtil_alert_msgPanel .JigsawValidateUtil_alert_hd .JigsawValidateUtil_alert_close {
+    background: url(shopcart_ui.png) no-repeat -190px -120px;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+}
+.JigsawValidateUtil_alert_msgPanel .JigsawValidateUtil_alert_text{
+    text-align: left;
+    margin: 30px;
+    font-size: 16px;
+}
+.JigsawValidateUtil_alert_msgPanel .JigsawValidateUtil_alert_bnt{
+    width: 80px;
+    height: 30px;
+    background: #5e9cff;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius: 3px;
+    float: right;
+    margin: 30px 20px 0 0;
+
+}
+.JigsawValidateUtil_alert_bnt a:hover { text-decoration:none}

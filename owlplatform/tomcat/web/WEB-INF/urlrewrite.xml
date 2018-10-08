@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN" "http://tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
+<urlrewrite>
+    <!-- 规则会按配置的顺序匹配 -->
+    <outbound-rule encodefirst="true">
+        <note>对于搜索引擎爬虫去掉jsessionid</note>
+        <from>^(.+)\;jsessionid=[a-zA-Z0-9]+(.*|\s)$</from>
+        <to>$1$2</to>
+    </outbound-rule>
+
+    <!--<rule>-->
+    <!--<note>首页</note>-->
+    <!--<from>/index/$</from>-->
+    <!--<to last="true">/index.jsp</to>-->
+    <!--</rule>-->
+    <outbound-rule>
+        <note>首页</note>
+        <from>^/index.jsp$</from>
+        <to last="true">/</to>
+    </outbound-rule>
+
+    <!--商品列表 -->
+    <rule>
+        <note>商品列表,cid</note>
+        <from>^/list-(\d+)/$</from>
+        <to last="true">/product_list.jsp?cid=c_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表,cid</note>
+        <from>/product_list\.jsp\?cid=c_(\d+)$</from>
+        <to last="true">/list-$1/</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表cid，brandIds</note>
+        <from>^/list-(\d+)/b(\d+)\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;brandIds=brand_$2</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表cid，brandIds</note>
+        <from>/product_list\.jsp\?cid=c_(\d+)&amp;brandIds=brand_(\d+)$</from>
+        <to last="true">/list-$1/b$2.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表cid，page</note>
+        <from>^/list-(\d+)/p(\d+|\{p_num\})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;page=$2</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表cid，page</note>
+        <from>/product_list\.jsp\?cid=c_(\d+)&amp;page=(\d+|\{p_num\})$</from>
+        <to last="true">/list-$1/p$2.html</to>
+    </outbound-rule>
+
+
+    <rule>
+        <note>商品列表cid,SalesCount</note>
+        <from>^/list-(\d+)/(SalesCount|orderPrice|score|publishtime)(\d{1})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;$2=$3</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表cid,SalesCount</note>
+        <from>/product_list\.jsp\?cid=c_(\d+)&amp;(SalesCount|orderPrice|score|publishtime)=(\d{1})$</from>
+        <to last="true">/list-$1/$2$3.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>商品列表cid,SalesCount</note>
+        <from>/product_list\.jsp\?(SalesCount|orderPrice|score|publishtime)=(\d{1})&amp;cid=c_(\d+)$</from>
+        <to last="true">/list-$3/$1$2.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表cid,SalesCount,page</note>
+        <from>^/list-(\d+)/(SalesCount|orderPrice|score|publishtime)(\d{1})-p(\d+|\{p_num\})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;$2=$3&amp;page=$4</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表cid,SalesCount,page</note>
+        <from>/product_list\.jsp\?(SalesCount|orderPrice|score|publishtime)=(\d{1})&amp;cid=c_(\d+)&amp;page=(\d+|\{p_num\})$</from>
+        <to last="true">/list-$3/$1$2-p$4.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>商品列表page,cid,SalesCount</note>
+        <from>/product_list\.jsp\?page=(\d+)&amp;cid=c_(\d+)&amp;(SalesCount|orderPrice|score|publishtime)=(\d{1})$</from>
+        <to last="true">/list-$2/$3$4-p$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表brandIds,cid,page</note>
+        <from>^/list-(\d+)/b(\d+)-p(\d+|\{p_num\})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;brandIds=brand_$2&amp;page=$3</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表randIds,cid,page</note>
+        <from>/product_list\.jsp\?brandIds=brand_(\d+)&amp;cid=c_(\d+)&amp;page=(\d+|\{p_num\})$</from>
+        <to last="true">/list-$2/b$1-p$3.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表cid,SalesCount,brandIds</note>
+        <from>^/list-(\d+)/b(\d+)-(SalesCount|orderPrice|score|publishtime)(\d{1})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;$3=$4&amp;brandIds=brand_$2</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表cid,SalesCount,brandIds</note>
+        <from>/product_list\.jsp\?(SalesCount|orderPrice|score|publishtime)=(\d{1})&amp;cid=c_(\d+)&amp;brandIds=brand_(\d+)$</from>
+        <to last="true">/list-$3/b$4-$1$2.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>商品列表brandIds,cid,SalesCount</note>
+        <from>/product_list\.jsp\?brandIds=brand_(\d+)&amp;cid=c_(\d+)&amp;(SalesCount|orderPrice|score|publishtime)=(\d{1})$</from>
+        <to last="true">/list-$2/b$1-$3$4.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品列表cid,SalesCount,brandIds,page</note>
+        <from>^/list-(\d+)/b(\d+)-(SalesCount|orderPrice|score|publishtime)(\d{1})-p(\d+|\{p_num\})\.html$</from>
+        <to last="true">/product_list.jsp?cid=c_$1&amp;$3=$4&amp;brandIds=brand_$2&amp;page=$5</to>
+    </rule>
+    <outbound-rule>
+        <note>商品列表brandIds,cid,SalesCount,page</note>
+        <from>/product_list\.jsp\?brandIds=brand_(\d+)&amp;(SalesCount|orderPrice|score|publishtime)=(\d{1})&amp;cid=c_(\d+)&amp;page=(\d+|\{p_num\})$</from>
+        <to last="true">/list-$4/b$1-$2$3-p$5.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>商品列表brandIds,cid,SalesCount,page</note>
+        <from>/product_list\.jsp\?page=(\d+|\{p_num\})&amp;brandIds=brand_(\d+)&amp;cid=c_(\d+)&amp;(SalesCount|orderPrice|score|publishtime)=(\d{1})$</from>
+        <to last="true">/list-$3/b$2-$4$5-p$1.html</to>
+    </outbound-rule>
+
+    <!--<rule>-->
+    <!--<note>商品列表keyword，brandIds,SalesCount</note>-->
+    <!--<from>/product_list/([^\u4E00-\u9FA5]+\w+)/(brand_\d+)/(SalesCount_\d{1})/$</from>-->
+    <!--<to last="true">/product_list.jsp?keyword=$1&amp;brandIds=$2&amp;SalesCount=$3</to>-->
+    <!--</rule>-->
+    <!--<outbound-rule>-->
+    <!--<note>商品列表keyword，brandIds,SalesCount</note>-->
+    <!--<from>/product_list\.jsp\?keyword=([^\u4E00-\u9FA5]+\w+)&amp;brandIds=(brand_\d+)&amp;SalesCount=(\d{1})$</from>-->
+    <!--<to last="true">/product_list/$1/$2/SalesCount_$3/</to>-->
+    <!--</outbound-rule>-->
+    <!--<rule>-->
+    <!--<note>商品列表keyword，brandIds,orderPrice</note>-->
+    <!--<from>/product_list/([^\u4E00-\u9FA5]+\w+)/(brand_\d+)/(orderPrice_\d{1})/$</from>-->
+    <!--<to last="true">/product_list.jsp?keyword=$1&amp;brandIds=$2&amp;orderPrice=$3</to>-->
+    <!--</rule>-->
+    <!--<outbound-rule>-->
+    <!--<note>商品列表keyword，brandIds,orderPrice</note>-->
+    <!--<from>/product_list\.jsp\?keyword=([^\u4E00-\u9FA5]+\w+)&amp;brandIds=(brand_\d+)&amp;orderPrice=(\d{1})$</from>-->
+    <!--<to last="true">/product_list/$1/$2/orderPrice_$3/</to>-->
+    <!--</outbound-rule>-->
+    <!--<rule>-->
+    <!--<note>商品列表keyword，brandIds,score</note>-->
+    <!--<from>/product_list/([^\u4E00-\u9FA5]+\w+)/(brand_\d+)/(score_\d{1})/$</from>-->
+    <!--<to last="true">/product_list.jsp?keyword=$1&amp;brandIds=$2&amp;score=$3</to>-->
+    <!--</rule>-->
+    <!--<outbound-rule>-->
+    <!--<note>商品列表keyword，brandIds,score</note>-->
+    <!--<from>/product_list\.jsp\?keyword=([^\u4E00-\u9FA5]+\w+)&amp;brandIds=(brand_\d+)&amp;score=(\d{1})$</from>-->
+    <!--<to last="true">/product_list/$1/$2/score_$3/</to>-->
+    <!--</outbound-rule>-->
+    <!--<rule>-->
+    <!--<note>商品列表keyword，brandIds,publishtime</note>-->
+    <!--<from>/product_list/([^\u4E00-\u9FA5]+\w+)/(brand_\d+)/(publishtime_\d{1})/$</from>-->
+    <!--<to last="true">/product_list.jsp?keyword=$1&amp;brandIds=$2&amp;publishtime=$3</to>-->
+    <!--</rule>-->
+    <!--<outbound-rule>-->
+    <!--<note>商品列表keyword，brandIds,publishtime</note>-->
+    <!--<from>/product_list\.jsp\?keyword=([^\u4E00-\u9FA5]+\w+)&amp;brandIds=(brand_\d+)&amp;publishtime=(\d{1})$</from>-->
+    <!--<to last="true">/product_list/$1/$2/publishtime_$3/</to>-->
+    <!--</outbound-rule>-->
+    <!--商品列表 end-->
+
+    <rule>
+        <note>商品详情id,cid</note>
+        <from>^/list-(\d+)/product-(\d+)\.html$</from>
+        <to last="true">/product.jsp?id=p_$2&amp;cid=c_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>商品详情,id,cid</note>
+        <from>^/product\.jsp\?id=p_(\d+)&amp;cid=c_(\d+)$</from>
+        <to last="true">/list-$2/product-$1.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>商品详情id,mid,cid</note>
+        <from>^/product\.jsp\?id=p_(\d+)&amp;m=(m_\d+)&amp;cid=c_(\d+)$</from>
+        <to last="true">/list-$3/product-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>商品详情</note>
+        <from>/shop/product/(p_\d+)/(m_\d+)/$</from>
+        <to last="true">/shop/product.jsp?id=$1&amp;m=$2</to>
+    </rule>
+    <outbound-rule>
+        <note>商品详情</note>
+        <from>/shop/product\.jsp\?id=(p_\d+)&amp;m=(m_\d+)$</from>
+        <to last="true">/shop/product/$1/$2/</to>
+    </outbound-rule>
+
+    <!-- 团购 -->
+    <rule>
+        <note>今日团购</note>
+        <from>/tuan/$</from>
+        <to last="true">/tuan/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>今日团购</note>
+        <from>/tuan/index\.jsp$</from>
+        <to last="true">/tuan/</to>
+    </outbound-rule>
+    <rule>
+        <note>下期预告</note>
+        <from>/tuan/next\.html$</from>
+        <to last="true">/tuan/next.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>下期预告</note>
+        <from>/tuan/next\.jsp$</from>
+        <to last="true">/tuan/next.html</to>
+    </outbound-rule>
+    <rule>
+        <note>往期</note>
+        <from>/tuan/prev\.html$</from>
+        <to last="true">/tuan/prev.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>往期</note>
+        <from>/tuan/prev\.jsp$</from>
+        <to last="true">/tuan/prev.html</to>
+    </outbound-rule>
+    <rule>
+        <note>团购帮助</note>
+        <from>/tuan/help\.html$</from>
+        <to last="true">/tuan/help.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>团购帮助</note>
+        <from>/tuan/help\.jsp$</from>
+        <to last="true">/tuan/help.html</to>
+    </outbound-rule>
+    <rule>
+        <note>团购详情</note>
+        <from>/tuan/detail-(\d+)\.html$</from>
+        <to last="true">/tuan/detail.jsp?id=gro_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>团购详情</note>
+        <from>/tuan/detail\.jsp\?id=gro_(\d+)$</from>
+        <to last="true">/tuan/detail-$1.html</to>
+    </outbound-rule>
+    <!-- 团购 end -->
+
+    <!-- 抢购 -->
+    <rule>
+        <note>今日抢购</note>
+        <from>/qiang/$</from>
+        <to last="true">/qiang/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>今日抢购</note>
+        <from>/qiang/index\.jsp$</from>
+        <to last="true">/qiang/</to>
+    </outbound-rule>
+    <rule>
+        <note>下期预告</note>
+        <from>/qiang/next\.html$</from>
+        <to last="true">/qiang/next.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>下期预告</note>
+        <from>/qiang/next\.jsp$</from>
+        <to last="true">/qiang/next.html</to>
+    </outbound-rule>
+    <rule>
+        <note>往期</note>
+        <from>/qiang/prev\.html$</from>
+        <to last="true">/qiang/prev.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>往期</note>
+        <from>/qiang/prev\.jsp$</from>
+        <to last="true">/qiang/prev.html</to>
+    </outbound-rule>
+    <rule>
+        <note>抢购规则</note>
+        <from>/qiang/rule\.html$</from>
+        <to last="true">/qiang/rule.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>抢购规则</note>
+        <from>/qiang/rule\.jsp$</from>
+        <to last="true">/qiang/rule.html</to>
+    </outbound-rule>
+    <rule>
+        <note>抢购详情</note>
+        <from>/qiang/detail-(\d+)\.html$</from>
+        <to last="true">/qiang/detail.jsp?id=pan_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>抢购详情</note>
+        <from>/qiang/detail\.jsp\?id=pan_(\d+)$</from>
+        <to last="true">/qiang/detail-$1.html</to>
+    </outbound-rule>
+    <!-- 抢购 end -->
+
+    <!--组合套餐-->
+    <rule>
+        <note>组合套餐</note>
+        <from>/combo/$</from>
+        <to last="true">/combo/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>组合套餐</note>
+        <from>/combo/index\.jsp$</from>
+        <to last="true">/combo/</to>
+    </outbound-rule>
+    <rule>
+        <note>组合套餐id,i</note>
+        <from>/combo/index-(\d+)-(\d+)\.html$</from>
+        <to last="true">/combo/index.jsp?id=c_$1&amp;i=c_$2</to>
+    </rule>
+    <outbound-rule>
+        <note>组合套餐id,i</note>
+        <from>/combo/index\.jsp\?id=c_(\d+)&amp;i=c_(\d+)$</from>
+        <to last="true">/combo/index-$1-$2.html</to>
+    </outbound-rule>
+    <rule>
+        <note>组合套餐id,i</note>
+        <from>/combo/index-(\d+)-(\d+)\.html$</from>
+        <to last="true">/combo/index.jsp?id=c_$1&amp;i=$2</to>
+    </rule>
+    <outbound-rule>
+        <note>组合套餐id,i</note>
+        <from>/combo/index\.jsp\?id=c_(\d+)&amp;i=(\d+)$</from>
+        <to last="true">/combo/index-$1-$2.html</to>
+    </outbound-rule>
+    <!--组合套餐 end-->
+
+    <!--所有分类，所有品牌-->
+    <rule>
+        <note>所有分类</note>
+        <from>/sorts/index\.html$</from>
+        <to last="true">/sorts/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>所有分类</note>
+        <from>/sorts/index\.jsp$</from>
+        <to last="true">/sorts/index.html</to>
+    </outbound-rule>
+    <rule>
+        <note>所有品牌</note>
+        <from>/brands/index\.html$</from>
+        <to last="true">/brands/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>所有品牌</note>
+        <from>/brands/index\.jsp$</from>
+        <to last="true">/brands/index.html</to>
+    </outbound-rule>
+    <!--所有分类，所有品牌end-->
+
+    <!--主题促销-->
+    <rule>
+        <note>主题促销</note>
+        <from>/promotion/index-(\d+)\.html$</from>
+        <to last="true">/promotion/index.jsp?id=c_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>主题促销</note>
+        <from>/promotion/index\.jsp\?id=c_(\d+)$</from>
+        <to last="true">/promotion/index-$1.html</to>
+    </outbound-rule>
+    <!--主题促销end-->
+
+    <!--帮助中心-->
+    <rule>
+        <note>帮助中心</note>
+        <from>/help/index\.html$</from>
+        <to last="true">/help/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>帮助中心</note>
+        <from>/help/index\.jsp$</from>
+        <to last="true">/help/index.html</to>
+    </outbound-rule>
+    <rule>
+        <note>帮助中心cid</note>
+        <from>/help/index-(\d+)\.html$</from>
+        <to last="true">/help/index.jsp?cid=a_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>帮助中心cid</note>
+        <from>/help/index\.jsp\?cid=a_(\d+)$</from>
+        <to last="true">/help/index-$1.html</to>
+    </outbound-rule>
+    <!--帮助中心end-->
+
+    <!--商家帮助中心begin-->
+    <rule>
+        <note>商家帮助中心首页</note>
+        <from>/help/mIndex\.html$</from>
+        <to last="true">/help/mIndex.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>商家帮助中心首页</note>
+        <from>/help/mIndex\.jsp$</from>
+        <to last="true">/help/mIndex.html</to>
+    </outbound-rule>
+    <rule>
+        <note>商家帮助中心详情页</note>
+        <from>/help/mIndex-(\d+)\.html$</from>
+        <to last="true">/help/mIndex.jsp?cid=a_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>商家帮助中心详情页</note>
+        <from>/help/mIndex\.jsp\?cid=a_(\d+)$</from>
+        <to last="true">/help/mIndex-$1.html</to>
+    </outbound-rule>
+    <!--商家帮助中心end-->
+
+
+
+    <!--试用中心-->
+    <rule>
+        <note>试用中心</note>
+        <from>/trial_center/index\.html$</from>
+        <to last="true">/trial_center/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>试用中心</note>
+        <from>/trial_center/index\.jsp$</from>
+        <to last="true">/trial_center/index.html</to>
+    </outbound-rule>
+    <rule>
+        <note>正在试用</note>
+        <from>/trial_center/on-([a-z]+)\.html$</from>
+        <to last="true">/trial_center/trial_on.jsp?state=$1</to>
+    </rule>
+    <outbound-rule>
+        <note>正在试用</note>
+        <from>/trial_center/trial_on\.jsp\?state=([a-z]+)$</from>
+        <to last="true">/trial_center/on-$1.html</to>
+    </outbound-rule>
+    <rule>
+        <note>正在试用</note>
+        <from>/trial_center/on-(\d+)-([a-z]+)\.html$</from>
+        <to last="true">/trial_center/trial_on.jsp?trId=tri_$1&amp;state=$2</to>
+    </rule>
+    <outbound-rule>
+        <note>正在试用</note>
+        <from>/trial_center/trial_on\.jsp\?trId=tri_(\d+)&amp;state=([a-z]+)$</from>
+        <to last="true">/trial_center/on-$1-$2.html</to>
+    </outbound-rule>
+    <rule>
+        <note>试用中心,结束</note>
+        <from>/trial_center/over\.html$</from>
+        <to last="true">/trial_center/trial_over.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>试用中心,结束</note>
+        <from>/trial_center/trial_over\.jsp$</from>
+        <to last="true">/trial_center/over.html</to>
+    </outbound-rule>
+    <rule>
+        <note>试用中心,报告</note>
+        <from>/trial_center/report-(\d+)\.html$</from>
+        <to last="true">/trial_center/trial_report.jsp?trId=tri_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>试用中心,报告</note>
+        <from>/trial_center/trial_report\.jsp\?trId=tri_(\d+)$</from>
+        <to last="true">/trial_center/report-$1.html</to>
+    </outbound-rule>
+
+
+
+    <!--试用中心end-->
+
+    <!--品牌城-->
+    <rule>
+        <note>品牌城</note>
+        <from>/brand/index\.html$</from>
+        <to last="true">/brand/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>品牌城</note>
+        <from>/brand/index\.jsp$</from>
+        <to last="true">/brand/index.html</to>
+    </outbound-rule>
+    <rule>
+        <note>品牌首页</note>
+        <from>/brand-(\d+)/$</from>
+        <to last="true">/brand_channel.jsp?id=c_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>品牌首页</note>
+        <from>/brand_channel\.jsp\?id=c_(\d+)$</from>
+        <to last="true">/brand-$1/</to>
+    </outbound-rule>
+
+    <rule>
+        <note>品牌商品列表id，columnId</note>
+        <from>/brand-(\d+)/list-(\d+)\.html$</from>
+        <to last="true">/brand_productList.jsp?id=c_$1&amp;columnId=c_$2</to>
+    </rule>
+    <outbound-rule>
+        <note>品牌商品列表id，columnId</note>
+        <from>/brand_productList\.jsp\?id=c_(\d+)&amp;columnId=c_(\d+)$</from>
+        <to last="true">/brand-$1/list-$2.html</to>
+    </outbound-rule>
+    <outbound-rule>
+        <note>品牌商品列表id</note>
+        <from>/brand_productList\.jsp\?id=c_(\d+)$</from>
+        <to last="true">/brand-$1/list-10000.html</to>
+    </outbound-rule>
+    <!--品牌城end-->
+
+    <rule>
+        <note>爆款</note>
+        <from>/baokuan\.html$</from>
+        <to last="true">/baokuan.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>爆款</note>
+        <from>/baokuan\.jsp$</from>
+        <to last="true">/baokuan.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>正品保证</note>
+        <from>/ensure/index\.html$</from>
+        <to last="true">/ensure/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>正品保证</note>
+        <from>/ensure/index\.jsp$</from>
+        <to last="true">/ensure/index.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>巨便宜</note>
+        <from>/giantcheap/index\.html$</from>
+        <to last="true">/giantcheap/index.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>巨便宜</note>
+        <from>/giantcheap/index\.jsp$</from>
+        <to last="true">/giantcheap/index.html</to>
+    </outbound-rule>
+
+
+
+    <!--促销中心-->
+    <rule>
+        <note>促销中心</note>
+        <from>/prom_center/$</from>
+        <to last="true">/prom_center.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>促销中心</note>
+        <from>/prom_center\.jsp$</from>
+        <to last="true">/prom_center/</to>
+    </outbound-rule>
+    <rule>
+        <note>促销中心cid</note>
+        <from>/prom_center/list-(\d+)/$</from>
+        <to last="true">/prom_center.jsp?cid=c_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>促销中心cid</note>
+        <from>/prom_center\.jsp\?cid=c_(\d+)$</from>
+        <to last="true">/prom_center/list-$1/</to>
+    </outbound-rule>
+    <!--促销中心 end-->
+
+    <!--is1 begin-->
+    <rule>
+        <note>动态频道页</note>
+        <from>/dynamic$</from>
+        <to last="true">/sort_channel.jsp?id=c_300368</to>
+    </rule>
+    <outbound-rule>
+        <note>动态频道页</note>
+        <from>/sort_channel\.jsp\?id=c_300368$</from>
+        <to last="true">/dynamic</to>
+    </outbound-rule>
+
+    <rule>
+        <note>技术频道页</note>
+        <from>/tech</from>
+        <to last="true">/sort_channel.jsp?id=c_600548</to>
+    </rule>
+    <outbound-rule>
+        <note>技术频道页</note>
+        <from>/sort_channel\.jsp\?id=c_600548$</from>
+        <to last="true">/tech</to>
+    </outbound-rule>
+
+    <rule>
+        <note>经营频道页</note>
+        <from>/manage</from>
+        <to last="true">/sort_channel.jsp?id=c_300370</to>
+    </rule>
+    <outbound-rule>
+        <note>经营频道页</note>
+        <from>/sort_channel\.jsp\?id=c_300370$</from>
+        <to last="true">/manage</to>
+    </outbound-rule>
+
+    <rule>
+        <note>信息列表页</note>
+        <from>/infoList-([_a-zA-Z0-9]+)\.html$</from>
+        <to last="true">/info/list.jsp?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <note>信息列表页</note>
+        <from>/info\/list\.jsp\?id=([_a-zA-Z0-9]+)$</from>
+        <to last="true">/infoList-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>设计列表页</note>
+        <from>/designList\.html$</from>
+        <to last="true">/design/list.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>设计列表页</note>
+        <from>/design\/list\.jsp$</from>
+        <to last="true">/designList.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>设计列表页2</note>
+        <from>/designList-([_a-zA-Z0-9]+)\.html$</from>
+        <to last="true">/design/list.jsp?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <note>设计列表页2</note>
+        <from>/design\/list\.jsp\?id=([_a-zA-Z0-9]+)$</from>
+        <to last="true">/designList-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>模板列表页</note>
+        <from>/templateList\.html$</from>
+        <to last="true">/template/list.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>模板列表页</note>
+        <from>/template\/list\.jsp$</from>
+        <to last="true">/templateList.html</to>
+    </outbound-rule>
+
+    <!--<rule>-->
+    <!--<note>模板列表页2</note>-->
+    <!--<from>/templateList-([/w-]+/.)+[/w-]+(/[/w- ./?%&amp;=]*)\.html$</from>-->
+    <!--<to last="true">/template/list.jsp?$1</to>-->
+    <!--</rule>-->
+    <!--<outbound-rule>-->
+    <!--<note>模板列表页2</note>-->
+    <!--<from>/template\/list\.jsp\?([/w-]+/.)+[/w-]+(/[/w- ./?%&amp;=]*)$</from>-->
+    <!--<to last="true">/templateList-$1.html</to>-->
+    <!--</outbound-rule>-->
+
+    <rule>
+        <note>工具列表页</note>
+        <from>/toolList\.html$</from>
+        <to last="true">/tool/list.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>工具列表页</note>
+        <from>/tool\/list\.jsp$</from>
+        <to last="true">/toolList.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>软件列表页</note>
+        <from>/productList\.html$</from>
+        <to last="true">/product_list.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>软件列表页</note>
+        <from>/product_list\.jsp$</from>
+        <to last="true">/productList.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>软件详细页</note>
+        <from>/product-(\d+)\.html$</from>
+        <to last="true">/product.jsp?id=p_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>软件详细页</note>
+        <from>/product\.jsp\?id=p_(\d+)$</from>
+        <to last="true">/product-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>信息详细页</note>
+        <from>/infoDetail-(\d+)\.html$</from>
+        <to last="true">/info/detail.jsp?id=a_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>信息详细页</note>
+        <from>/info\/detail\.jsp\?id=a_(\d+)$</from>
+        <to last="true">/infoDetail-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>模板详细页</note>
+        <from>/templateDetail-(\d+)\.html$</from>
+        <to last="true">/template/detail.jsp?id=p_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>模板详细页</note>
+        <from>/template\/detail\.jsp\?id=p_(\d+)$</from>
+        <to last="true">/templateDetail-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>设计详细页</note>
+        <from>/designDetail-(\d+)\.html$</from>
+        <to last="true">/design/detail.jsp?id=a_$1</to>
+    </rule>
+    <outbound-rule>
+        <note>设计详细页</note>
+        <from>/design\/detail\.jsp\?id=a_(\d+)$</from>
+        <to last="true">/designDetail-$1.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>搜索结果页</note>
+        <from>/searchList\.html$</from>
+        <to last="true">/searchList.jsp</to>
+    </rule>
+    <outbound-rule>
+        <note>搜索结果页</note>
+        <from>/searchList\.jsp$</from>
+        <to last="true">/searchList.html</to>
+    </outbound-rule>
+
+    <rule>
+        <note>酒卡查询页</note>
+        <from>^/(\d+)$</from>
+        <to last="true">/deliveryvouchers/search_card.jsp?card=$1</to>
+    </rule>
+    <outbound-rule>
+        <note>酒卡查询页</note>
+        <from>/deliveryvouchers/search_card\.jsp\?card=(\d+)$</from>
+        <to last="true">^/(\d+)$1</to>
+    </outbound-rule>
+
+    <!--is1 end-->
+
+
+
+
+
+    <!-- c:url 规则 , 可以将c:url里面的地址输出为重写后的地址 End -->
+    <!--
+    <rule>
+        <note>
+            The rule means that requests to /test/status/ will be redirected to /rewrite-status
+            the url will be rewritten.
+        </note>
+        <from>/test/status/</from>
+        <to type="redirect">%{context-path}/rewrite-status</to>
+    </rule>
+
+
+    <outbound-rule>
+        <note>
+            The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)
+            the url /rewrite-status will be rewritten to /test/status/.
+
+            The above rule and this outbound-rule means that end users should never see the
+            url /rewrite-status only /test/status/ both in thier location bar and in hyperlinks
+            in your pages.
+        </note>
+        <from>/rewrite-status</from>
+        <to>/test/status/</to>
+    </outbound-rule>
+
+
+
+
+    INSTALLATION
+
+        in your web.xml add...
+
+        <filter>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+            <init-param>
+                <param-name>logLevel</param-name>
+                <param-value>WARN</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+
+     EXAMPLES
+
+     Redirect one url
+        <rule>
+            <from>/some/old/page.html</from>
+            <to type="redirect">/very/new/page.html</to>
+        </rule>
+
+    Redirect a directory
+        <rule>
+            <from>/some/olddir/(.*)</from>
+            <to type="redirect">/very/newdir/$1</to>
+        </rule>
+
+    Clean a url
+        <rule>
+            <from>/products/([0-9]+)</from>
+            <to>/products/index.jsp?product_id=$1</to>
+        </rule>
+    eg, /products/1234 will be passed on to /products/index.jsp?product_id=1234 without the user noticing.
+
+    Browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <from>/some/page.html</from>
+            <to>/some/page-for-old-browsers.html</to>
+        </rule>
+    eg, will pass the request for /some/page.html on to /some/page-for-old-browsers.html only for older
+    browsers whose user agent srtings match Mozilla/1, Mozilla/2, Mozilla/3 or Mozilla/4.
+
+    Centralised browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <set type="request" name="browser">moz</set>
+        </rule>
+    eg, all requests will be checked against the condition and if matched
+    request.setAttribute("browser", "moz") will be called.
+
+    -->
+
+</urlrewrite>
+

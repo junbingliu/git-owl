@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="oneDefaultRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/1_edit/StringRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_decimal">
+                    <value>/dynaattrrenderers/1_edit/DecimalRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_decimal_range">
+                    <value>/dynaattrrenderers/1_edit/DecimalRangeRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_date">
+                    <value>/dynaattrrenderers/1_edit/DateRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_date_range">
+                    <value>/dynaattrrenderers/1_edit/DateRangeRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_pic">
+                    <value>/dynaattrrenderers/1_edit/PicRenderer_edit.jsp</value>
+                </entry>
+                <entry key="attrtype_piclist">
+                    <value>/dynaattrrenderers/1_edit/PicListRenderer_eidt.jsp</value>
+                </entry>
+                <entry key="attrtype_filelist">
+                    <value>/dynaattrrenderers/1_edit/FileListRenderer_edit.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="oneEditDefaultRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/1/StringRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_decimal">
+                    <value>/dynaattrrenderers/1/DecimalRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_decimal_range">
+                    <value>/dynaattrrenderers/1/DecimalRangeRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_date">
+                    <value>/dynaattrrenderers/1/DateRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_date_range">
+                    <value>/dynaattrrenderers/1/DateRangeRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_pic">
+                    <value>/dynaattrrenderers/1/PicRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_piclist">
+                    <value>/dynaattrrenderers/1/PicListRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_filelist">
+                    <value>/dynaattrrenderers/1/FileListRenderer.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="dynaAttrRendererEngine" class="net.xinshi.isone.tags.dynaattr.DynaAttrRendererEngine">
+        <property name="renderers">
+            <map>
+                <entry key="1" value-ref="oneEditDefaultRenderer"/>
+                <entry key="1_edit" value-ref="oneDefaultRenderer"/>
+				<entry key="product" value-ref="productRenderer"/>
+				<entry key="productEdit" value-ref="productEditRenderer"/>
+                <entry key="advancedSearchEdit" value-ref="advancedSearchEditRenderer"/>
+                <entry key="productOther" value-ref="productRendererOther"/>
+                <entry key="productAttrShow" value-ref="productAttrShowRenderer"/>
+                <entry key="dynaProduct" value-ref="dynaProductRenderer"/>
+                <entry key="mealProduct" value-ref="mealProductRenderer"/>
+        </map>
+        </property>
+    </bean>
+
+	<bean id="productRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/product/StringRenderer.jsp</value>
+                </entry>
+				<entry key="attrtype_decimal">
+                    <value>/dynaattrrenderers/product/DecimalRenderer.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="productRendererOther" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/product/StringRendererOther.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="productAttrShowRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/product/productAttrShowRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_pic">
+                    <value>/dynaattrrenderers/product/PicRenderer.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dynaProductRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/dynaProduct/StringRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_pic">
+                    <value>/dynaattrrenderers/dynaProduct/PicRenderer.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="mealProductRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_pic">
+                    <value>/dynaattrrenderers/mealProduct/PicRenderer.jsp</value>
+                </entry>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/mealProduct/StringRenderer.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+	<bean id="productEditRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/productEdit/StringRenderer.jsp</value>
+                </entry>
+				<entry key="attrtype_pic">
+					<value>/dynaattrrenderers/productEdit/PicRenderer.jsp</value>
+				</entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="advancedSearchEditRenderer" class="net.xinshi.isone.tags.dynaattr.renderer.DefaultRenderer">
+        <property name="renderFiles">
+            <map>
+                <entry key="attrtype_text">
+                    <value>/dynaattrrenderers/advancedSearch/stringRendererEdit.jsp</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

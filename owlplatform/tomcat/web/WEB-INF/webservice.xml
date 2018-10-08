@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <bean id="telecomIntegralSwap" class="net.xinshi.thirdinterface.jfshare.service.impl.TelecomIntegralSwapImpl" />
+    <jaxws:server id="telecomIntegralSwapService"
+                  serviceClass="net.xinshi.thirdinterface.jfshare.service.ITelecomIntegralSwap"
+                  address="/telecomIntegralSwap">
+        <jaxws:serviceBean>
+            <ref bean="telecomIntegralSwap"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
+
+    <bean id="ecMemberIntegral" class="net.xinshi.thirdinterface.angjie.webService.ECMember.impl.ECMemberInterfaceServiceImpl" />
+    <jaxws:server id="ecMemberIntegralService"
+                  serviceClass="net.xinshi.thirdinterface.angjie.webService.ECMember.service.ECMemberInterfaceSercvice"
+                  address="/ecMemberInfo">
+        <jaxws:serviceBean>
+            <ref bean="ecMemberIntegral"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
+
+
+    <bean id="userManagement" class="net.xinshi.isone.openwebservice.user.impl.UserManagementImpl"/>
+    <jaxws:server id="userManagementService"
+                  serviceClass="net.xinshi.isone.openwebservice.user.UserManagementService"
+                  address="/userManagement">
+        <jaxws:serviceBean>
+            <ref bean="userManagement"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
+
+    <jaxws:server id="WSRouter" serviceClass="net.xinshi.isone.open.webservice.IWSRouter" address="/WSRouter">
+        <jaxws:serviceBean>
+            <bean class="net.xinshi.isone.open.webservice.impl.WSRouter"></bean>
+        </jaxws:serviceBean>
+    </jaxws:server>
+
+</beans>

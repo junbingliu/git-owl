@@ -1,0 +1,143 @@
+.main {
+    width: 850px;
+    margin: auto;
+}
+
+.title {
+    border-bottom: 2px solid;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.invoice {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.invoice .floatDiv {
+    float: left;
+    width: 50%;
+}
+
+.company {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.company .divLeft {
+    float: left;
+    width: 70%;
+}
+
+.company .divRight {
+    float: left;
+    width: 30%;
+}
+
+.clearBoth {
+    clear: both;
+    border-bottom: 2px solid;
+}
+
+.saleTitle {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.saleTitle .divLeft {
+    float: left;
+    width: 70%;
+    text-align: center;
+}
+
+.saleTitle .divRight {
+    float: left;
+    width: 30%;
+}
+
+.bothDiv {
+    clear: both !important;
+}
+
+.content {
+    font-size: 18px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    min-height: 600px;
+}
+
+#innerLeft {
+    float: left;
+    width: 480px;
+    text-align: center;
+    border-right: 2px solid;
+    min-height: 600px;
+    *min-height: 400px;
+    _min-height: 400px;
+}
+
+#innerLeft .payment {
+    width: 96%;
+    min-height: 300px;
+    *height: 300px;
+    _height: 300px;
+}
+
+#innerLeft .payment .divLeft {
+    float: left;
+    width: 50%
+}
+
+#innerLeft .payment .divRight {
+    float: left;
+    width: 49%
+}
+#innerLeft .payPrice {
+    width:97%;border-top: 2px solid;
+}
+#innerLeft .payPrice .divLeft{
+    width: 50%;float: left;
+}
+#innerLeft .payPrice .divLeft{
+    width: 50%;float: left;
+}
+#innerLeft .desc {
+    width: 96%;border: 2px solid;margin-top: 20px;height: 210px;_height: 210px;*height: 210px;
+}
+#innerLeft .desc div{
+    width: 100%;border-bottom: 1px solid;text-align: left;height: 30px;line-height: 30px;
+}
+
+#innerRight {
+    float: left;
+    width: 368px;
+    *width: 372px;
+    _width: 372px;
+    min-height: 600px;
+    *min-height: 600px;
+    _min-height: 600px;
+    border-left: 2px solid;
+    margin-left: -2px;;
+}
+
+#innerRight #feeId{
+    width: 100%;min-height: 300px;*height:300px;_height:300px;
+}
+#innerRight #feeId div{
+    float: left;width: 50%;
+}
+
+#innerRight .feeAmount {
+    width:100%;border-top: 2px solid;
+}
+#innerRight .feeAmount div{
+    float: left;width: 50%;
+}
+#innerRight .realPrice{
+    width: 100%;margin-top: 232px;border-top:2px solid;font-weight: bold;height: 40px;line-height: 40px;
+}
+#innerRight .realPrice div{
+    float: left;width: 50%;
+}
+

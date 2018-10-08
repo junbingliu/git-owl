@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    {{=$.inc("pages/common/include_head.jsx")}}
+</head>
+<frameset id="main" cols="240,*" frameborder="no" border="0" framespacing="0">
+    <frame name="left" scrolling="auto" src="leftMenu.jsx?m={{=it.m}}&s={{=it.s}}&w={{=it.w}}"/>
+    <frame name="main" scrolling="no" src="main.jsx?m={{=it.m}}&s={{=it.s}}&w={{=it.w}}"/>
+</frameset>
+
+</html>

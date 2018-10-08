@@ -1,0 +1,1 @@
+curl -XGET -u elastic 'localhost:9200/is1erp/_mapping/allinone?pretty'

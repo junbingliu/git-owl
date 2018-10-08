@@ -1,0 +1,14 @@
+//curl -XPUT -u elastic 'localhost:9200/is1erp/_mapping/allinone?pretty' -H 'Content-Type: application/json' -d '
+{
+  "dynamic_templates": [
+    {
+      "integers": {
+        "match_mapping_type": "long",
+        "mapping": {
+          "type": "double"
+        }
+      }
+    }
+  ]
+}
+'

@@ -1,0 +1,45 @@
+{
+  "id": "string(12),tab:01,disabled:true;id",
+  "timeStamp":"date,tab:02,disabled:true;时间",
+  "skuId": "string(12),tab:03,disabled:true;物料id",
+  "skuName": "string(12),tab:04,disabled:true;物料",
+  "channelId": "string(12),tab:05,disabled:true;渠道Id",
+  "channelName": "string(12),tab:06,disabled:true;渠道",
+  "docId":"string(12),tab:07,disabled:true;单据Id",
+  "docType":"string(16),tab:08,disabled:true;单据类型",
+  "beforeAmount":"number(12),tab:09,disabled:true;变化前数量",
+  "amount":"number(12),tab:10,disabled:true;交易数量",
+  "afterAmount":"number(12),tab:11,disabled:true;变化后数量",
+  "beforeFreezeAmount":"number(12),tab:12,disabled:true;交易前冻结数量",
+  "freezeAmount":"number(12),tab:13,disabled:true;冻结数量",
+  "afterFreezeAmount":"number(12),tab:14,disabled:true;交易后冻结数量",
+  "memo":"string(24),tab:15,disabled:true;备注",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:16;店铺id",
+  "supplierId": "string(16),disabled:true,hidden:true,listSize:8,tab:17;供应商id",
+  "supplierName": "string(16),disabled:true,listSize:8,tab:18;供应商名称",
+  "purchasePrice": "number(12),disabled:true,listSize:8,tab:19;采购价",
+  "_t": "channelInventoryLog",
+  "#meta": {
+    "readOnly":true,
+    "rem": "渠道库存日志",
+    "projectName": "渠道库存日志",
+    "visitType":["shop"],
+    "pos":4,
+    "group":{
+      "id":"inventoryGroup",
+      "name":"库存",
+      "pos":4
+    },
+    "export":[
+      {
+        "label":"导出完整单据",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"]
+      }
+    ]
+  }
+}

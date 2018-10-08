@@ -1,0 +1,31 @@
+<div class="JigsawValidateUtil_TB_overlayBG"></div>
+<div class="JigsawValidateUtil_TB_window">
+    <!--提示-->
+    <div class="JigsawValidateUtil_msgPanel shanchu" style=" width: 320px">
+        <div class="JigsawValidateUtil_hd">请完成安全验证<i class="JigsawValidateUtil_close"></i></div>
+        <!--滑块图片验证码-->
+        <div class="JigsawValidateUtil_slide_code" id="JigsawValidateUtil_slide_bar">
+            <div class="JigsawValidateUtil_slide-image-img">
+                <img id="JigsawValidateUtil_backgroundImg" alt="图片验证码" class="JigsawValidateUtil_backgroundImg"/>
+                <img id="JigsawValidateUtil_mattingImg" class="JigsawValidateUtil_mattingImg"/>
+            </div>
+            <div class="JigsawValidateUtil_tips-box">
+                <div class="JigsawValidateUtil_tips">
+                    <span>向右滑动滑块填充拼图</span>
+                </div>
+                <div class="JigsawValidateUtil_slide_indicator" id="JigsawValidateUtil_slide_indicator"></div>
+                <div class="JigsawValidateUtil_slideBtn" id="JigsawValidateUtil_slideBtn">
+                    <span id="JigsawValidateUtil_slide_icon" class="JigsawValidateUtil_slider-icon-black"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="JigsawValidateUtil_alert_window" style="width: 400px; height: 200px;">
+    <!--提示-->
+    <div class="JigsawValidateUtil_alert_msgPanel">
+        <div class="JigsawValidateUtil_alert_hd">系统显示:<i class="JigsawValidateUtil_alert_close"></i></div>
+        <p class="JigsawValidateUtil_alert_text"></p>
+        <a href="javascript:void(0);" class="JigsawValidateUtil_alert_bnt">确认</a>
+    </div>
+</div>

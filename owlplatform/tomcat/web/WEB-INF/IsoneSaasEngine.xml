@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="saasUserMerchantService" class="net.xinshi.saas.usergroup.service.impl.NormalSaasMerchantService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="saasUserGroupService" class="net.xinshi.saas.usergroup.service.impl.NormalSaasGroupService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="saasActionGroupService" class="net.xinshi.saas.privilege.services.impl.NormalActionGroupService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="saasRoleService" class="net.xinshi.saas.privilege.services.impl.NormalRoleService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="saasRoleAssignService" class="net.xinshi.saas.privilege.services.impl.NormalRoleAssignService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="saasPrivilegeChecker" class="net.xinshi.saas.privilege.services.impl.NormalPrivilegeChecker">
+    </bean>
+
+    <bean id="saasPrivilegeEngine" class="net.xinshi.saas.SaasPrivilegeEngine">
+        <property name="actionGroupService" ref="saasActionGroupService"/>
+        <property name="privilegeChecker" ref="saasPrivilegeChecker"/>
+        <property name="roleAssignService" ref="saasRoleAssignService"/>
+        <property name="roleService" ref="saasRoleService"/>
+        <property name="saasUserGroupService" ref="saasUserGroupService"/>
+        <property name="saasUserMerchantService" ref="saasUserMerchantService"/>
+    </bean>
+
+</beans>

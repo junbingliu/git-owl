@@ -1,0 +1,61 @@
+{
+	"id" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;单据编号",
+	"settlementId" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;结算单ID",
+	"isSettlement" : "choice,values:F_否/T_是,tab:02;是否结算",
+	"supplierName" : "string(16),disable:true,tab:01;商户名称",
+	"supplierId" : "string(16),disable:true,tab:02;商户ID",
+	"shopName" : "string(16),disable:true,tab:03;店铺名称",
+	"shopId" : "string(16),disable:true,tab:04;店铺ID",
+	"parcelId" : "string(16),disable:true,tab:05;包裹单",
+	"b2cOrderAliasCode" : "string(16),disable:true,tab:06;B2C销售订单号",
+	"salesOrderId" : "string(16),disable:true,tab:07;销售订单",
+	"paymentMode": "choice,values:1_预存款/2_支付宝/20_支付宝/3_信用额度/4_华润e付/5_微信支付/6_积分支付/7_银联支付/8_民生支付/10_微信支付/99_线下支付/10000_礼品卡兑换/10001_微信礼品卡兑换,tab:11,listTab:14;支付方式",
+	"deliveryPrice" : "number(16),disable:true,tab:09;运费",
+	"orderDeliveryDate" : "date,showTime:true,disable:true,tab:06;订单发货时间",
+	"settlementDate" : "date,showTime:true,disable:true,tab:06;结算时间",
+	"_t" : "deliveryPrices",
+	"#meta" : {
+		"rem" : "严选运费列表",
+		"parent" : [
+			"deliveryPrices"
+		],
+		"projectName" : "严选运费列表",
+		"visitType" : [
+		],
+		"pos" : 6,
+		"group" : {
+			"id" : "deliveryPricesList",
+			"name" : "严选运费列表",
+			"pos" : 4
+		},
+		"export":[
+			{
+				"label":"只导出子项",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			},
+			{
+				"label":"导出完整",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+      "exportDoc" : true
+	}
+}

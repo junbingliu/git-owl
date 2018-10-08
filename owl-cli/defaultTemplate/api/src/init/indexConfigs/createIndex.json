@@ -1,0 +1,61 @@
+{
+  "settings": {
+    "index.mapping.total_fields.limit": 5000,
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "path_analyzer": {
+          "tokenizer": "path_tokenizer"
+        },
+        "ngram_analyzer": {
+          "tokenizer": "ngram"
+        }
+      },
+      "tokenizer": {
+        "path_tokenizer": {
+          "type": "path_hierarchy",
+          "delimiter": "/",
+          "skip": 0
+        },
+        "ngram": {
+          "type": "ngram",
+          "min_gram": 1,
+          "max_gram": 1
+        }
+      }
+    }
+  },
+
+  "mappings": {
+    "allinone": {
+      "_all":{"analyzer": "ngram_analyzer"},
+      "dynamic_templates": [
+        {
+          "integers": {
+            "match_mapping_type": "long",
+            "mapping": {
+              "type": "double"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "m": {
+          "type":  "keyword"
+        },
+        "_t":{
+          "type": "keyword"
+        },
+        "_createTime":{
+          "type":"date"
+        }
+      }
+    }
+  },
+  "aliases" : {
+    "@projectCode": {}
+  }
+}
+
+

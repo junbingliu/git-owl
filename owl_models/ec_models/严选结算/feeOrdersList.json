@@ -1,0 +1,60 @@
+{
+	"id" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;关联ID",
+	"isStorage" : "choice,values:F_否/T_是,tab:02;是否入库",
+	"isSettlement" : "choice,values:F_否/T_是,tab:02;是否结算",
+	"settlementId" : "string(16),tab:01,disabled:true,listSize:12,disabled:true;结算单ID",
+	"feeOrderId":"string(16),inputType:numberLetter,tab:03;单号",
+	"feeOrderType": "choice,values:expense_扣款单/promotion_促销费用单,tab:02;单据类型",
+	"operationDate":"date,showTime:true,tab:04;生成日期",
+	"settlementDate" : "date,showTime:true,disable:true,tab:06;结算时间",
+	"supplierId" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:id,fields:id/name,toFields:supplierId/supplierName,hidden:true,required:true,searchable:true,tab:05;供应商ID",
+	"supplierName" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,required:true,tab:05;供应商",
+	"priceWithTax": "number(16),isMoney:true,inputType:number,required:true,tab:06;含税金额",
+	"taxRate": "choice,values:0_0/3_3/6_6/7.7_7.7/11_11/11.9_11.9/13_13/16_16/17_17/21_21/26.353_26.353/32.375_32.375,required:true,tab:07;税率",
+	"reasonType":"choice,values:cost_成本型/notCostFee_非成本费用型/notAccount_非成本往来型,tab:08;原因类型",
+	"reason":"string(16),tab:11;原因",
+	"_t" : "feeOrders",
+	"#meta" : {
+		"rem" : "严选费用列表",
+		"parent" : [
+			"feeOrders"
+		],
+		"projectName" : "严选费用列表",
+		"visitType" : [],
+		"pos" : 6,
+		"group" : {
+			"id" : "feeOrdersList",
+			"name" : "严选费用列表",
+			"pos" : 4
+		},
+		"export":[
+			{
+				"label":"只导出子项",
+				"mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+				"subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+				"key":"detailOnly",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			},
+			{
+				"label":"导出完整",
+				"mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+				"subTitleFormat":{"background":"#777777","color":"#ffffff"},
+				"subRecordFormat":{"background":"#ffffff","color":"#000000"},
+				"mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+				"key":"completeDoc",
+				"fields":["*"],
+				"items":{
+					"name":"items",
+					"itemFields":["*"]
+				}
+			}
+		],
+      "exportDoc" : true
+	}
+}

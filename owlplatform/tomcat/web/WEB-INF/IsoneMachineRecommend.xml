@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="buyAlsoBuyService"
+          class="net.xinshi.isone.modules.machineRecommend.buyAlsoBuy.impl.NormalBuyAlsoBuyService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="refreshSeconds" value="120"/>
+    </bean>
+
+    <bean id="buyAlsoBuyCalculator"
+          class="net.xinshi.isone.modules.machineRecommend.buyAlsoBuy.impl.DssBuyAlsoBuyCalculator"></bean>
+
+    <bean id="viewAlsoViewService"
+          class="net.xinshi.isone.modules.machineRecommend.viewAlsoView.impl.NormalViewAlsoViewService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="refreshSeconds" value="120"/>
+    </bean>
+
+    <bean id="viewAlsoViewCalculator"
+          class="net.xinshi.isone.modules.machineRecommend.viewAlsoView.impl.DssViewAlsoViewCalculator">
+        <property name="pageDetailName" value="商品详细"></property>
+          </bean>
+
+    <bean id="machineRecommendEngine" class="net.xinshi.isone.modules.machineRecommend.IsoneMachineRecommendEngine">
+        <property name="buyAlsoBuyCalculator" ref="buyAlsoBuyCalculator"></property>
+        <property name="buyAlsoBuyService" ref="buyAlsoBuyService"></property>
+        <property name="viewAlsoViewCalculator" ref="viewAlsoViewCalculator"/>
+        <property name="viewAlsoViewService" ref="viewAlsoViewService"/>
+    </bean>
+</beans>

@@ -1,0 +1,196 @@
+@charset "UTF-8";
+/* font preset*/
+* { padding: 0; margin: 0; }
+
+.f8 { font-size: 0.8px; -webkit-text-size-adjust: none; }
+
+.f9 { font-size: 0.9px; -webkit-text-size-adjust: none; }
+
+.f10 { font-size: 1px; -webkit-text-size-adjust: none; }
+
+.f12 { font-size: 12px !important; }
+
+.f13 { font-size: 13px; }
+
+.f14 { font-size: 14px; }
+
+.f15 { font-size: 15px; }
+
+.f16 { font-size: 16px; }
+
+.f18 { font-size: 18px; }
+
+.f20 { font-size: 20px; }
+
+.f24 { font-size: 24px; }
+
+.f26 { font-size: 26px; }
+
+.f28 { font-size: 28px; }
+
+.f30 { font-size: 30px; }
+
+.f32 { font-size: 32px; }
+
+.fb { font-weight: bold; }
+
+.fn { font-weight: normal; }
+
+.t2 { text-indent: 2em; }
+
+.thD { text-indent: -9999px; }
+
+.bdn { border: none !important; }
+
+.fam { font-family: '微软雅黑', Arial, Helvetica, sans-serif; }
+
+.tdNo, .tdNo:hover { text-decoration: none; }
+
+/*typset preset*/
+.tl { text-align: left; }
+
+.tc { text-align: center; }
+
+.tr { text-align: right; }
+
+.bc { margin-left: auto; margin-right: auto; }
+
+.clear { clear: both; }
+
+.fl { float: left !important; _display: inline; }
+
+.fr { float: right !important; _display: inline; }
+
+.show { display: block; }
+
+.hide { display: none; }
+
+.clearfix:after { content: '.'; display: block; height: 0; clear: both; visibility: hidden; }
+
+.clearfix { zoom: 1; }
+
+/*.clearfix{display:inline-block;}*/
++ html .clearfix { height: 1%; }
+
+.vm { vertical-align: middle; }
+
+.prL { position: relative; }
+
+.paL { position: absolute; }
+
+.pr { position: relative; }
+
+.pa { position: absolute; }
+
+.zoom { zoom: 1; }
+
+.hidden { visibility: hidden; }
+
+.none { display: none; }
+
+.ovhidden, .oh { overflow: hidden; }
+
+.txh { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/*typset preset*/
+.tl { text-align: left; }
+
+.tc { text-align: center; }
+
+.tr { text-align: right; }
+
+.bc { margin-left: auto; margin-right: auto; }
+
+.clear { clear: both; }
+
+.fl { float: left !important; _display: inline; }
+
+.fr { float: right !important; _display: inline; }
+
+.show { display: block; }
+
+.hide { display: none; }
+
+.clearfix:after { content: '.'; display: block; height: 0; clear: both; visibility: hidden; }
+
+.clearfix { zoom: 1; }
+
+/*zindex prest*/
+.zin1 { z-index: 1; }
+
+.zin2 { z-index: 2; }
+
+.zin3 { z-index: 3; }
+
+/*margin prest*/
+.cent { position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; }
+
+.mAuto { margin: 0 auto; }
+
+.show { display: block; }
+
+.m0 { margin: 0 !important; }
+
+.mt100 { margin-top: 100px; }
+
+.ml0 { margin-left: 0 !important; }
+
+.mr0 { margin-right: 0 !important; }
+
+
+
+.mb0 { margin-bottom: 0 !important; }
+
+
+
+/*padding prest*/
+.pt20 { padding-top: 20px !important; }
+
+.pl0 { padding-left: 0 !important; }
+
+.pr0 { padding-right: 0 !important; }
+
+.lh30 { line-height: 30px; }
+
+.tdu { text-decoration: underline; }
+
+/* --------------------------------------------------------------------------- function --------------------------------------------------------------------------- */
+.enableSelect { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; }
+
+.ableSelect { user-select: text; -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; -o-user-select: text; }
+
+/* --------------------------------------------------------------------------- global --------------------------------------------------------------------------- */
+html, body, ul, p { padding: 0; margin: 0; list-style: none; font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; behavior: url(PIE.htc); }
+
+body { font-size: 12px; color: #19344f; line-height: 1; background: #fff; }
+
+dl, dt, dd { margin: 0; padding: 0; }
+
+a { cursor: pointer; text-decoration: none; }
+
+a img { outline: none; border: none; vertical-align: top; }
+
+table { border-collapse: collapse; }
+
+th, td { padding: 0; margin: 0; }
+
+/* preset color */
+.colore333 { color: #333; }
+
+.colore999 { color: #999; }
+
+.clear { clear: both; }
+
+.padding20_0 { padding: 20px 0; }
+
+button, input { outline: none; }
+
+/*公共样式*/
+.v-line { display: inline-block; width: 0; height: 12px; margin: 10px 12px 0; border-right: 1px solid #a8a9ae; }
+.brd-no { border: none !important; }
+em, i{
+    font-style: normal;
+}
+ins, a {
+    text-decoration: none;
+}

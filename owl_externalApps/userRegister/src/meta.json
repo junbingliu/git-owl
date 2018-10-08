@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "owl_userRegister",
+    "libs": [],
+    "obj_prefixes": ["owl_userRegisterObj"],
+    "list_prefixes": ["owl_userRegisterList"]
+}

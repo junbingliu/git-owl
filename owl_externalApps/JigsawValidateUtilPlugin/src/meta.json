@@ -1,0 +1,6 @@
+{
+    "libs_namespace": "JigsawValidateUtilPlugin",
+    "libs": ["services/GlobalSysArgsService.jsx"],
+    "obj_prefixes": ["JigsawValidateUtilPluginObj"],
+    "list_prefixes": ["JigsawValidateUtilPluginList"]
+}

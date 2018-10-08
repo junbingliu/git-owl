@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="businessRuleServiceEx" class="net.xinshi.isone.modules.businessruleEx.rule.services.impl.RuleService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="planTypeRepository" class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.DefaultPlanTypeRepository">
+    </bean>
+
+    <bean id="planStoreService" class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.DefaultStoreService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="planTypeRepository" ref="planTypeRepository"/>
+    </bean>
+
+    <bean id="buyFlowPlanService" class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.BuyFlowPlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="loginPlanService" class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.LoginPlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="orderCompletionPlanService"
+          class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.OrderCompletionPlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="userUpOrDownGradePlanService"
+          class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.UserUpOrDownGradePlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="recommendMemberPlanService"
+          class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.RecommendMemberPlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="registerPlanService"
+          class="net.xinshi.isone.modules.businessruleEx.plan.service.impl.RegisterPlanService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="planTaskService" class="net.xinshi.isone.modules.businessruleEx.plan.task.service.impl.NormalPlanTaskService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="taskQueName" value="setOrCancelEffectivePlanTaskQue"/>
+        <property name="storeService" ref="planStoreService"/>
+    </bean>
+
+    <bean id="ruleExecuteRuleLogService" class="net.xinshi.isone.modules.businessruleEx.plan.executelog.impl.NormalExecuteRuleLogService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="planLogService" class="net.xinshi.isone.modules.businessruleEx.log.impl.NormalPlanLogService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="buyFlowPlanExecutor" class="net.xinshi.isone.modules.businessruleEx.plan.excutor.planExecutorImpl.NormalBuyFlowPlanExecutor"/>
+    <bean id="userUpOrDownGradePlanExecutor" class="net.xinshi.isone.modules.businessruleEx.plan.excutor.planExecutorImpl.NormalUserUpOrDownGradePlanExecutor"/>
+    <bean id="loginPlanExecutor" class="net.xinshi.isone.modules.businessruleEx.plan.excutor.planExecutorImpl.NormalLoginPlanExecutor"/>
+    <bean id="recommendMemberPlanExecutor" class="net.xinshi.isone.modules.businessruleEx.plan.excutor.planExecutorImpl.NormalRecommendMemberPlanExecutor"/>
+    <bean id="registerPlanExecutor" class="net.xinshi.isone.modules.businessruleEx.plan.excutor.planExecutorImpl.NormalRegisterPlanExecutor"/>
+
+    <bean id="businessRuleEngineEx" class="net.xinshi.isone.modules.businessruleEx.IsoneBusinessRuleEngineEx">
+        <property name="ruleService" ref="businessRuleServiceEx"/>
+        <property name="buyFlowPlanService" ref="buyFlowPlanService"/>
+        <property name="loginPlanService" ref="loginPlanService"/>
+        <property name="orderCompletionPlanService" ref="orderCompletionPlanService"/>
+        <property name="userUpOrDownGradePlanService" ref="userUpOrDownGradePlanService"/>
+        <property name="registerPlanService" ref="registerPlanService"/>
+        <property name="recommendMemberPlanService" ref="recommendMemberPlanService"/>
+        <property name="planStoreService" ref="planStoreService"/>
+        <property name="planTypeRepository" ref="planTypeRepository"/>
+        <property name="buyFlowPlanExecutor" ref="buyFlowPlanExecutor"/>
+        <property name="userUpOrDownGradePlanExecutor" ref="userUpOrDownGradePlanExecutor"/>
+        <property name="loginPlanExecutor" ref="loginPlanExecutor"/>
+        <property name="recommendMemberPlanExecutor" ref="recommendMemberPlanExecutor"/>
+        <property name="registerPlanExecutor" ref="registerPlanExecutor"/>
+        <property name="planTaskService" ref="planTaskService"/>
+        <property name="ruleExecuteRuleLogService" ref="ruleExecuteRuleLogService"/>
+        <property name="planLogService" ref="planLogService"/>
+    </bean>
+</beans>

@@ -1,0 +1,1 @@
+java -jar pigeonadmin.4.0-jar-with-dependencies.jar createCluster $1 $2 $3

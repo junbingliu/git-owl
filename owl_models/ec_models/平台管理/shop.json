@@ -1,0 +1,67 @@
+{
+    "id":"string(12),tab:01,disabled:true;店铺Id",
+    "name":"string(16),tab:02;店铺名称;",
+    "merchantID":"string(16),inputType:numberLetter,tab:04;商家ID",
+    "shoppingMallID":"string(16),inputType:numberLetter,tab:05;商城店铺ID",
+    "mobile":"string(16),inputType:mobile,tab:05;手机",
+    "subplatformId":"linkId(subplatform),tab:07;机构",
+    "logo":"imgfileId,tab:08;店铺logo",
+    "ownerName":"string(16),tab:09;店铺主体",
+    "province": "tree,tab:11,dataSource:/erpApi/region/getArea.jsx;省",
+    "city": "tree,tab:12,dataSource:/erpApi/region/getArea.jsx;市",
+    "county": "tree,tab:12,dataSource:/erpApi/region/getArea.jsx;县(区)",
+    "address":"string(24),tab:14;详细地址",
+    "type":"choice,values:1_普通店铺/2_严选店铺/3_80周年店铺,listSize:14,tab:30,listTab:09;店铺类型",
+    "bankInfo":{
+        "#meta":{
+            "fieldLabel":"银行资料",
+            "tab":"11"
+        },
+        "account":"string(19),inputType:number,tab:01;账号",
+        "bank":"string(10),tab:02;开户行",
+        "branch":"string(10),tab:03;支行"
+    },
+    "admins": [
+        {
+            "#meta": {
+                "fieldLabel":"管理员",
+                "tab": "11",
+                "addMulti":{
+                    "linkId":"userId",
+                    "from":"id",
+                    "label":"选择用户...",
+                    "dataSource":"/erpApi/user/search.jsx",
+                    "fields":["id","loginId","realName","nickName"],
+                    "toFields":["userId","loginId","realName","nickName"],
+                    "fieldLabels":["id","loginId","真实姓名","昵称"],
+                    "fieldWidths":[100,120,120,120]
+                }
+            },
+            "userId": "linkId,dataSource:/erpApi/user/search.jsx,unique:true,fields:id/realName/nickName,toFields:userId/realName/nickName,displayField:id,fieldsWidth:100/120/120,tab:13;用户Id",
+            "loginId":"string(16),disabled:true,inputType:numberLetter,tab:14;loginId",
+            "realName":"string(16),disabled:true,tab:14;姓名",
+            "nickName":"string(16),tab:15;昵称"
+        }
+    ],
+    "_t":"shop",
+    "#meta":{
+        "rem":"店铺",
+        "parent":["subplatform"],
+        "projectName":"店铺",
+        "export":[
+            {
+                "label":"导出完整",
+                "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+                "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+                "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+                "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+                "key":"completeDoc",
+                "fields":["*"],
+                "items":{
+                    "name":"items",
+                    "itemFields":["*"]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "string(16),tab:01,disabled:true;供应商Id",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:16;店铺id",
+  "name": "string(16),required:true,tab:02;名称;",
+  "code": "string(16),inputType:numberLetter,required:true,tab:03;编号",
+  "accountDate": "number(16),min:01,tab:04,required:true,help:付款账期(天);付款账期(天)",
+  "certificateNo": "string(16),inputType:numberLetter,tab:05;国税编号",
+  "buttJoint":"choice,required:true,values:0_健一/1_准时达/2_全部/3_都不,tab:07;对接仓库",
+  "settledDate":"number(12),min:01,max:31,tab:08,required:true,help:每月生成结算单的日期;结算日期",
+  "contactInfo": {
+    "#meta": {
+      "fieldLabel": "联系信息",
+      "tab": "11"
+    },
+    "contact": "string(16),tab:09;联系人",
+    "mobile": "string(13),inputType:mobile,tab:10;手机",
+    "fax": "string(13),inputType:number,tab:11;传真",
+    "url": "string(24),inputType:url,help:例http(s)：//baidu.com,tab:12;网址",
+    "email": "string(24),inputType:email,tab:13;电子邮件",
+    "address": "string(24),required:true,tab:14;地址"
+  },
+  "bankInfo": {
+    "#meta": {
+      "fieldLabel": "银行资料",
+      "tab": "12"
+    },
+    "taxNumber": "string(24),inputType:numberLetter,tab:01;税号",
+    "account": "string(24),inputType:number,tab:02;账号",
+    "bank": "string(10),tab:03;开户行",
+    "company": "string(24),tab:04;开户公司"
+  },
+  "contract": [{
+    "#meta": {
+      "required":true,
+      "fieldLabel": "合同",
+      "addSingle" : true,
+      "tab": "13"
+    },
+    "contractNo3": "string(24),required:true,inputType:numberLetter,tab:01;合同号",
+    "cooperationMode": "choice,values:1_代销/2_经销,tab:02;合同模式",
+    "clearMode": "choice,values:1_按供价/2_按扣率,tab:03;结算方式",
+    "discount": "number(16),inputType:number,tab:04;扣率",
+    "state": "choice,values:1_正常/2_冻结,tab:05;状态",
+    "validDateBegin": "date,defaultValue:$now,compare:<=|validDateEnd,tab:06;有效期开始",
+    "validDateEnd": "date,defaultValue:$now,compare:>=|validDateBegin,tab:07;有效期结束"
+  }],
+  "abstracts": {
+    "#meta": {
+      "fieldLabel": "摘要",
+      "tab": "14"
+    },
+    "remark": "string(128);备注"
+  },
+  "_t": "supplier",
+  "#meta": {
+    "rem": "供应商",
+    "projectName": "供应商",
+    "visitType":["shop"],
+    "pos": -1,
+    "group":{
+      "id":"mainData",
+      "name":"主数据",
+      "pos":2
+    },
+    "export":[
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

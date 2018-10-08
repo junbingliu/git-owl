@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+body{  margin:0; padding:0; word-wrap:break-word; color: #666;font: 12px/24px verdana;}
+ul,li,dl,dt,dd,span,del,b,font,label,ol{ padding:0px; margin:0px; list-style-type:none;}
+p,input,form{ margin:0px; padding:0px;}
+h1,h2,h3,h4,h5,h6{ margin:0px; padding:0px; font-weight:normal; font-size:12px;}
+img{border:0;}
+.clear{ clear:both; height:0; line-height:0; font-size:0; overflow:hidden;}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix {display: inline-table;}
+* html .clearfix {height: 1%;}
+*+html .clearfix{height: 1%;}
+.clearfix {display: block;}
+
+.topSearch{width: 780px;margin: 10px 0 0 20px;}
+.topSearch h3 {height: 31px;	width: 780px;background: url(../images/myComments_h2Bg.gif) no-repeat; border-bottom:#666 2px solid; text-indent: 10px;	margin-top: 10px; font:bold 14px/31px arial;}
+.topSearch .searchbox{width: 760px;line-height: 20px;background:none repeat scroll 0 0 #F5F5F5;height: 80px;padding: 10px;}
+.topSearch .searchbox ul{overflow: hidden;}
+.topSearch .searchbox li{float: left;margin:0 0 6px 10px;display: inline-block;line-height: 22px;color: #000;}
+.topSearch .searchbox .name{width: 780px;}
+.topSearch p{text-align: right;}
+.topSearch .searchBtn{width: 200px;text-align: center;height: 22px;}
+/*我的点评新加*/
+.myComments_title{ background:url(../images/mem_orderDetail_line.gif) repeat-x  bottom; line-height:30px; height:30px; margin-bottom:7px;}
+.myComments_title h2{ float:left; padding:0 10px; border-bottom:#c00 2px solid; line-height:28px; color:#333; font-size:14px; font-weight:bold;}
+.myComments_box{width: 780px;margin: 10px 0 0 20px;}
+.myComments_box ul li {margin-top: 5px;}
+
+.myComments_box ul li .Products {width: 778px;	height: 122px;overflow: hidden;	border-right-width: 1px;border-left-width: 1px;	border-right-style: solid;border-left-style: solid;	border-right-color: #DADADA;border-left-color: #DADADA; border-top:#666 2px solid;}
+.myComments_box ul li .Products .pic {height: 100px;width: 100px;border: 1px solid #eeeeee;	margin: 10px;float: left;overflow: hidden;
+    display: inline;}
+.myComments_box ul li .Products .txt {float: right;	width: 635px;margin-top: 10px;	margin-right: 13px;	height: 100px;}
+.myComments_box ul li .Products .txt .title {line-height: 22px;	border-bottom-width: 1px;border-bottom-style: solid;	border-bottom-color: #eeeeee;font-weight: bold;	color: #000;padding-bottom: 2px;text-indent: 10px;font-size: 14px;}
+.myComments_box ul li .Products .txt .Rating {line-height: 26px;height: 26px;padding-left: 10px;padding-right: 10px;}
+.myComments_box ul li .Products .txt .Rating span {	float: right;color: #999;}
+.myComments_box ul li .Products .txt .Rating p {float: left;padding-top: 5px;}
+.myComments_box ul li .Products .txt .Introduction {line-height: 22px;height: 45px;	padding: 0 10px 0 10px; overflow: hidden;}
+.myComments_box ul li .Expand {	height: 33px;width: 778px;border-right-width: 1px;	border-left-width: 1px;	border-right-style: solid;
+    border-left-style: solid;border-right-color: #DADADA;	border-left-color: #DADADA;	line-height: 33px;	background-image: url(../images/myComments_e.gif);background-repeat: repeat-x;text-indent: 20px;	position: relative;}
+.myComments_box ul li .Expand .hover {color: #06C;	background-image: url(../images/myComments_e2.gif);	height: 35px;
+    overflow: hidden;background-repeat: no-repeat;}
+.myComments_box ul li .Expand p{width: 762px;color: #0066cc;text-align: right;}
+
+.myComments_box ul li .Expand .Quantity {width:320px;height:33px;position:absolute;top:0;	right:0;text-align: right;	padding-right: 15px;}
+.myComments_box ul li .Expand .Quantity b {font-weight: bold;color: #c00;}
+.myComments_box ul li #Comments_show {width: 778px;	border: 1px solid #DADADA; border-top:none}
+.myComments_box ul li #Comments_show ul li .Avatar {margin: 8px 10px;height: 40px;width: 62px;float: left;display: inline;}
+.myComments_box ul li #Comments_show ul li {width: 765px;display: inline;float: left;height: 60px;border-bottom-width: 1px;	border-bottom-style: dashed;border-bottom-color: #CCC;margin-left: 8px;}
+.myComments_box ul li #Comments_show ul li .Username {height: 40px;	width: 65px;float: left;margin-top: 10px;line-height: 20px;}
+.myComments_box ul li #Comments_show ul li .Content {float: left;width: 630px;	height: 40px;margin-top: 10px;line-height: 20px;	overflow: hidden;}
+.myComments_box ul li #Comments_show ul li .Content span {color: #999;}
+.myComments_box ul li #Comments_show ul li .Username a {color: #06C;}
+.myComments_box ul li #Comments_show ul .After {border: none; }
+/*end我的点评新加*/
+/*====弹出层====*/
+.detail_layer{padding:5px; background:url(../images/detail_layer.png) repeat 0 0;position: absolute;margin: -110px 0px 0px 50px;}
+.detail_layer .layer_box{border:1px solid #aaa; background:#fff;padding-bottom:10px;position: relative;}
+.detail_layer .layer_box .box_top{background:url(../images/detail_layer_bg1.gif) repeat-x 0 0;height:29px;}
+.detail_layer .layer_box .box_top .top_title{float:left;color:#333;font-size:14px;font-weight:bold; line-height:29px;padding-left:10px;}
+.detail_layer .layer_box .box_top .top_title em{color:#0066cc;}
+.detail_layer .layer_box .box_top .top_close{float:right;padding-right:10px;}
+.detail_layer .layer_box .box_top .top_close a{float:left;display:block;width:14px;height:13px; overflow:hidden;background:url(../images/detail_layer_bg1.gif) no-repeat 0 -45px;margin-top:8px;}
+.w310px {width: 300px;}
+.w510px {width: 500px;}
+.w360px {width: 350px;}
+/*========加入购物车层========*/
+/*========评论弹出层========*/
+.box_item3 li{float:left;width:100%;margin-top:10px;}
+.box_item3 li .i3_name{float:left;width:70px; text-align:right;color:#666;line-height:24px;}
+.box_item3 li .i3_txt{float:left;width:428px;}
+.box_item3 li .i3_txt .txt_star{float:left;width:100%;padding-top: 5px;}
+.box_item3 li .i3_txt .txt_star .stars1{display: block;float: left;background:url(../images/star2.gif) no-repeat 0 0;width: 14px;height: 14px;}
+.box_item3 li .i3_txt .txt_star .stars2{display: block;float: left;background:url(../images/star4.gif) no-repeat 0 0;width: 14px;height: 14px;}
+.box_item3 li .i3_txt .txt_star img{float:left;margin-top:4px;_margin-top:3px;}
+.box_item3 li .i3_txt .txt_input{float:left;width:100%;}
+.box_item3 li .i3_txt .txt_input span{border:1px solid #a5acb2;height:22px; background:#fff;display:block;float:left;}
+.box_item3 li .i3_txt .txt_input span input{float:left;border:0; background:none;_margin:-1px 0;height:22px; line-height:22px;width:390px;}
+.box_item3 li .i3_txt .txt_textarea{float:left;width:100%;}
+.box_item3 li .i3_txt .txt_textarea span{border:1px solid #a5acb2;background:#fff;display:block;float:left;height:120px;overflow: hidden;width:390px;}
+.box_item3 li .i3_txt .txt_textarea span textarea{float:left;border:0;background:none;_margin:-1px 0;width:100%;padding:0;height:120px;}
+.box_item3 li .i3_txt .txt_msg{color:#999;float:left;width:100%; line-height:18px;}
+.box_item3 li .i3_txt .txt_code{float:left;width:100%;}
+.box_item3 li .i3_txt .txt_code span.code_input{border:1px solid #a5acb2;height:22px; background:#fff;display:block;float:left;}
+.box_item3 li .i3_txt .txt_code span.code_input input{float:left;border:0; background:none;_margin:-1px 0;height:22px; line-height:22px;width:80px;}
+.box_item3 li .i3_txt .txt_code span.code_pic{float:left;display:inline-block;margin-left:10px;}
+.box_item3 li .i3_txt .txt_code span.code_pic img{float:left;}
+.box_item3 li .i3_txt .txt_code span.txt_submit{float:right;display:inline-block;padding-right:38px;}
+.box_item3 li .i3_txt .txt_code span.txt_submit input{float:left;width:80px;height:28px;background:url(../images/detail_layer_btn2.gif) no-repeat 0 0;border:0;font-size:14px;font-weight:bold;color:#fff;cursor:pointer;}

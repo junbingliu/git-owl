@@ -1,0 +1,92 @@
+.pagination_04{
+    height:24px;
+    float:right;
+    display:inline;
+    margin:20px;
+    margin-bottom: 60px;
+}
+.pagination_04 ul {
+    margin:0px;float:left;
+}
+
+.pagination_04 ul li {
+    float:left;
+    line-height:24px;
+    list-style: none;
+    margin-right:2px;
+}
+
+.pagination_04 ul li span{
+    padding-left: 5px;padding-right: 5px;
+}
+
+.pagination_04 .upPage {
+    width:62px;
+    height:23px;
+    display: block;
+    background: url(images/no-pre-page.gif) no-repeat;
+}
+.pagination_04 .upPage.do_click {background: url(images/pageup.gif) no-repeat;}
+.pagination_04 .downPage {
+    width:62px;
+    height:23px;
+    display:block;
+    background: url(images/no-next-page.gif) no-repeat;
+    margin-left:3px;
+}
+.pagination_04 .downPage.do_click{background: url(images/pagedown.gif) no-repeat;}
+.pagination_04 .everyPage {
+    color:#666;
+    text-decoration:none;
+    width:25px;
+    line-height:20px;
+    display:block ;
+    text-align:center;
+    float:left;
+    background:#fff;
+    border:#ddd 1px solid;
+    margin-top:1px;
+}
+
+.pagination_04 .everyPage:hover {
+    color:#c00;
+    text-decoration:none;
+    border:#c00 1px solid;
+}
+
+.pagination_04 .nowPage {
+    background:#c00;
+    border:#c00 1px solid;
+    text-decoration:none;
+    width:25px;
+    line-height:20px;
+    display:block ;
+    text-align:center;
+    float:left;
+    color:#fff;
+    margin-top:1px;
+}
+
+.pagination_04 .nowPage:hover {color:#fff;text-decoration:none;}
+
+.pagination_04 .pages {
+    color: #333;
+}
+
+.pagination_04 .currentPage {
+    color:#f60;
+}
+.pagination_04 .page span{float:left;margin:5px 10px 0px 0px;}
+.pagination_04 .page a{float:left;}
+.pagination_04 ul li .input {border:#ddd 1px solid;width:32px;height: 21px;line-height:21px;}
+.pagination_04 ul li .toPage_submit {background: url("images/page_btn.png") no-repeat transparent;
+    border: medium none;
+    color: #333333;
+    cursor: pointer;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    text-align: center;
+    width: 54px;}
+.pagination_04 ul li .toPage_submit:hover{text-decoration: none;}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    {{=$.inc("pages/common/include_head.jsx")}}
+    <script>var time = "{{=it.currentTime}}";</script>
+    <script type="text/javascript" src="../client/modules/index/getSystemTime.js"></script>
+</head>
+<body>
+<div class="x-backstage">
+    <div class="x-component clearfix">
+        <div class="x-comcontent">
+            <div class="content">
+                <div class="x-title clearfix">
+                    <h2 class="x-tit  h-tit">系统消息</h2>
+
+                </div>
+                <div class="home-hint">
+                    <div class="new">new</div>
+                    <div class="h-time">
+                        <p class="in-time" id="logInfo"></p>
+                    </div>
+                    <div class="hint-txt">
+                        <p class="tab">新用户提醒</p>
+                        <p>尊敬的用户，欢迎您使用信景技术有限公司后台系统！若您遇到任何问题，欢迎致电联系我们平台！</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

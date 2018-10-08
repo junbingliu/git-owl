@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+     <bean id="velocityEngine" class="net.xinshi.isone.templates.velocities.impl.NormalVelocityEngine">
+     </bean>
+    <bean id="templateEngine" class="net.xinshi.isone.templates.TemplateEngine">
+       <property name="velocityEngine" ref="velocityEngine"/>
+    </bean>
+</beans>

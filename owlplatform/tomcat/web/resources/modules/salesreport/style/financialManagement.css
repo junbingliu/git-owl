@@ -1,0 +1,137 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body .container-fluid {
+    width: 1400px;
+}
+
+body .container-fluid .span12 {
+    min-width: 1400px;
+    width: auto;
+}
+
+body .container-fluid .span12 table thead tr:nth-child(2n+1) td, .well {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #99CC99;
+    color: #006633;
+}
+
+body .container-fluid .span12 table thead tr:nth-child(2n) td, tbody tr:nth-child(1) th {
+    text-align: left;
+    font-weight: bold;
+}
+
+body .container-fluid .span12, .well {
+    margin-left: 0;
+}
+
+body .container-fluid .span12 thead td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+body .container-fluid, table {
+    color: #333333;
+    font-size: 12px;
+}
+
+body .container-fluid, table tr td span {
+    min-width: 80%;
+    width: auto;
+}
+
+body .container-fluid .span12 table tbody tr:nth-child(1) td label {
+    font-size: 12px;
+}
+
+body .container-fluid, table tr td span {
+    color: #CC0033;
+}
+
+body .ui-autocomplete-loading {
+    background: url("/resources/plugin/jquery-jquery-ui-1.8.16-0-g269fcfb/jquery-jquery-ui-269fcfb/demos/autocomplete/images/ui-anim_basic_16x16.gif") no-repeat scroll right center white;
+}
+
+body .textClass {
+    height: 30px;
+    width: 176px;
+    float: left;
+    padding: 4px 14px;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+body #export_records input {
+    height: 30px;
+    width: 176px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+.left10px {
+    margin-left: 10px;
+}
+
+.well button:nth-child(n) {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+a:hover {
+    color: #555555;
+    cursor: pointer;
+    background-color: #E5E5E5;
+    text-decoration: underline;
+}
+
+body .container-fluid form {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+    height: auto;
+}
+
+body .container-fluid form label {
+    float: left;
+    padding: 10px 15px 10px;
+    font-size: 13px;
+    color: #777777;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+body .container-fluid form button {
+    float: left;
+    padding: 4px 14px;
+    font-size: 13px;
+    margin: 0 10px;
+    color: #777777;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.table th {
+    text-align: center;
+}
+
+.autocut {
+    width: 65px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -icab-text-overflow: ellipsis;
+    -khtml-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+}

@@ -1,0 +1,10 @@
+{
+  "models":"/Users/zhengxiangyang/work/owl/modules/owl_models/owlPlatform_models",
+  "templates":"/Users/zhengxiangyang/work/owl/modules/owl_templates/defaultTemplate",
+  "generatedApps":"/Users/zhengxiangyang/work/owl/generatedApps",
+  "buildType":"release",
+  "buildProperties":"/Users/zhengxiangyang/work/owl/build.properties",
+  "libpath":"/Users/zhengxiangyang/work/owl/lib",
+  "owl_home":"/Users/zhengxiangyang/work/owl"
+
+}

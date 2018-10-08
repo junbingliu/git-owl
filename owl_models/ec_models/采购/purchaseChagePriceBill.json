@@ -1,0 +1,44 @@
+{
+	"receiptNumber":"string(16),disabled:true,tab:01;单据编号",
+	"agent":"string(16),tab:02;经办人",
+	"dates":"date,tab:03;日期",
+	"suppliers":"string(16),tab:04;供应商",
+	"storehouse":"string(16),tab:05;仓库",
+	"approvalStatus":"string(16),tab:06;审批状态",
+	"approver":"string(16),tab:07;审批人",
+	"remark":"string(64),tab:08;备注",
+	"totalAmounOfMaterials":"string(16),tab:09;物料数量合计",
+	"originalTotalAmount":"string(16),tab:10;原金额合计",
+	"newTotalAmount":"string(16),tab:11;新金额合计",
+	"priceDifference":"string(16),tab:12;变价差额合计",
+		"items": [
+			{
+				"#meta": {
+					"fieldLabel": "详情",
+					"tab": "13"
+				},
+				"barCode":"string(64),tab:01;条形码",
+				"materialNum":"string(16),tab:02;物料编号",
+				"materialName":"string(16),tab:03;物料名称",
+				"batchNum":"string(16),tab:04;批次号",
+				"quantity":"string(16),tab:05;数量",
+				"originalTaxPrice":"string(16),tab:06;原含税价格",
+				"newTaxPrice":"string(16),tab:07;新含税价格",
+				"taxRate":"string(16),tab:08;税率",
+				"storehouse":"string(16),tab:09;仓库",
+				"goods":"string(16),tab:10;货位号"
+			}
+		],
+	"_t":"changePriceBill",
+	"#meta":{
+		"rem":"采购变价单",
+		"parent": ["changePriceBill"],
+		"projectName":"采购变价单",
+		"pos":1,
+		"group":{
+			"id":"purchase",
+			"name":"采购",
+			"pos":5
+		}
+	}
+}

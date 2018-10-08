@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 二级域名 begin -->
+    <bean id="domainService" class="net.xinshi.isone.modules.domain.impl.NormalDomainService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="webDomain" value=""/>
+        <!-- 该域名根据不同项目配置不同的域名 -->
+        <property name="systemDomains">
+            <map>  <!-- 根据不同类型的功能使用不同的系统规划性的二级域名，如购物流程我们使用www的二级域名 -->
+                <entry key="0">
+                    <value>www</value>
+                </entry>
+            </map>
+        </property>
+        <property name="domainFolderMapping">
+            <map> <!-- 根据二级域名类型访问不同的目录 -->
+                <entry key="common">
+                    <value>/</value>
+                </entry>
+                <entry key="merchant">
+                    <value>shop</value>
+                </entry>
+            </map>
+        </property>
+        <property name="fullDomainMapping">
+            <map> <!-- 域名访问锁定访问目录 -->
+            </map>
+        </property>
+    </bean>
+    <!-- 二级域名 end -->
+
+</beans>

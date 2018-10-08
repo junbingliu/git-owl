@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>店铺登录</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    {{=$.inc("pages/common/include_head.jsx")}}
+    <script type="text/javascript" src="/resources/encrypt/rollups/aes.js"></script>
+    <script type="text/javascript" src="/resources/encrypt/aesencrypt.js"></script>
+    <script type="text/javascript" src="../../client/modules/login/login.js"></script>
+</head>
+<body>
+<div class="owl-enter">
+    <div class="enter-cont">
+        <div class="top-nav">
+            <div class="nav">
+                <div class="owl-n-logo fl">
+                    <img src="../../client/res/images/owl-logo.png"/>
+                </div>
+                <div class="fr">
+                    <div class="fl">
+                        <a class="link">链接</a>
+                        <a class="link">链接</a>
+                        <a class="link">链接</a>
+                        <a class="link">链接</a>
+
+                    </div>
+                    <a class="owl-login fr">注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="owl-enter-bg" style="background-image:url(../../client/res/images/enter-bg.jpg);">
+
+        </div>
+
+
+        <div class="enter">
+            <div class="enter-box">
+                <form method="post" action="shopLoginOk.jsx" id="shopLoginForm">
+                    <div class="x-logo">欢迎来到Owl系统！
+                    </div>
+                    <div class="input-box">
+                        <div class="box">
+                            <div class="ico ico-nra"></div>
+                            <input type="text" id="loginId" placeholder="请输入帐号"/>
+                        </div>
+                        <div class="box">
+                            <div class="ico ico-cipher"></div>
+                            <input type="password" id="password" placeholder="请输入密码"/>
+                        </div>
+                        <div class="box">
+                            <div class="ico ico-store"></div>
+                            <input type="text" id="shopId" placeholder="请输入店铺id"/>
+                        </div>
+                        <div class="clearfix">
+                            <div class="box active box-yzm">
+                                <div class="ico ico-yzm"></div>
+                                <input type="text" id="validateCode" placeholder="请输入验证码"/>
+                            </div>
+                            <div class="pic-yzm">
+                                <a href="javascript:void(0);"><img id="validateCodeImg" src="/ValidateCode"/></a>
+                            </div>
+                        </div>
+                        <a class="enter-bnt">登录</a>
+                    </div>
+                    <div class="copyright">版权所有 ©1999-2033 广州信景技术有限公司技术支持</div>
+                    <input type="hidden" class="key" value="{{=it.key}}">
+                    <input type="hidden" class="iv" value="{{=it.iv}}">
+                    <input type="hidden" class="appId" value="{{=it.appId}}">
+                </form>
+            </div>
+        </div>
+        <div class="enter-bg">
+            <div class="bg-img img-1">
+                <img src="../../client/res/images/enter-bg-1.png"/>
+            </div>
+            <div class="bg-img ">
+                <img src="../../client/res/images/enter-bg-2.png"/>
+            </div>
+            <div class="bg-img ">
+                <img src="../../client/res/images/enter-bg-3.png"/>
+            </div>
+        </div>
+    </div>
+    <div class="msgLayer" style="display:none">
+        <div class="TB_overlayBG"></div>
+        <div class="TB_window">
+            <div class="error-hint">
+                <em class="ico-hint"></em>
+                <p class="tab errMsg"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

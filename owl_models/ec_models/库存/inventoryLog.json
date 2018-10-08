@@ -1,0 +1,42 @@
+{
+  "id":"string(12),tab:a1,disabled:true,hidden:true;库存日志id",
+  "timeStamp":"date,tab:a2,disabled:true;时间",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:a2;店铺id",
+  "skuId":"string(12),tab:a3,disabled:true;物料id",
+  "skuName":"string(12),tab:a4,disabled:true;物料",
+  "warehouseId":"string(12),tab:a5,disabled:true;仓库id",
+  "warehouseName":"string(12),tab:a6,disabled:true;仓库",
+  "beforeAmount":"number(12),tab:a7,disabled:true;修改前数量",
+  "amount":"number(12),tab:a8,disabled:true;修改数量",
+  "afterAmount":"number(12),tab:a9,disabled:true;修改后数量",
+  "docId":"string(12),tab:a92,disabled:true;单据id",
+  "docType":"string(12),tab:a93,disabled:true;单据类型",
+  "memo":"string(24),tab:a94,disabled:true;修改原因",
+  "supplierId": "string(16),disabled:true,hidden:true,listSize:8,tab:a95;供应商id",
+  "supplierName": "string(16),disabled:true,listSize:8,tab:a96;供应商名称",
+  "purchasePrice": "number(12),disabled:true,listSize:8,tab:a97;采购价",
+  "_t": "inventoryLog",
+  "#meta": {
+    "readOnly":true,
+    "rem": "库存日志",
+    "projectName": "库存日志",
+    "visitType":["shop"],
+    "pos":4,
+    "group":{
+      "id":"inventoryGroup",
+      "name":"库存",
+      "pos":3
+    },
+    "export":[
+      {
+        "label":"导出完整单据",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "id": "string(12),tab:01,disabled:true,listTab:01;单据ID",
+  "orderId": "string(16),tab:02;原销售订单id",
+  "orgiOrderPayDate": "date,defaultValue:$now,tab:03,listTab:03,searchable:true;原订单支付时间",
+  "parcelId":"string(16),tab:09,listTab:05;包裹单id",
+  "returnOrderId":"string(16),tab:09,listTab:04;退货单id",
+  "returnWarehouseCode": "string(16),tab:03;退货入库单号",
+  "warehouseOrderNo": "string(16),disabled:true,tab:03;仓库单号",
+  "isStorage": "choice,values:1_是/0_否,required:true,searchable:true,tab:04,listTab:02;是否入库",
+  "supplierId": "string(16),disabled:true,hidden:true,tab:05;供应商ID",
+  "supplierName": "linkId,listSize:10,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,fieldsWidth:100/120,searchable:true,tab:06;供应商",
+  "shopId": "string(16),required:true,hidden:true,defaultValue:$shopId,tab:07;店铺id",
+  "warehouseName": "linkId,listSize:16,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,tab:08,listTab:03;仓库名称",
+  "warehouseId": "string(16),disabled:true,searchable:true,hidden:true,tab:09;仓库id",
+  "isCreateSettlement":"choice,values:true_已生成/false_未生成,defaultValue:false,disabled:true,searchable:true,tab:10,listTab:06;是否生成结算单",
+  "state":"choice,values:1_未复核/2_已复核,searchable:true,defaultValue:1,tab:11,listTab:07;复核状态",
+  "returnWarehouseDate": "date,tab:12;退货入库时间",
+  "orderReturnTime": "date,searchable:true,tab:12;订单退款时间",
+  "totalRefundPrice": "number(16),tab:13;退款总金额",
+  "orderDeliveryDate": "date,disabled:true,tab:14,searchable:true;订单发货时间",
+  "_createTime":"date,searchable:true,disabled:true,tab:14;创建时间",
+  "items": [
+    {
+      "#meta": {
+        "fieldLabel": "退货商品清单",
+        "position": "card",
+        "tab": "14"
+      },
+      "skuId": "string(12),tab:01,disabled:true;物料id",
+      "skuCode": "string(16),tab:02;物料编号",
+      "skuName": "string(16),tab:03;物料名称",
+      "afterSalesAmount": "number(12),tab:07;退货数量",
+      "afterSalesStorageAmount": "number(12),tab:08;退货入库数量",
+      "unitPrice": "number(12),tab:09;商品单价",
+      "totalPrice": "number(12),tab:10;商品总价",
+      "refundPrice": "number(12),tab:10;售后单价",
+      "afterSalesUnitPrice": "number(12),tab:11;售后单价",
+      "afterSaleTotalPrice": "number(12),tab:12;售后总价",
+      "createProductDate": "date,tab:12;生产日期",
+      "intoStorageDate": "date,tab:13;入库日期",
+      "productExpired": "date,tab:14;有效期",
+      "batchId": "string(16),tab:15;批号",
+      "merchantDistributeCouponPrice": "string(16),tab:11,listSize:10,listTab:56;商家券分摊的金额",
+      "platformDistributeCouponPrice": "string(16),tab:12,listSize:10,listTab:57;平台券分摊的金额",
+      "cSn": "string(16),tab:15,listSize:10,listTab:61;优惠券序列号",
+      "couponBatchId": "string(16),tab:16,listSize:10,listTab:62;券批次ID",
+      "couponBatchName": "string(16),tab:17,listSize:10,listTab:63;券批次名称",
+      "platformNeedPayPercent": "string(16),tab:18,listSize:10,listTab:64;平台承担比例",
+      "platformNeedPayMoney": "string(16),tab:19,listSize:10,listTab:65;平台承担金额",
+      "channelSalePrice": "number(8),tab:20;第三方渠道价",
+      "discountRate": "number(8),tab:21;折扣率"
+    }
+  ],
+  "_t": "saleReturnStorage",
+  "#meta": {
+    "readOnly":true,
+    "rem": "销售退货入库单",
+    "parent": ["saleReturnStorage"],
+    "projectName": "销售退货入库单",
+    "visitType":["shop"],
+    "pos":2,
+    "group":{"id":"sale","name":"销售","pos":5},
+    "export":[
+      {
+        "label":"只导出子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"items",
+          "itemFields":[
+            "$parent.id",
+            "$parent.orderId",
+            "$parent.orgiOrderPayDate",
+            "$parent.parcelId",
+            "$parent.returnOrderId",
+            "$parent.returnWarehouseCode",
+            "$parent.warehouseOrderNo",
+            "$parent.isStorage",
+            "$parent.supplierId",
+            "$parent.supplierName",
+            "$parent.shopId",
+            "$parent.warehouseName",
+            "$parent.warehouseId",
+            "$parent.isCreateSettlement",
+            "$parent.state",
+            "$parent.returnWarehouseDate",
+            "$parent.totalRefundPrice",
+            "$parent.orderReturnTime",
+            "$parent.orderDeliveryDate",
+            "$parent._createTime",
+            "skuId","skuCode","skuName","afterSalesAmount","afterSalesStorageAmount","unitPrice","totalPrice","afterSalesUnitPrice","afterSalesTotalPrice","createProductDate","intoStorageDate","productExpired","batchId"]
+        }
+      },
+      {
+        "label":"导出完整",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+	"id" : "string(16),disabled:true,tab:01;编号",
+	"orderType" : "choice,values:expense_扣款单/promotion_促销费用单,tab:02;单据类型",
+	"orderId" : "string(16),inputType:numberLetter,tab:03;单号",
+	"operationDate" : "date,tab:04;操作日期",
+	"supplierId" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:id,fields:id/name,toFields:supplierId/supplierName,hidden:true,required:true,searchable:true,tab:05;供应商ID",
+	"supplierName" : "linkId,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,required:true,tab:05;供应商",
+	"priceWithTax" : "number(16),isMoney:true,inputType:number,required:true,tab:06;含税金额",
+	"taxRate" : "choice,values:0_0/3_3/6_6/7.7_7.7/11_11/11.9_11.9/13_13/16_16/17_17/21_21/26.353_26.353/32.375_32.375,required:true,tab:07;税率",
+	"reasonType" : "choice,values:cost_成本型/notCostFee_非成本费用型/notAccount_非成本往来型,tab:08;原因类型",
+	"approveStatus" : "choice,values:0_未审核/1_已审核,defaultValue:0,tab:10;审核状态",
+	"isStorage" : "choice,values:0_否/1_是,defaultValue:0,tab:10;是否入库",
+	"reason" : "string(16),tab:11;原因",
+	"remark" : "string(16),tab:12;说明",
+	"isCreateSettlement":"choice,values:true_已生成/false_未生成,defaultValue:false,tab:13;是否生成结算单",
+	"shopId": "string(16),required:true,hidden:true,disabled:true,defaultValue:$shopId,tab:14;店铺id",
+	"_createTime":"date,searchable:true,disabled:true,tab:15;创建时间",
+
+	"_t" : "feeOrder",
+	"#meta" : {
+		"rem" : "费用单",
+		"parent" : ["feeOrder"],
+		"projectName" : "费用单",
+		"visitType" : ["shop"],
+		"pos":6,
+		"group" : {
+			"id" : "purchaseSettlement",
+			"name" : "采购结算",
+			"pos":1
+		},
+		"exportDoc":true
+	}
+}

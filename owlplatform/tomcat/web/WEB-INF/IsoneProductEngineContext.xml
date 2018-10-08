@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="isoneProductEngine" class="net.xinshi.isone.modules.IsoneProductEngine">
+        <property name="normalProductImportExecutor" ref="normalProductImportExecutor"/>
+        <property name="normalProductCategoryImportExecutor" ref="normalProductCategoryImportExecutor"/>
+        <property name="normalBrandImportExecutor" ref="normalBrandImportExecutor"/>
+        <property name="normalCde2BrandService" ref="normalCde2BrandService"/>
+        <property name="normalCode2StandardProductService" ref="normalCode2StandardProductService"/>
+        <property name="normalCode2DeletedProductService" ref="normalCode2DeletedProductService"/>
+        <property name="localProductInventoryService" ref="localProductInventoryService"/>
+        <property name="normalERPProductInventoryService" ref="normalERPProductInventoryService"/>
+        <property name="angJieErpProductInventoryService" ref="angJieErpProductInventoryService"/>
+        <property name="normalFreeGroupService" ref="normalFreeGroupService"/>
+        <property name="normalFreeGroupListDispatch" ref="normalFreeGroupListDispatch"/>
+        <property name="productNotifyService" ref="productNotifyService"/>
+        <property name="productViewHistoryService" ref="productViewHistoryService"/>
+        <property name="normalProductListDispatch" ref="normalProductListDispatch"/>
+        <property name="normalPSkuQuantityService" ref="normalPSkuQuantityService"/>
+        <property name="normalPSkuStoreService" ref="normalPSkuStoreService"/>
+    </bean>
+
+    <bean id="normalProductImportExecutor" class="net.xinshi.isone.modules.product.productimport.impl.NormalProductImportExecutor">
+    </bean>
+
+    <bean id="normalProductCategoryImportExecutor" class="net.xinshi.isone.modules.product.productimport.impl.NormalProductCategoryImportExecutor">
+    </bean>
+
+    <bean id="normalBrandImportExecutor" class="net.xinshi.isone.modules.brand.brandimport.impl.NormalBrandImportExecutor">
+    </bean>
+
+    <bean id="normalCde2BrandService" class="net.xinshi.isone.modules.brand.impl.NormalCode2BrandService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="normalCode2StandardProductService" class="net.xinshi.isone.modules.product.impl.NormalCode2StandardProductService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="normalCode2DeletedProductService" class="net.xinshi.isone.modules.product.impl.NormalCode2DeletedProductService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="localProductInventoryService" class="net.xinshi.isone.modules.product.inventory.impl.LocalProductInventoryService">
+    </bean>
+
+    <bean id="normalERPProductInventoryService" class="net.xinshi.isone.modules.product.inventory.impl.NormalERPProductInventoryService">
+    </bean>
+
+    <bean id="angJieErpProductInventoryService" class="net.xinshi.isone.modules.product.inventory.impl.AngJieERPProductInventoryService">
+    </bean>
+
+    <bean id="normalFreeGroupService" class="net.xinshi.isone.modules.freegroup.impl.NormalFreeGroupService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="versionObjectService" ref="versionObjectService"/>
+        <property name="freeGroupListDispatch" ref="normalFreeGroupListDispatch"/>
+        <property name="indexQueueService" ref="freeGroupIndexingQueService"/>
+    </bean>
+
+    <bean id="normalFreeGroupListDispatch" class="net.xinshi.isone.modules.freegroup.impl.NormalFreeGroupListDispatch">
+    </bean>
+
+    <bean id="productNotifyService" class="net.xinshi.isone.modules.product.impl.NormalProductNotifyService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="normalNotifyQueService" ref="productNotifyIndexingQueService"/>
+        <property name="smsNotifyQueService" ref="productSmsNotifyIndexingQueService"/>
+    </bean>
+
+    <bean id="productViewHistoryService" class="net.xinshi.isone.modules.product.impl.NormalProductViewHistoryService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="productNotifyIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_productNotify"/>
+    </bean>
+
+    <bean id="normalProductListDispatch" class="net.xinshi.isone.modules.product.impl.NormalProductListDispatch">
+    </bean>
+
+    <bean id="freeGroupIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_freeGroup"/>
+    </bean>
+
+    <bean id="productSmsNotifyIndexingQueService" class="net.xinshi.isone.modules.queue.impl.NormalQueueService">
+        <property name="pigeon" ref="pigeonEngine"/>
+        <property name="queName" value="IndexingQue_productSmsNotify"/>
+    </bean>
+
+    <bean id="normalPSkuQuantityService" class="net.xinshi.isone.modules.price.impl.NormalPSkuQuantityService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+    <bean id="normalPSkuStoreService" class="net.xinshi.isone.modules.price.impl.NormalPSkuStoreService">
+        <property name="pigeon" ref="pigeonEngine"/>
+    </bean>
+
+</beans>

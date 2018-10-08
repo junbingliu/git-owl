@@ -1,0 +1,11 @@
+//curl -XPOST -u elastic 'localhost:9200/_aliases' -H 'Content-Type: application/json' -d '
+{
+  "actions": [
+    {
+      "add": {
+        "index": "owl_@projectCode_v0",
+        "alias": "owl_@projectCode"
+      }
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "id": "string(18),tab:01,disabled:true;采购单id",
+  "shopId": "string(16),required:true,disabled:true,defaultValue:$shopId,hidden:true,tab:011;店铺id",
+  "supplierName": "linkId,listSize:16,dataSource:/erp_supplier/handlers/list.jsx,displayField:name,fields:id/name,toFields:supplierId/supplierName,fieldsWidth:100/120,searchable:true,required:true,tab:03;供应商",
+  "supplierId": "string(16),disabled:true,searchable:true,hidden:true,tab:04;供应商id",
+  "warehouseName": "linkId,listSize:16,dataSource:/erp_warehouse/handlers/list.jsx,displayField:name,fields:id/name,toFields:warehouseId/warehouseName,fieldsWidth:100/120,searchable:true,required:true,tab:05;收货仓库",
+  "warehouseId": "string(16),disabled:true,searchable:true,hidden:true,tab:06;收货仓库Id",
+  "isStorage": "choice,values:1_是/0_否,defaultValue:1,required:true,tab:07;是否入库",
+  "create_uid": "string(16),disabled:true,defaultValue:$loginUser.id,hidden:true,tab:08;创建人Id",
+  "create_realName": "string(16),disabled:true,defaultValue:$loginUser.realName,hidden:true,tab:09;创建人名称",
+  "createDate": "date,defaultValue:$now,tab:10;下单日期",
+  "orgiOrderPayDate": "date,defaultValue:$now,tab:10,searchable:true;原订单支付时间",
+  "approvalStatus": "choice,values:0_未审核/1_审核通过/-1_审核不通过,defaultValue:0,searchable:true,tab:11;审核状态",
+  "approve_uid": "linkId,dataSource:/erpApi/user/search.jsx,fields:id/realName,toFields:approve_uid/approve_realName,displayField:id,fieldsWidth:100/120,searchable:true,hidden:true,tab:12;审批人",
+  "approve_realName": "string(16),disabled:true,searchable:true,hidden:true,tab:13;审批人姓名",
+  "purchaseStorageId": "string(8),disabled:true,hidden:true,tab:14;采购入库单Id",
+  "signTime":"date,defaultValue:$now,searchable:true,disabled:true,tab:14;订单签收时间",
+  "orderDeliveryDate": "date,disabled:true,tab:15,searchable:true;订单发货时间",
+  "remark": "string(64),listSize:16,tab:18;备注",
+  "_createTime":"date,searchable:true,disabled:true,tab:19;创建时间",
+  "saleInfo":{
+    "#meta": {
+      "fieldLabel": "对应销售单",
+      "tab": "b",
+      "position":"card"
+    },
+    "orderId": "string(16),disabled:false,searchable:true,tab:14;订单ID",
+    "orderAliasCode": "string(16),disabled:false,searchable:true,tab:15;订单号",
+    "parcelId": "string(16),disabled:false,searchable:true,tab:16;包裹单Id"
+  },
+  "items": [
+      {
+        "#meta": {
+          "fieldLabel": "采购商品清单",
+          "tab": "16",
+          "position":"card",
+          "addMulti":{
+            "linkId":"skuId",
+            "from":"id",
+            "label":"选择物料...",
+            "dataSource":"/erp_sku/handlers/list.jsx",
+            "fields":["id","name","code","barcode","priceInfo.profits","priceInfo.noTaxPrice","priceInfo.taxRate","priceInfo.bucklePoint","purchaseInfo.buyUnit","purchaseInfo.buyUnitCount"],
+            "toFields":["skuId","name","code","barcode","profits","unitPriceWithoutTax","taxRate","bucklePoint","buyUnit","buyUnitCount"],
+            "fieldLabels":["物料ID","物料名称","物料编码","条形码"],
+            "fieldWidths":[140,120,120,120],
+            "searchArgs":{"supplierInfo.supplierId":"@supplierId","management.isStorage":"@isStorage","warehouseId":"@warehouseId"},
+            "unique":true
+          },
+          "addSingle":false,
+          "aggregateFields": [
+            {
+              "label": "总含税价",
+              "field": "totalPriceWithTax"
+            },
+            {
+              "label": "不含税总价",
+              "field": "totalPriceWithoutTax"
+            },
+            {
+              "label" : "总数量",
+              "field" : "quantity"
+            }
+          ]
+        },
+        "skuId": "string(16),disable:true,tab:01;skuId",
+        "b2cProductId": "string(16),disable:true,tab:01;b2c商品ID",
+        "barcode": "string(16),inputType:number,listSize:10,disabled:true,tab:02;条形码",
+        "code": "string(16),inputType:numberLetter,listSize:10,disabled:true,tab:03;物料编号",
+        "name": "string(16),listSize:10,disabled:true,tab:04;物料名称",
+        "buyUnitAmount":"number(6),inputType:number,tab:05;数量",
+        "buyUnit":"string(8),disabled:true,tab:06;采购单位",
+        "buyUnitCount":"number(6),disabled:true,tab:07;每单位数",
+        "quantity": "number(6),disabled:true,tab:08,value:((#buyUnitCount||1)*#buyUnitAmount).toFixed(0);真实数量",
+        "profits": "number(6),inputType:number,tab:09;毛利",
+        "bucklePoint": "number(6),inputType:number,tab:10;扣点",
+        "channelSalePrice": "number(8),tab:11;第三方渠道价",
+        "discountRate": "number(8),tab:12;折扣率",
+        "unitPriceWithTax": "number(6),disable:true,value:(#unitPriceWithoutTax*(1+#taxRate/100)).toFixed(2),tab:11;含税单价",
+        "unitPriceWithoutTax": "number(6),listSize:8,inputType:number,tab:12;不含税单价",
+        "taxRate": "choice,values:0_0/3_3/6_6/7.7_7.7/11_11/11.9_11.9/13_13/16_16/17_17/21_21/26.353_26.353/32.375_32.375,listSize:4,tab:13;税率",
+        "totalPriceWithTax": "number(16),listSize:10,disable:true,value:(#unitPriceWithTax*#quantity).toFixed(2),tab:14;含税总价",
+        "totalPriceWithoutTax": "number(16),listSize:10,disable:true,value:(#unitPriceWithoutTax*#quantity).toFixed(2),tab:15;不含税总价",
+        "salePrice": "number(6),disable:true,tab:16;含税售价",
+        "totalSalePrice": "number(6),listSize:8,disable:true,tab:17;含税总售价"
+      }
+    ],
+  "_t": "purchaseOrder",
+  "#meta": {
+    "rem": "采购单",
+    "projectName": "采购单",
+    "visitType":["shop","warehouse"],
+    "pos":1,
+    "group":{
+      "id":"purchase",
+      "name":"采购",
+      "pos":1
+    },
+    "workflow":{
+      "postOfDuty":{
+        "label":"岗位",
+        "posts":[
+          {"id":"add","title":"录入"},
+          {"id":"check","title":"复核"},
+          {"id":"approve","title":"审批"}
+        ]
+      },
+      "flows":[
+        {
+          "id":"normal",
+          "title":"普通流程",
+          "cond":"$items.totalPriceWithTax < 10000",
+          "steps":["add","check"]
+        },
+        {
+          "id":"special",
+          "title":"审批流程",
+          "cond":"$items.totalPriceWithTax > 10000",
+          "steps":["add","check","approve"]
+        }
+      ]
+    },
+    "export":[
+      {
+        "label":"只导出采购子项",
+        "mainTitleFormat":{"background":"#9999ff","color":"#000000"},
+        "subTitleFormat":{"background":"#666666","color":"#f0f0f0"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#dddddd","color":"#000000"},
+        "key":"detailOnly",
+        "fields":[],
+        "items":{
+          "name":"items",
+          "itemFields":[
+            "$parent.id",
+            "$parent.shopId",
+            "$parent.supplierName",
+            "$parent.supplierId",
+            "$parent.warehouseName",
+            "$parent.warehouseId",
+            "$parent.isStorage",
+            "$parent.create_uid",
+            "$parent.create_realName",
+            "$parent.createDate",
+            "$parent.signTime",
+            "$parent.orderDeliveryDate",
+            "$parent.orgiOrderPayDate",
+            "$parent.approvalStatus",
+            "$parent.approve_uid",
+            "$parent.approve_realName",
+            "$parent.purchaseStorageId",
+            "$parent.remark",
+            "$parent._createTime",
+            "$parent.saleInfo.orderId",
+            "$parent.saleInfo.orderAliasCode",
+            "$parent.saleInfo.parcelId",
+            "skuId",
+            "b2cProductId",
+            "barcode",
+            "code",
+            "name",
+            "buyUnitAmount",
+            "buyUnit",
+            "buyUnitCount",
+            "quantity",
+            "profits",
+            "bucklePoint",
+            "unitPriceWithTax",
+            "unitPriceWithoutTax",
+            "taxRate",
+            "totalPriceWithTax",
+            "totalPriceWithoutTax",
+            "salePrice",
+            "totalSalePrice"]
+        }
+      },
+      {
+        "label":"导出完整采购单",
+        "mainTitleFormat":{"background":"#474747","color":"#cccccc"},
+        "subTitleFormat":{"background":"#777777","color":"#ffffff"},
+        "subRecordFormat":{"background":"#ffffff","color":"#000000"},
+        "mainRecordFormat":{"background":"#555555","color":"#FFFFFF"},
+        "key":"completeDoc",
+        "fields":["*"],
+        "items":{
+          "name":"items",
+          "itemFields":["*"]
+        }
+      }
+    ],
+    "exportDoc":true
+  }
+}

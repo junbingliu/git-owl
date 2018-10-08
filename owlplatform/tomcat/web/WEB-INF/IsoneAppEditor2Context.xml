@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <bean id="appEditor2Engine" class="net.xinshi.isone.modules.appEditor20.IsoneAppEditor2Engine">
+        <property name="pageCollectionService" ref="appEditorService"/>
+    </bean>
+
+    <bean id="pageCollectionService" class="net.xinshi.isone.modules.appEditor20.service.impl.NormalPageCollectionService">
+        <property name="pigeon"  ref="pigeonEngine"></property>
+    </bean>
+    <bean id="publicationService" class="net.xinshi.isone.modules.appEditor20.service.impl.NormalPublicationService">
+        <property name="pigeon"  ref="pigeonEngine"></property>
+    </bean>
+    <bean id="urlMappingService" class="net.xinshi.isone.modules.appEditor20.service.impl.NormalUrlMappingService">
+        <property name="pigeon"  ref="pigeonEngine"></property>
+        <property name="pageCollectionService" ref="pageCollectionService"/>
+        <property name="publicationService" ref="publicationService"/>
+    </bean>
+
+</beans>
