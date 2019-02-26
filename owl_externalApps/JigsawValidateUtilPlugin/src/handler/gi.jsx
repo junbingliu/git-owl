@@ -29,8 +29,8 @@
             return;
         }
 
-        var jigsawSessionValue = SessionService.getSessionValue("jigsawSessionValue", request);
-        var limitCount = 0;
+        // var jigsawSessionValue = SessionService.getSessionValue("jigsawSessionValue", request);
+        // var limitCount = 0;
         // if (jigsawSessionValue) {
         //     var jsv = jigsawSessionValue.split("|");
         //     var lastLimitTime = Number(jsv[2]);
@@ -50,7 +50,18 @@
         //     limitCount++;
         // }
 
-        var jResult = JigsawValidateUtil.drawImages(backgroundImageUrl);
+
+        var jResult;
+
+        try{
+            jResult = JigsawValidateUtil.drawImages(backgroundImageUrl);
+        }catch (e) {
+            result.code = "109";
+            result.msg = "找不到JigsawValidateUtil的jar包";
+            out.print(JSON.stringify(result));
+            return;
+        }
+        // var jResult = JigsawValidateUtil.drawImages(backgroundImageUrl);
         if (!jResult) {
             result.code = "106";
             result.msg = "异常了，请稍后再试";
